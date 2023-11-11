@@ -199,6 +199,10 @@ int main()
 				pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
 				break;
 
+		case DRAW_TRI:
+			pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
+			break;
+
 		case STATUS:
 				pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
 				break;
