@@ -193,36 +193,36 @@ int main()
 	pOut->PrintMessage("Drawing a circle ==> filled,  Click two points");
 
 	///TODO: Add code to draw Circle in all possible states
-pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
+    pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
-pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
-gfxInfo.BorderWdth = 5;
-gfxInfo.DrawClr = BLACK;	//any color for border
-gfxInfo.isFilled = false;	//Figure is NOT filled
+    pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
+    gfxInfo.BorderWdth = 5;
+    gfxInfo.DrawClr = BLACK;	//any color for border
+    gfxInfo.isFilled = false;	//Figure is NOT filled
 
-pOut->DrawCircle(P1, P2, gfxInfo, false);
-// 2.1.2 - Drawing highlighted non-filled circle
-pOut->PrintMessage("Drawing a Circle ==> Highlighted non-filled, Click to Highlight");
-pIn->GetPointClicked(x, y);	//Wait for any click
-pOut->DrawCircle(P1, P2, gfxInfo, true);
-
-
-// 2.1.3 - Drawing a filled circle
-pOut->PrintMessage("Drawing a Circle ==> filled,  Click two points");
-pIn->GetPointClicked(P1.x, P1.y);
-pIn->GetPointClicked(P2.x, P2.y);
-
-gfxInfo.BorderWdth = 6;
-gfxInfo.DrawClr = BLUE;	//any color for border
-gfxInfo.FillClr = GREEN;//any color for filling
-gfxInfo.isFilled = true;//Figure is filled
-pOut->DrawCircle(P1, P2, gfxInfo, false);
+    pOut->DrawCircle(P1, P2, gfxInfo, false);
+    // 2.1.2 - Drawing highlighted non-filled circle
+    pOut->PrintMessage("Drawing a Circle ==> Highlighted non-filled, Click to Highlight");
+    pIn->GetPointClicked(x, y);	//Wait for any click
+    pOut->DrawCircle(P1, P2, gfxInfo, true);
 
 
-// 2.1.4 - Drawing a highlighted filled circle
-pOut->PrintMessage("Drawing a Circle ==> Highlighted filled, Click to Highlight");
-pIn->GetPointClicked(x, y);	//Wait for any click
-pOut->DrawCircle(P1, P2, gfxInfo, true);
+    // 2.1.3 - Drawing a filled circle
+    pOut->PrintMessage("Drawing a Circle ==> filled,  Click two points");
+    pIn->GetPointClicked(P1.x, P1.y);
+    pIn->GetPointClicked(P2.x, P2.y);
+
+    gfxInfo.BorderWdth = 6;
+    gfxInfo.DrawClr = BLUE;	//any color for border
+    gfxInfo.FillClr = GREEN;//any color for filling
+    gfxInfo.isFilled = true;//Figure is filled
+    pOut->DrawCircle(P1, P2, gfxInfo, false);
+
+
+    // 2.1.4 - Drawing a highlighted filled circle
+    pOut->PrintMessage("Drawing a Circle ==> Highlighted filled, Click to Highlight");
+    pIn->GetPointClicked(x, y);	//Wait for any click
+    pOut->DrawCircle(P1, P2, gfxInfo, true);
 
 
 	pOut->PrintMessage("Drawing a Circle Test ==> OK,  Click anywhere to continue");
