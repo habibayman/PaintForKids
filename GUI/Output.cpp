@@ -14,7 +14,9 @@ Output::Output()
 	
 	UI.StatusBarHeight = 50;
 	UI.ToolBarHeight = 50;
-	UI.MenuItemWidth = 80;
+	UI.ColorBarHeight = 50;
+
+	UI.MenuItemWidth = 50;  //Resizing icons
 	
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
@@ -24,13 +26,16 @@ Output::Output()
 	UI.StatusBarColor = TURQUOISE;
 	UI.PenWidth = 3;	//width of the figures frames
 
-	
+	UI.heightofDivider = UI.ToolBarHeight + UI.ColorBarHeight + UI.PenWidth;  //Height of divider separating toolbar area (menu and colors) and drawing area 
+
+
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	//Change the title
 	pWind->ChangeTitle("Paint for Kids - Programming Techniques Project");
 	
 	CreateDrawToolBar();
+	CreateColorToolBar();
 	CreateStatusBar();
 }
 
@@ -50,7 +55,9 @@ window* Output::CreateWind(int w, int h, int x, int y) const
 	window* pW = new window(w, h, x, y);
 	pW->SetBrush(UI.BkGrndColor);
 	pW->SetPen(UI.BkGrndColor, 1);
-	pW->DrawRectangle(0, UI.ToolBarHeight, w, h);	
+	
+	// draw white rectangle of toolbar and colorbar
+	pW->DrawRectangle(0, (UI.ToolBarHeight+UI.ColorBarHeight+ +UI.PenWidth), w, h);
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +73,7 @@ void Output::ClearStatusBar() const
 	//Clear Status bar by drawing a filled white rectangle
 	pWind->SetPen(UI.StatusBarColor, 1);
 	pWind->SetBrush(UI.StatusBarColor);
-	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
+	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height+ +UI.PenWidth);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::CreateDrawToolBar() const
@@ -103,11 +110,29 @@ void Output::CreateDrawToolBar() const
 
 
 	//Draw a line under the toolbar
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
+	pWind->SetPen(BLACK, 3);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+
+// Added a second toolbar for the colors 
+void Output::CreateColorToolBar() const {
+
+	string ColorItemImages[CLR_ITM_COUNT];
+	ColorItemImages[CLR_RED] = "images\\MenuItems\\Menu_Red.jpg";
+	ColorItemImages[CLR_YELLOW] = "images\\MenuItems\\Menu_Yellow.jpg";
+	ColorItemImages[CLR_ORANGE] = "images\\MenuItems\\Menu_Orange.jpg";
+	ColorItemImages[CLR_GREEN] = "images\\MenuItems\\Menu_Green.jpg";
+	ColorItemImages[CLR_BLUE] = "images\\MenuItems\\Menu_Blue.jpg";
+	ColorItemImages[CLR_BLACK] = "images\\MenuItems\\Menu_Black.jpg";
+
+	for (int i = 0; i < CLR_ITM_COUNT; i++)
+		pWind->DrawImage(ColorItemImages[i], i * UI.MenuItemWidth, UI.ToolBarHeight +UI.PenWidth, UI.MenuItemWidth, UI.ColorBarHeight);
+
+	pWind->SetPen(BLACK, 3);
+	pWind->DrawLine(0, UI.heightofDivider, UI.width, UI.heightofDivider);
+}
 
 void Output::CreatePlayToolBar() const
 {
@@ -120,7 +145,8 @@ void Output::ClearDrawArea() const
 {
 	pWind->SetPen(UI.BkGrndColor, 1);
 	pWind->SetBrush(UI.BkGrndColor);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
+	// test 
+	pWind->DrawRectangle(0, UI.heightofDivider, UI.width, UI.height - UI.StatusBarHeight);
 	
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -167,7 +193,6 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	}
 	else	
 		style = FRAME;
-
 	
 	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
 	
