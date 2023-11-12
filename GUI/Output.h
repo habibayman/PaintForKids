@@ -25,7 +25,8 @@ public:
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
 	void DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool selected = false) const; //Draw a triangle
 	void DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const; //Draw a hexagon 
-	
+        void DrawCircle(Point P1, Point P2,  GfxInfo Circle, bool selected) const; //Draw a circle
+
 	///Make similar functions for drawing all other figure types.
 	
 	void PrintMessage(string msg) const;	//Print a message on Status bar

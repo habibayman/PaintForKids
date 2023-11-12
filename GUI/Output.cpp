@@ -89,7 +89,14 @@ void Output::CreateDrawToolBar() const
 	string MenuItemImages[DRAW_ITM_COUNT];
 	MenuItemImages[ITM_SWITCH_PM] = "images\\MenuItems\\Menu_SwitchPM.jpg";
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
-	MenuItemImages[ITM_TRI] = "images\\MenuItems\\Menu_Tri.jpg";
+	MenuItemImages[ITM_SQUARE] = "images\\MenuItems\\Menu_Squ.jpg";
+        MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Tri.jpg";
+        MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
+        MenuItemImages[ITM_HEXA] = "images\\MenuItems\\Menu_Hexa.jpg";
+        MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
+        MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
+        MenuItemImages[ITM_TO_DRAW] = "images\\MenuItems\\Menu_Draw2.jpg";
+
 	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
@@ -250,7 +257,31 @@ void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 
 	pWind->DrawPolygon(x, y, n, style);
 }
+void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected) const
+{
 
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = CircleGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 1);
+	drawstyle style;
+	if (CircleGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(CircleGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+	CircleGfxInfo.CircleRadius =sqrt( pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
+
+	pWind->SetBrush(CircleGfxInfo.FillClr);
+	pWind->SetBrush(CircleGfxInfo.FillClr);
+	pWind->DrawCircle(P1.x, P1.y, CircleGfxInfo.CircleRadius, style);
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 Output::~Output()
