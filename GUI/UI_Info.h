@@ -30,6 +30,18 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	
 };
 
+enum ColorItems // The color items of the color tool bar 
+{
+	CLR_RED,
+	CLR_ORANGE,
+	CLR_YELLOW,
+	CLR_GREEN,
+	CLR_BLUE,
+	CLR_BLACK,
+
+	CLR_ITM_COUNT      //no of color icons added 
+};
+
 enum PlayMenuItem //The items of the Play menu (you should add more items)
 {
 	//Note: Items are **(ordered)** here as they appear in menu
@@ -55,6 +67,8 @@ struct UI_Info	//User Interface Info.
 		wx , wy,			//Window starting coordinates
 		StatusBarHeight,	//Status Bar Height
 		ToolBarHeight,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
+		ColorBarHeight,     //Color bar Height
+		heightofDivider,    //Height of divider separating toolbar area (menu and colors) and drawing area 
 		MenuItemWidth;		//Width of each item in toolbar menu
 	
 
