@@ -53,7 +53,14 @@ ActionType Input::GetUserAction() const
 			{
 			case ITM_RECT: return DRAW_RECT;
 			case ITM_EXIT: return EXIT;	
-			
+			case ITM_SQUARE: return DRAW_SQUARE;
+                        case ITM_TRIANGLE: return DRAW_TRIANGLE;
+                        case ITM_HEXA: return DRAW_HEXA;
+                        case ITM_CIRCLE: return DRAW_CIRCLE;
+                        case ITM_TO_DRAW: return TO_DRAW;
+                        case ITM_PLAY_RECORDING: return PLAY_RECORDING;
+                        case ITM_MOVE_FIGURE: return MOVE_FIGURE;
+
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
 		}
