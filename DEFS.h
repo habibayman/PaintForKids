@@ -6,8 +6,14 @@
 //This file contains some global constants and definitions to be used in the project.
 enum ActionType //The actions supported (you can add more if needed)
 {
-	DRAW_RECT,		//Draw Rectangle
-	DRAW_TRI,       //Draw Triangle
+	DRAW_RECT,		//Draw Rectang
+        DRAW_SQUARE,		//Draw square
+        DRAW_TRIANGLE,		//Draw triangle
+        DRAW_HEXA,		//Draw hexa
+        DRAW_CIRCLE,            //Draw circle
+        MOVE_FIGURE,
+        PLAY_RECORDING,
+
 	EXIT,			//Exit
 	TO_DRAW,		//Switch interface to Draw mode
 	TO_PLAY,		//Switch interface to Play mode
@@ -27,6 +33,7 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	color FillClr;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
 	int BorderWdth;	//Width of figure borders
+	int CircleRadius; //radii of circle
 
 };
 
