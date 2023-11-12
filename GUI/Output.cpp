@@ -165,6 +165,8 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
 	
 }
+
+//The Draw_triangle function
 void Output::DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool selected) const
 {
 	color DrawingClr;
@@ -185,7 +187,44 @@ void Output::DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool sele
 
 	pWind->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, style);
 }
-//The Draw_triangle function
+
+
+// Draw hexagon function
+void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
+
+	const int n = 6;
+	const int length = 100;
+	color DrawingClr;
+
+	// pi/3 value, hexagon is divided into 6 equal parts 
+	const double angle = (4.0 / 3.0) * atan(1.0);
+
+	int x[n]; int y[n];
+
+	for (int i = 0; i < n; i++) {
+		x[i] = P.x + length * cos(angle * i);
+		y[i] = P.y - length * sin(angle * i);
+	}
+
+
+	if (selected)
+		DrawingClr = UI.HighlightColor;
+	else
+		DrawingClr = HexaGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 1);
+
+	drawstyle style;
+	if (HexaGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(HexaGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawPolygon(x, y, n, style);
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
