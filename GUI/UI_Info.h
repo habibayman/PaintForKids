@@ -20,7 +20,13 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_SWITCH_PM,  //Switch to play mode item in menu
 	ITM_RECT,		//Recangle item in menu
 	//TODO: Add more items names here
-	ITM_TRI ,       //Triangle item in menu
+        ITM_SQUARE,
+        ITM_TRIANGLE,
+        ITM_HEXA,
+        ITM_CIRCLE,
+        ITM_MOVE_FIGURE,
+        ITM_PLAY_RECORDING,
+        ITM_TO_DRAW,
 	ITM_DELETE,      //Delete item in menu
 	ITM_EXIT,		//Exit item
 
