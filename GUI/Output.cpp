@@ -88,14 +88,19 @@ void Output::CreateDrawToolBar() const
 	//reoder them in UI_Info.h ==> enum DrawMenuItem
 	string MenuItemImages[DRAW_ITM_COUNT];
 	MenuItemImages[ITM_SWITCH_PM] = "images\\MenuItems\\Menu_SwitchPM.jpg";
+	MenuItemImages[ITM_SELECT] = "images\\MenuItems\\Menu_Select.jpg";
+	MenuItemImages[ITM_UNDO] = "images\\MenuItems\\Menu_Undo.jpg";
+	MenuItemImages[ITM_REDO] = "images\\MenuItems\\Menu_Redo.jpg";
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
 	MenuItemImages[ITM_SQUARE] = "images\\MenuItems\\Menu_Squ.jpg";
         MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Tri.jpg";
         MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
         MenuItemImages[ITM_HEXA] = "images\\MenuItems\\Menu_Hexa.jpg";
+		MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_Save.jpg";
         MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
         MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
         MenuItemImages[ITM_TO_DRAW] = "images\\MenuItems\\Menu_Draw2.jpg";
+		MenuItemImages[ITM_PICK_BY_TYPE] = "images\\MenuItems\\Menu_Type.jpg";
 
 	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
@@ -197,6 +202,43 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
 	
 }
+//The Draw_Square function
+void Output::DrawSquare(Point p, GfxInfo SqrGfxInfo, bool selected) const
+{
+	const int n = 4;
+	const float length = 100;
+	double angle = atan(1); ;
+	int x[n];
+	int y[n];
+
+	for (int i = 0; i < n; i++)
+	{
+		x[i] = p.x + length * sqrt(2) / 2 * cos(angle);
+		y[i] = p.y - length * sqrt(2) / 2 * sin(angle);
+		angle += asin(1);
+	}
+
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = SqrGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 1);
+	drawstyle style;
+	if (SqrGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(SqrGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+
+	pWind->DrawPolygon(x, y, n, style);
+
+}
+
 
 //The Draw_triangle function
 void Output::DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool selected) const

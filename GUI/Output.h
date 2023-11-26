@@ -23,6 +23,7 @@ public:
 	
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
+	void DrawSquare(Point p, GfxInfo SqrGfxInfo, bool selected) const;//Draw a square
 	void DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool selected = false) const; //Draw a triangle
 	void DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const; //Draw a hexagon 
     void DrawCircle(Point P1, Point P2,  GfxInfo Circle, bool selected) const; //Draw a circle

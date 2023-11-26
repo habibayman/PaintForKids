@@ -10,8 +10,13 @@ enum ActionType //The actions supported (you can add more if needed)
         DRAW_SQUARE,		//Draw square
         DRAW_TRIANGLE,		//Draw triangle
         DRAW_HEXA,		//Draw hexa
-        DRAW_CIRCLE,            //Draw circle
+        DRAW_CIRCLE,    //Draw circle
+		SELECT_FIGURE,
+		SAVE_FIGURE,
         MOVE_FIGURE,
+		TO_UNDO,
+		TO_REDO,
+		PICK_BY_TYPE,
         PLAY_RECORDING,
 
 	EXIT,			//Exit

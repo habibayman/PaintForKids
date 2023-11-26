@@ -59,7 +59,12 @@ ActionType Input::GetUserAction() const
                         case ITM_CIRCLE: return DRAW_CIRCLE;
                         case ITM_TO_DRAW: return TO_DRAW;
                         case ITM_PLAY_RECORDING: return PLAY_RECORDING;
+						case ITM_SELECT: return SELECT_FIGURE;
+						case ITM_SAVE: return SAVE_FIGURE;
                         case ITM_MOVE_FIGURE: return MOVE_FIGURE;
+						case ITM_UNDO: return TO_UNDO;
+						case ITM_REDO: return TO_REDO;
+						case ITM_PICK_BY_TYPE: return PICK_BY_TYPE;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
