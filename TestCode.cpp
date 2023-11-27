@@ -333,15 +333,15 @@ int main()
 			break;
 
 		case TO_UNDO:
-			pOut->PrintMessage("Action: UNDO ");
+			pOut->PrintMessage("Action: UNDO , Click anywhere");
 			break;
 
 		case TO_REDO:
-			pOut->PrintMessage("Action: REDO ");
+			pOut->PrintMessage("Action: REDO, Click anywhere ");
 			break;
 
 		case SAVE_FIGURE:
-			pOut->PrintMessage("Action:Window is Saved");
+			pOut->PrintMessage("Action:Window is Saved, Click anywhere");
 			break;
 
 		case DRAW_RECT:
@@ -381,14 +381,14 @@ int main()
 		break;
 
 		case TO_LOAD:
-		pOut->PrintMessage("Action: load graph");
+		pOut->PrintMessage("Action: Load Graph, Click anywhere");
 		break;
 
 
 
 
 		case TO_COLOR:
-			pOut->PrintMessage("Action: a click on color palette");
+			pOut->PrintMessage("Action: Color palette, choose a color");
 			pOut->CreateColorPalette();
 
 			do {
@@ -397,22 +397,22 @@ int main()
 			switch (ColorSelected)
 			{
 			case COLOR_GREEN:
-				pOut->PrintMessage("Action: a click on green color");
+				pOut->PrintMessage("Action: A click on green color");
 				break;
 			case COLOR_RED:
-				pOut->PrintMessage("Action: a click on red color");
+				pOut->PrintMessage("Action: A click on red color");
 				break;
 			case COLOR_ORANGE:
-				pOut->PrintMessage("Action: a click on orange color");
+				pOut->PrintMessage("Action: A click on orange color");
 				break;
 			case COLOR_YELLOW:
-				pOut->PrintMessage("Action: a click on yellow color");
+				pOut->PrintMessage("Action: A click on yellow color");
 				break;
 			case COLOR_BLUE:
-				pOut->PrintMessage("Action: a click on blue color");
+				pOut->PrintMessage("Action: A click on blue color");
 				break;
 			case COLOR_BLACK:
-				pOut->PrintMessage("Action: a click on black color");
+				pOut->PrintMessage("Action: A click on black color");
 				break;
 			}
 
@@ -424,23 +424,23 @@ int main()
 		 break;
 
 		case TO_CLEAR:
-			   pOut->PrintMessage("Action: CLear window");
+			   pOut->PrintMessage("Action: Clear window , Click anywhere");
 			   break;
 
 		case TO_DELETE:
-			   pOut->PrintMessage("Action: delete figure");
+			   pOut->PrintMessage("Action: Delete figure , Click anywhere");
 			   break;
 		
 		case STATUS:
-				pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
+				pOut->PrintMessage("Action: A click on the Status Bar, Click anywhere");
 				break;
  
 		case DRAWING_AREA:
-				pOut->PrintMessage("Action: a click on the Drawing Area, Click anywhere");
+				pOut->PrintMessage("Action: A click on the Drawing Area, Click anywhere");
 				break;
 
 		case EMPTY:
-				pOut->PrintMessage("Action: a click on empty area in the Design Tool Bar, Click anywhere");
+				pOut->PrintMessage("Action: A click on empty area in the Design Tool Bar, Click anywhere");
 				break;
 		
 		//Play mode cases

@@ -138,9 +138,11 @@ ColorType Input::GetColor() const
 	return NO_COLOR;
 
 }
+
 ///////////////////////Shapes Validation Functions/////////////////////////
 
 void Input::Point_Validation(Point& P, Output* pOut, Input* pIn)
+{
 while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight)
 {
 	pOut->PrintMessage("Please pick a valid point inside the drawing area");
@@ -153,8 +155,8 @@ if (P.y > UI.ToolBarHeight || P.y < UI.height - UI.StatusBarHeight)
 }
 }
 
-const int HexagonLength = 100;
-	
+void Input :: Hexagon_Validation(Point& P, Output* pO){
+	const int HexagonLength = 100;
 	while (
 		P.y < UI.ToolBarHeight + sqrt(3) / 2 * HexagonLength ||
 		UI.height - P.y < HexagonLength + UI.StatusBarHeight ||
@@ -166,6 +168,7 @@ const int HexagonLength = 100;
 		GetPointClicked(P.x, P.y);
 	}
 }
+
 void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
 {
 	double r1 = abs(P1.x - 0);
