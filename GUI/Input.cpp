@@ -56,14 +56,13 @@ ActionType Input::GetUserAction() const
 			case ITM_UNDO: return TO_UNDO;
 			case ITM_REDO: return TO_REDO;
 			case ITM_SAVE: return SAVE_FIGURE;
-
 			case ITM_RECT: return DRAW_RECT;
 			case ITM_SQUARE: return DRAW_SQUARE;
-			case ITM_TRIANGLE: return DRAW_TRIANGLE;
-			case ITM_HEXA: return DRAW_HEXA;
-			case ITM_CIRCLE: return DRAW_CIRCLE;
-			case ITM_MOVE_FIGURE: return MOVE_FIGURE;
-			case ITM_PLAY_RECORDING: return PLAY_RECORDING;
+            case ITM_TRIANGLE: return DRAW_TRIANGLE;
+            case ITM_HEXA: return DRAW_HEXA;
+            case ITM_CIRCLE: return DRAW_CIRCLE;
+			case ITM_MOVE_FIGURE: return MOVE_FIGURE; 			
+            case ITM_PLAY_RECORDING: return PLAY_RECORDING;
 			case ITM_START_RECORDING: return START_RECORDING;
 			case ITM_STOP_RECORDING: return STOP_RECORDING;
 			case ITM_LOAD: return TO_LOAD;
@@ -71,6 +70,7 @@ ActionType Input::GetUserAction() const
 			case ITM_CLEAR: return TO_CLEAR;
 			case ITM_DELETE: return TO_DELETE;
 			case ITM_EXIT: return EXIT;
+
 
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
@@ -113,15 +113,7 @@ ActionType Input::GetUserAction() const
 	}
 
 }
-void Input::Triangle_Input_Valid(Point &P, Output* pOut, Input* pIn)  
-{
-		while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight) 
-		{
-			pOut->PrintMessage("Please pick a valid point inside the drawing area");
-			pIn->GetPointClicked(P.x, P.y);   
-		}
-}
-/////////////////////////////////
+
 
 ColorType Input::GetColor() const
 {
@@ -146,8 +138,23 @@ ColorType Input::GetColor() const
 	return NO_COLOR;
 
 }
+///////////////////////Shapes Validation Functions/////////////////////////
 
-void Input :: CheckHexagonPoint(Point& P, Output* pO) 
+void Input::Point_Validation(Point& P, Output* pOut, Input* pIn)
+{
+	while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight)
+	{
+		pOut->PrintMessage("Please pick a valid point inside the drawing area");
+		pIn->GetPointClicked(P.x, P.y);
+	}
+
+	if (P.y > UI.ToolBarHeight || P.y < UI.height - UI.StatusBarHeight)
+	{
+		pOut->PrintMessage("You picked a valid point <3");
+	}
+}
+
+void Input :: Hexagon_Validation(Point& P, Output* pO) 
 {
 	//HexaGfxInfo.HexagonLength = 100; 
 	
@@ -158,11 +165,12 @@ void Input :: CheckHexagonPoint(Point& P, Output* pO)
 		UI.width - P.x < 100)
 
 	{
-		pO->PrintMessage("Invalid point, choose another point");
+		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		GetPointClicked(P.x, P.y);
 	}
 }
-void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
+
+void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
 {
 	double r1 = abs(P1.x - 0);
 	double r2 = abs(P1.x - UI.width);
@@ -174,7 +182,7 @@ void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Inp
 		< gfxInfo.CircleRadius || r2 < gfxInfo.CircleRadius || r3 < gfxInfo.CircleRadius ||
 		r4 < gfxInfo.CircleRadius)
 	{
-		pO->PrintMessage("invalid Area,please choose another points ");
+		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		pI->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
 		pI->GetPointClicked(P2.x, P2.y);
@@ -190,12 +198,14 @@ void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Inp
 void Input::Square_Validation(Point& p1, Output* pO, Input* pI)
 {
 	float Square_length = 100;
+
 	while (p1.y < (UI.ToolBarHeight + UI.PenWidth + Square_length / 2) ||
 		p1.y > UI.height - UI.StatusBarHeight ||
+		p1.y > UI.height - (UI.StatusBarHeight + Square_length / 2) ||
 		p1.x < Square_length / 2 ||
 		p1.x > UI.width - Square_length / 2)
 	{
-		pO->PrintMessage("Please click on a valid point");
+		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		pI->GetPointClicked(p1.x, p1.y);
 	}
 }
@@ -203,32 +213,12 @@ void Input::Square_Validation(Point& p1, Output* pO, Input* pI)
 //Rectangle validation function
 void Input::Rect_Validation(Point& p1, Point& p2, Output* pO, Input* pI)
 {
-	while (true)
-	{
-
 		while (p1.x == p2.x || p1.y == p2.y)
 		{
 			pO->PrintMessage("There is no distance between the two points, Please choose another two points");
 			GetPointClicked(p1.x, p1.y);
 			GetPointClicked(p2.x, p2.y);
 		}
-
-		while (
-			p1.y < (UI.ToolBarHeight + UI.PenWidth) ||
-			p1.y >(UI.height - UI.StatusBarHeight) ||
-			p2.y < (UI.ToolBarHeight + UI.PenWidth) ||
-			p2.y >(UI.height - UI.StatusBarHeight))
-		{
-			pO->PrintMessage("Please click on a valid point");
-
-			pI->GetPointClicked(p1.x, p1.y);
-			pI->GetPointClicked(p2.x, p2.y);
-		}
-		if (p1.x != p2.x && p1.y != p2.y)
-		{
-			break;
-		}
-	}
 }
 Input::~Input()
 {
