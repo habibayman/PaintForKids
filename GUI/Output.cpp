@@ -21,10 +21,9 @@ Output::Output()
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
 	UI.MsgColor = BLACK;		//Messages color
-	UI.BkGrndColor = WHITE;	//Background color
+	UI.BkGrndColor = WHITE;	//Background color changed color from LIGHTGOLDENRODYELLOW to WHITE
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
-	UI.StatusBarColor = LIGHTSTEELBLUE;
-	//LIGHTGOLDENRODYELLOW
+	UI.StatusBarColor = LIGHTSTEELBLUE; 
 	UI.DrawBarColor = LIGHTSTEELBLUE;
 
 	UI.PenWidth = 3;	//width of the figures frames
@@ -160,6 +159,12 @@ void Output::ClearColorPalette()const
 void Output::CreatePlayToolBar() const
 {
 	UI.InterfaceMode = MODE_PLAY;
+
+
+	pWind->SetPen(UI.DrawBarColor, 1);
+	pWind->SetBrush(UI.DrawBarColor);
+	pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight);
+
 	///TODO: write code to create Play mode menu
 	string PlayMenuItems[PLAY_ITM_COUNT]; 
 	PlayMenuItems[MENU_SWITCH_DM] = "images\\MenuItems\\Menu_SwitchDM.jpg"; 
@@ -168,14 +173,9 @@ void Output::CreatePlayToolBar() const
 	PlayMenuItems[Menu_PickByBoth] = "images\\MenuItems\\Menu_Pick_Both.jpg";
 	
 
-
 	//Draw menu item one image at a time
 	for (int i = 0; i < PLAY_ITM_COUNT; i++)
-		pWind->DrawImage(PlayMenuItems[i], i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
-
-	//Draw a line under the toolbar
-	pWind->SetPen(BLACK, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+		pWind->DrawImage(PlayMenuItems[i], (i * UI.MenuItemWidth)+(UI.wx * i), UI.wy, UI.MenuItemWidth, UI.ToolBarHeight - UI.wy * 2);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -308,7 +308,7 @@ void Output::DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool sele
 void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 
 	const int n = 6;
-	HexaGfxInfo.HexagonLength = 100;
+	const int HexagonLength = 100;
 	color DrawingClr;
 
 	// pi/3 value, hexagon is divided into 6 equal parts 
@@ -317,8 +317,8 @@ void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 	int x[n]; int y[n];
 
 	for (int i = 0; i < n; i++) {
-		x[i] = P.x + HexaGfxInfo.HexagonLength * cos(angle * i);
-		y[i] = P.y - HexaGfxInfo.HexagonLength * sin(angle * i);
+		x[i] = P.x + HexagonLength * cos(angle * i);
+		y[i] = P.y - HexagonLength * sin(angle * i);
 	}
 
 
@@ -340,6 +340,7 @@ void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 
 	pWind->DrawPolygon(x, y, n, style);
 }
+
 void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected) const
 {
 

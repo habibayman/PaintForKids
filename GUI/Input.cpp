@@ -150,19 +150,20 @@ ColorType Input::GetColor() const
 
 void Input :: CheckHexagonPoint(Point& P, Output* pO) 
 {
-	//HexaGfxInfo.HexagonLength = 100; 
+	const int HexagonLength = 100; 
 	
 	while (
-		P.y < UI.ToolBarHeight + sqrt(3) / 2 * 100 || 
-		UI.height - P.y < 100 + UI.StatusBarHeight || 
-		P.x < 100 || 
-		UI.width - P.x < 100)
+		P.y < UI.ToolBarHeight + sqrt(3) / 2 * HexagonLength ||
+		UI.height - P.y < HexagonLength + UI.StatusBarHeight ||
+		P.x < HexagonLength ||
+		UI.width - P.x < HexagonLength)
 
 	{
 		pO->PrintMessage("Invalid point, choose another point");
 		GetPointClicked(P.x, P.y);
 	}
 }
+
 void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
 {
 	double r1 = abs(P1.x - 0);
