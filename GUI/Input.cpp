@@ -59,20 +59,24 @@ ActionType Input::GetUserAction() const
 
 			case ITM_RECT: return DRAW_RECT;
 			case ITM_SQUARE: return DRAW_SQUARE;
-			case ITM_TRIANGLE: return DRAW_TRIANGLE;
-			case ITM_HEXA: return DRAW_HEXA;
-			case ITM_CIRCLE: return DRAW_CIRCLE;
-			
-			case ITM_MOVE_FIGURE: return MOVE_FIGURE;
-			case ITM_PLAY_RECORDING: return PLAY_RECORDING;
-			case ITM_STOP_RECORDING: return STOP_RECORDING;
-			case ITM_LOAD: return TO_LOAD;
-			
-			case ITM_COLORS: return TO_COLOR;
+                        case ITM_TRIANGLE: return DRAW_TRIANGLE;
+                        case ITM_HEXA: return DRAW_HEXA;
+                        case ITM_CIRCLE: return DRAW_CIRCLE;
+                        
+						case ITM_TO_DRAW: return TO_DRAW;
+                        case ITM_PLAY_RECORDING: return PLAY_RECORDING;
+                        case ITM_MOVE_FIGURE: return MOVE_FIGURE;
 
-			case ITM_CLEAR: return TO_CLEAR;
-			case ITM_DELETE: return TO_DELETE;
-			case ITM_EXIT: return EXIT;
+						case ITM_PLAY_RECORDING: return PLAY_RECORDING;
+						case ITM_STOP_RECORDING: return STOP_RECORDING;
+						case ITM_LOAD: return TO_LOAD;
+
+						case ITM_COLORS: return TO_COLOR;
+
+						case ITM_CLEAR: return TO_CLEAR;
+						case ITM_DELETE: return TO_DELETE;
+						case ITM_EXIT: return EXIT;
+
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -90,12 +94,37 @@ ActionType Input::GetUserAction() const
 	}
 	else	//GUI is in PLAY mode
 	{
-		///TODO:
-		//perform checks similar to Draw mode checks above
-		//and return the correspoding action
-		return TO_PLAY;	//just for now. This should be updated
-	}	
+		///TODO: //perform checks similar to Draw mode checks above and return the correspoding action
 
+
+		//Check whick Menu item was clicked
+			//==> This assumes that menu items are lined up horizontally <==
+		int ClickedItemOrder = (x / UI.MenuItemWidth);
+		//Divide x coord of the point clicked by the menu item width (int division)
+		//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
+
+			MENU_PickByColor,
+			Menu_PickByShape,
+			Menu_PickByBoth;
+		switch (ClickedItemOrder)
+		{
+		case MENU_SWITCH_DM: return TO_DRAW;
+		case MENU_PickByColor: return TO_PICK_BY_COLOR;
+		case Menu_PickByShape: return TO_PICK_BY_SHAPE; 
+		case Menu_PickByBoth: return TO_PICK_BY_BOTH; 
+
+		default: return EMPTY;	//just for now. This should be updated //edit: updated!
+		}
+	}
+
+}
+void Input::Triangle_Input_Valid(Point &P, Output* pOut, Input* pIn)  
+{
+		while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight) 
+		{
+			pOut->PrintMessage("Please pick a valid point inside the drawing area");
+			pIn->GetPointClicked(P.x, P.y);   
+		}
 }
 /////////////////////////////////
 

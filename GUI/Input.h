@@ -17,6 +17,7 @@ public:
 	string GetSrting(Output* pO) const ;	 //Returns a string entered by the user
 
 	ActionType GetUserAction() const; //Read the user click and map to an action
+	void Triangle_Input_Valid(Point& P, Output* pOut, Input* pIn);
 	ColorType GetColor() const;//Get the color the user clicks on
 
 	void CheckHexagonPoint(Point& P, Output* pO);
