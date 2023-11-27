@@ -345,7 +345,7 @@ int main()
 			pOut->PrintMessage("Action: Start Play Recording , Click anywhere");
 			break;
 
-		case ITM_STOP_RECORDING:
+		case STOP_RECORDING:
 			pOut->PrintMessage("Action: Stop Recording, Click anywhere");
 			break;
 		
