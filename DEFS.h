@@ -30,7 +30,12 @@ enum ActionType //The actions supported (you can add more if needed)
 	EXIT,			//Exit		
 	EMPTY,			//A click on empty place in the toolbar
 	DRAWING_AREA,	//A click on the drawing area
-	STATUS			//A click on the status bar
+	STATUS,			//A click on the status bar
+	TO_DRAW,
+	TO_PICK_BY_COLOR,
+	TO_PICK_BY_SHAPE,
+	TO_PICK_BY_BOTH
+
 
 
 
