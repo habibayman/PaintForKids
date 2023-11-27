@@ -227,6 +227,8 @@ int main()
 	pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
 	pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
+	pIn->pointValidity(P1, P2, gfxInfo, pOut, pIn);
+
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
 	gfxInfo.isFilled = false;	//Figure is NOT filled
@@ -242,6 +244,8 @@ int main()
 	pOut->PrintMessage("Drawing a Circle ==> filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->pointValidity(P1, P2, gfxInfo, pOut, pIn);
+
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border
@@ -273,9 +277,14 @@ int main()
 	// 1- Read a string from the user on the status bar
 	// 2- After reading the string clear the status bar
 	// 3- print on the status bar "You Entered" then print the string
+	string s = pIn->GetSrting(pOut);
+	pOut->ClearStatusBar();
+	pOut->PrintMessage("You Entered the following :  " + s + " ....Click anywhere to continue ");
+	pIn->GetPointClicked(x, y);	//Wait for any click
 
-	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawArea();
+	
+	
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 4: 
