@@ -294,11 +294,7 @@ int main()
 	pIn->GetPointClicked(x, y);	//Wait for any click
 
 	pOut->ClearDrawArea();
-	pIn->GetPointClicked(x, y);	//Wait for any click
-	pOut->ClearDrawArea();
-	pIn->GetPointClicked(x,y);	//Wait for any click
-	pOut->ClearDrawArea();
-
+	
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 4: 
 	//			Input Class : Check for the user action
