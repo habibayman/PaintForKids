@@ -13,20 +13,21 @@ Output::Output()
 
 	
 	UI.StatusBarHeight = 50;
-	UI.ToolBarHeight = 50;
-	UI.ColorBarHeight = 50;
-
-	UI.MenuItemWidth = 50;  //Resizing icons
+	UI.ToolBarHeight = 60;
+	UI.MenuItemWidth = 50;  
+	UI.ColorItemWidth = 30;
+	UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
 	
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
-	UI.MsgColor = RED;		//Messages color
-	UI.BkGrndColor = LIGHTGOLDENRODYELLOW;	//Background color
+	UI.MsgColor = BLACK;		//Messages color
+	UI.BkGrndColor = WHITE;	//Background color
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
-	UI.StatusBarColor = TURQUOISE;
-	UI.PenWidth = 3;	//width of the figures frames
+	UI.StatusBarColor = LIGHTSTEELBLUE;
+	//LIGHTGOLDENRODYELLOW
+	UI.DrawBarColor = LIGHTSTEELBLUE;
 
-	UI.heightofDivider = UI.ToolBarHeight + UI.ColorBarHeight + UI.PenWidth;  //Height of divider separating toolbar area (menu and colors) and drawing area 
+	UI.PenWidth = 3;	//width of the figures frames
 
 
 	//Create the output window
@@ -35,7 +36,6 @@ Output::Output()
 	pWind->ChangeTitle("Paint for Kids - Programming Techniques Project");
 	
 	CreateDrawToolBar();
-	CreateColorToolBar();
 	CreateStatusBar();
 }
 
@@ -56,8 +56,8 @@ window* Output::CreateWind(int w, int h, int x, int y) const
 	pW->SetBrush(UI.BkGrndColor);
 	pW->SetPen(UI.BkGrndColor, 1);
 	
-	// draw white rectangle of toolbar and colorbar
-	pW->DrawRectangle(0, (UI.ToolBarHeight+UI.ColorBarHeight+ +UI.PenWidth), w, h);
+	// draw drawing area 
+	pW->DrawRectangle(0, UI.ToolBarHeight, w, h);
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -73,12 +73,18 @@ void Output::ClearStatusBar() const
 	//Clear Status bar by drawing a filled white rectangle
 	pWind->SetPen(UI.StatusBarColor, 1);
 	pWind->SetBrush(UI.StatusBarColor);
-	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height+ +UI.PenWidth);
+	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::CreateDrawToolBar() const
 {
 	UI.InterfaceMode = MODE_DRAW;
+
+	//background color of drawtoolbar
+	pWind->SetPen(UI.DrawBarColor, 1);
+	pWind->SetBrush(UI.DrawBarColor);
+	pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight);
+
 
 	//You can draw the tool bar icons in any way you want.
 	//Below is one possible way
@@ -91,52 +97,65 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_SELECT] = "images\\MenuItems\\Menu_Select.jpg";
 	MenuItemImages[ITM_UNDO] = "images\\MenuItems\\Menu_Undo.jpg";
 	MenuItemImages[ITM_REDO] = "images\\MenuItems\\Menu_Redo.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_Save.jpg";
+
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
 	MenuItemImages[ITM_SQUARE] = "images\\MenuItems\\Menu_Squ.jpg";
-        MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Tri.jpg";
-        MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
-        MenuItemImages[ITM_HEXA] = "images\\MenuItems\\Menu_Hexa.jpg";
-		MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_Save.jpg";
-        MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
-        MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
-        MenuItemImages[ITM_TO_DRAW] = "images\\MenuItems\\Menu_Draw2.jpg";
-		MenuItemImages[ITM_PICK_BY_TYPE] = "images\\MenuItems\\Menu_Type.jpg";
+    MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Tri.jpg";
+    MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
+    MenuItemImages[ITM_HEXA] = "images\\MenuItems\\Menu_Hexa.jpg";
+	
+	
+    MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
+    MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
+    MenuItemImages[ITM_TO_DRAW] = "images\\MenuItems\\Menu_Draw2.jpg";
+	MenuItemImages[ITM_LOAD] = "images\\MenuItems\\Menu_loadgraph.jpg";
 
+	MenuItemImages[ITM_COLORS] = "images\\MenuItems\\Menu_colors.jpg";
+	
+	MenuItemImages[ITM_CLEAR] = "images\\MenuItems\\Menu_clear.jpg";
 	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
 
 	//TODO: Prepare images for each menu item and add it to the list
-
 	//Draw menu item one image at a time
-	for(int i=0; i<DRAW_ITM_COUNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
 
-
-
-	//Draw a line under the toolbar
-	pWind->SetPen(BLACK, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	for (int i = 0; i < DRAW_ITM_COUNT; i++) {
+		pWind->DrawImage(MenuItemImages[i], (i * UI.MenuItemWidth) + (UI.wx *i), UI.wy, UI.MenuItemWidth, UI.ToolBarHeight- UI.wy*2);
+	}
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
 // Added a second toolbar for the colors 
-void Output::CreateColorToolBar() const {
+
+void Output::CreateColorPalette() const
+{
 
 	string ColorItemImages[CLR_ITM_COUNT];
-	ColorItemImages[CLR_RED] = "images\\MenuItems\\Menu_Red.jpg";
-	ColorItemImages[CLR_YELLOW] = "images\\MenuItems\\Menu_Yellow.jpg";
-	ColorItemImages[CLR_ORANGE] = "images\\MenuItems\\Menu_Orange.jpg";
-	ColorItemImages[CLR_GREEN] = "images\\MenuItems\\Menu_Green.jpg";
-	ColorItemImages[CLR_BLUE] = "images\\MenuItems\\Menu_Blue.jpg";
-	ColorItemImages[CLR_BLACK] = "images\\MenuItems\\Menu_Black.jpg";
+
+	ColorItemImages[CLR_RED] = "images\\MenuItems\\Menu_red.jpg";
+	ColorItemImages[CLR_ORANGE] = "images\\MenuItems\\Menu_orange.jpg";
+	ColorItemImages[CLR_YELLOW] = "images\\MenuItems\\Menu_yellow.jpg";
+	ColorItemImages[CLR_GREEN] = "images\\MenuItems\\Menu_green.jpg";
+	ColorItemImages[CLR_BLUE] = "images\\MenuItems\\Menu_blue.jpg";
+	ColorItemImages[CLR_BLACK] = "images\\MenuItems\\Menu_black.jpg";
 
 	for (int i = 0; i < CLR_ITM_COUNT; i++)
-		pWind->DrawImage(ColorItemImages[i], i * UI.MenuItemWidth, UI.ToolBarHeight +UI.PenWidth, UI.MenuItemWidth, UI.ColorBarHeight);
+		pWind->DrawImage(
+			ColorItemImages[i], 
+			UI.ColorXi + (i * UI.ColorItemWidth),
+			UI.ToolBarHeight, 
+			UI.ColorItemWidth,
+			UI.ColorItemWidth);
+}
 
-	pWind->SetPen(BLACK, 3);
-	pWind->DrawLine(0, UI.heightofDivider, UI.width, UI.heightofDivider);
+void Output:: ClearColorPalette()const
+{
+	pWind->SetPen(UI.BkGrndColor, 1);
+	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawRectangle(UI.ColorXi, UI.ToolBarHeight, UI.ColorXi * (CLR_ITM_COUNT + UI.ColorItemWidth), UI.ToolBarHeight + UI.ColorItemWidth);
 }
 
 void Output::CreatePlayToolBar() const
@@ -151,7 +170,7 @@ void Output::ClearDrawArea() const
 	pWind->SetPen(UI.BkGrndColor, 1);
 	pWind->SetBrush(UI.BkGrndColor);
 	// test 
-	pWind->DrawRectangle(0, UI.heightofDivider, UI.width, UI.height - UI.StatusBarHeight);
+	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 	
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -267,7 +286,7 @@ void Output::DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool sele
 void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 
 	const int n = 6;
-	const int length = 100;
+	HexaGfxInfo.HexagonLength = 100;
 	color DrawingClr;
 
 	// pi/3 value, hexagon is divided into 6 equal parts 
@@ -276,8 +295,8 @@ void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 	int x[n]; int y[n];
 
 	for (int i = 0; i < n; i++) {
-		x[i] = P.x + length * cos(angle * i);
-		y[i] = P.y - length * sin(angle * i);
+		x[i] = P.x + HexaGfxInfo.HexagonLength * cos(angle * i);
+		y[i] = P.y - HexaGfxInfo.HexagonLength * sin(angle * i);
 	}
 
 

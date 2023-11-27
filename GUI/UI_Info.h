@@ -22,16 +22,21 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_UNDO,
 	ITM_REDO,
 	ITM_SAVE,
-	ITM_RECT,		//Recangle item in menu
-	//TODO: Add more items names here
-        ITM_SQUARE,
-        ITM_TRIANGLE,
-        ITM_HEXA,
-        ITM_CIRCLE,
-        ITM_MOVE_FIGURE,
-        ITM_PLAY_RECORDING,
-        ITM_TO_DRAW,
-		ITM_PICK_BY_TYPE,
+
+	ITM_RECT,	
+    ITM_SQUARE,
+    ITM_TRIANGLE,
+    ITM_HEXA,
+    ITM_CIRCLE,
+   
+	ITM_MOVE_FIGURE,
+    ITM_PLAY_RECORDING,
+    ITM_TO_DRAW,
+	ITM_LOAD,
+
+	ITM_COLORS,
+	
+	ITM_CLEAR,
 	ITM_DELETE,      //Delete item in menu
 	ITM_EXIT,		//Exit item
 
@@ -43,10 +48,10 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 
 enum ColorItems // The color items of the color tool bar 
 {
+	CLR_GREEN,
 	CLR_RED,
 	CLR_ORANGE,
 	CLR_YELLOW,
-	CLR_GREEN,
 	CLR_BLUE,
 	CLR_BLACK,
 
@@ -75,13 +80,13 @@ struct UI_Info	//User Interface Info.
 	GUI_MODE InterfaceMode;
 	
 	int	width, height,	    //Window width and height
-		wx , wy,			//Window starting coordinates
+		wx, wy,			//Window starting coordinates
 		StatusBarHeight,	//Status Bar Height
 		ToolBarHeight,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
-		ColorBarHeight,     //Color bar Height
-		heightofDivider,    //Height of divider separating toolbar area (menu and colors) and drawing area 
-		MenuItemWidth;		//Width of each item in toolbar menu
-	
+		ColorItemWidth,
+		MenuItemWidth,		//Width of each item in toolbar menu
+		ColorXi;
+		
 
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
@@ -89,6 +94,8 @@ struct UI_Info	//User Interface Info.
 	color MsgColor;			//Messages color
 	color BkGrndColor;		//Background color
 	color StatusBarColor;	//Status bar color
+	color DrawBarColor;     //Draw bar color 
+	
 	int PenWidth;			//width of the pen that draws shapes
 
 	/// Add more members if needed

@@ -6,27 +6,45 @@
 //This file contains some global constants and definitions to be used in the project.
 enum ActionType //The actions supported (you can add more if needed)
 {
-	DRAW_RECT,		//Draw Rectang
-        DRAW_SQUARE,		//Draw square
-        DRAW_TRIANGLE,		//Draw triangle
-        DRAW_HEXA,		//Draw hexa
-        DRAW_CIRCLE,    //Draw circle
-		SELECT_FIGURE,
-		SAVE_FIGURE,
-        MOVE_FIGURE,
-		TO_UNDO,
-		TO_REDO,
-		PICK_BY_TYPE,
-        PLAY_RECORDING,
+	TO_PLAY,            //Switch interface to Play mode  
+	SELECT_FIGURE,
+	TO_UNDO,
+	TO_REDO,
+	SAVE_FIGURE,
 
-	EXIT,			//Exit
-	TO_DRAW,		//Switch interface to Draw mode
-	TO_PLAY,		//Switch interface to Play mode
+	DRAW_RECT,		    //Draw Rectang
+    DRAW_SQUARE,		//Draw square
+    DRAW_TRIANGLE,		//Draw triangle
+    DRAW_HEXA,		    //Draw hexa
+    DRAW_CIRCLE,        //Draw circle
+	
+    MOVE_FIGURE,
+    PLAY_RECORDING,
+	TO_DRAW, //Switch interface to Draw mode
+	TO_LOAD,
+	
+	TO_COLOR,
+	TO_CLEAR,
+	TO_DELETE,
+
+	EXIT,			//Exit		
 	EMPTY,			//A click on empty place in the toolbar
 	DRAWING_AREA,	//A click on the drawing area
 	STATUS			//A click on the status bar
 
 	///TODO: Add the other action types of the two modes
+};
+
+
+enum ColorType
+{
+	COLOR_GREEN,
+	COLOR_RED,
+	COLOR_ORANGE,
+	COLOR_YELLOW,
+	COLOR_BLUE,
+	COLOR_BLACK,
+	NO_COLOR
 };
 
 struct Point	//To be used for figures points
@@ -39,7 +57,7 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	bool isFilled;	//Figure Filled or not
 	int BorderWdth;	//Width of figure borders
 	int CircleRadius; //radii of circle
-
+	int HexagonLength;
 };
 
 #endif

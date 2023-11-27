@@ -181,11 +181,11 @@ int main()
 	// 2.4.1 - Drawing non-filled hexagon
 	pOut->PrintMessage("Drawing a Hexagon ==> non-filled,  Click on a point");
 	pIn->GetPointClicked(P4.x, P4.y);	//Wait for any click
-
+	pIn->CheckHexagonPoint(P4, pOut);
+	
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
 	gfxInfo.isFilled = false;	//Figure is NOT filled
-
 	pOut->DrawHexagon(P4, gfxInfo, false);
 
 
@@ -197,6 +197,7 @@ int main()
 	// 2.4.3 - Drawing a filled hexagon 
 	pOut->PrintMessage("Drawing a Hexagon ==> filled,  Click on a point");
 	pIn->GetPointClicked(P4.x, P4.y);
+	pIn->CheckHexagonPoint(P4, pOut);
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border
@@ -223,36 +224,36 @@ int main()
 	pOut->PrintMessage("Drawing a circle ==> filled,  Click two points");
 
 	///TODO: Add code to draw Circle in all possible states
-pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
+	pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
-pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
-gfxInfo.BorderWdth = 5;
-gfxInfo.DrawClr = BLACK;	//any color for border
-gfxInfo.isFilled = false;	//Figure is NOT filled
+	pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
+	gfxInfo.BorderWdth = 5;
+	gfxInfo.DrawClr = BLACK;	//any color for border
+	gfxInfo.isFilled = false;	//Figure is NOT filled
 
-pOut->DrawCircle(P1, P2, gfxInfo, false);
-// 2.1.2 - Drawing highlighted non-filled circle
-pOut->PrintMessage("Drawing a Circle ==> Highlighted non-filled, Click to Highlight");
-pIn->GetPointClicked(x, y);	//Wait for any click
-pOut->DrawCircle(P1, P2, gfxInfo, true);
-
-
-// 2.1.3 - Drawing a filled circle
-pOut->PrintMessage("Drawing a Circle ==> filled,  Click two points");
-pIn->GetPointClicked(P1.x, P1.y);
-pIn->GetPointClicked(P2.x, P2.y);
-
-gfxInfo.BorderWdth = 6;
-gfxInfo.DrawClr = BLUE;	//any color for border
-gfxInfo.FillClr = GREEN;//any color for filling
-gfxInfo.isFilled = true;//Figure is filled
-pOut->DrawCircle(P1, P2, gfxInfo, false);
+	pOut->DrawCircle(P1, P2, gfxInfo, false);
+	// 2.1.2 - Drawing highlighted non-filled circle
+	pOut->PrintMessage("Drawing a Circle ==> Highlighted non-filled, Click to Highlight");
+	pIn->GetPointClicked(x, y);	//Wait for any click
+	pOut->DrawCircle(P1, P2, gfxInfo, true);
 
 
-// 2.1.4 - Drawing a highlighted filled circle
-pOut->PrintMessage("Drawing a Circle ==> Highlighted filled, Click to Highlight");
-pIn->GetPointClicked(x, y);	//Wait for any click
-pOut->DrawCircle(P1, P2, gfxInfo, true);
+	// 2.1.3 - Drawing a filled circle
+	pOut->PrintMessage("Drawing a Circle ==> filled,  Click two points");
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+
+	gfxInfo.BorderWdth = 6;
+	gfxInfo.DrawClr = BLUE;	//any color for border
+	gfxInfo.FillClr = GREEN;//any color for filling
+	gfxInfo.isFilled = true;//Figure is filled
+	pOut->DrawCircle(P1, P2, gfxInfo, false);
+
+
+	// 2.1.4 - Drawing a highlighted filled circle
+	pOut->PrintMessage("Drawing a Circle ==> Highlighted filled, Click to Highlight");
+	pIn->GetPointClicked(x, y);	//Wait for any click
+	pOut->DrawCircle(P1, P2, gfxInfo, true);
 
 
 	pOut->PrintMessage("Drawing a Circle Test ==> OK,  Click anywhere to continue");
@@ -283,6 +284,7 @@ pOut->DrawCircle(P1, P2, gfxInfo, true);
 	pOut->PrintMessage("TEST4: Testing Input ability to detect User Action, click anywhere");
 
 	ActionType ActType;
+	ColorType ColorSelected;
 	
 	///TODO:  
 	//You must add a case for each action (both Draw mode and Play mode actions)
@@ -290,46 +292,112 @@ pOut->DrawCircle(P1, P2, gfxInfo, true);
 	do
 	{
 		ActType = pIn->GetUserAction();
+		pOut->ClearColorPalette();
 
 		switch (ActType)
 		{
-		case DRAW_RECT:
-				pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
-				break;
-case DRAW_SQUARE:
-	pOut->PrintMessage("Action: Draw a square , Click anywhere");
-	break;
-case DRAW_TRIANGLE:
-	pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
-	break;
-case DRAW_HEXA:
-	pOut->PrintMessage("Action: Draw a Hexagon , Click anywhere");
-	break;
-case DRAW_CIRCLE:
-	pOut->PrintMessage("Action: Draw a Circle , Click anywhere");
-	break;
-case SELECT_FIGURE:
-	pOut->PrintMessage("Action: Select a Figure , Click on the figure");
-	break;
-case SAVE_FIGURE:
-	pOut->PrintMessage("Action:Window is Saved");
-	break;
+		case TO_PLAY:
+			pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
+			pOut->CreatePlayToolBar();
+			break;
 
-case MOVE_FIGURE :
-	pOut->PrintMessage("Action: Move a Figure , Click anywhere");
-	break;
-case TO_UNDO :
-	pOut->PrintMessage("Action:  UNDO ");
-	break;
-case TO_REDO :
-	pOut->PrintMessage("Action:  REDO ");
-	break;
-case PICK_BY_TYPE :
-	pOut->PrintMessage("Action:  Pick by Type , Click on any figure ");
-	break;
-case PLAY_RECORDING :
-	pOut->PrintMessage("Action: Start Play Recording , Click anywhere");
-	break;
+		case SELECT_FIGURE:
+			pOut->PrintMessage("Action: Select a Figure , Click on the figure");
+			break;
+
+		case TO_UNDO:
+			pOut->PrintMessage("Action: UNDO ");
+			break;
+
+		case TO_REDO:
+			pOut->PrintMessage("Action: REDO ");
+			break;
+
+		case SAVE_FIGURE:
+			pOut->PrintMessage("Action:Window is Saved");
+			break;
+
+		case DRAW_RECT:
+			pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
+			break;
+
+		case DRAW_SQUARE:
+			pOut->PrintMessage("Action: Draw a square , Click anywhere");
+			break;
+
+		case DRAW_TRIANGLE:
+			pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
+			break;
+
+		case DRAW_HEXA:
+			pOut->PrintMessage("Action: Draw a Hexagon , Click anywhere");
+			break;
+
+		case DRAW_CIRCLE:
+			pOut->PrintMessage("Action: Draw a Circle , Click anywhere");
+			break;
+
+		case MOVE_FIGURE :
+			pOut->PrintMessage("Action: Move a Figure , Click anywhere");
+			break;
+
+		case PLAY_RECORDING :
+			pOut->PrintMessage("Action: Start Play Recording , Click anywhere");
+			break;
+
+		case TO_DRAW:
+			pOut->PrintMessage("Action: Switch to Draw Mode, creating simualtion tool bar");
+			pOut->CreateDrawToolBar();
+			break;
+		
+		case TO_LOAD:
+			pOut->PrintMessage("Action: load graph");
+			break;
+
+
+		case TO_COLOR:
+			pOut->PrintMessage("Action: a click on color palette");
+			pOut->CreateColorPalette();
+			
+			do {
+				ColorSelected = pIn->GetColor();
+
+				switch (ColorSelected) 
+				{
+				case COLOR_GREEN:
+					pOut->PrintMessage("Action: a click on green color");
+					break;
+				case COLOR_RED:
+					pOut->PrintMessage("Action: a click on red color");
+					break;
+				case COLOR_ORANGE:
+					pOut->PrintMessage("Action: a click on orange color");
+					break;
+				case COLOR_YELLOW:
+					pOut->PrintMessage("Action: a click on yellow color");
+					break;
+				case COLOR_BLUE:
+					pOut->PrintMessage("Action: a click on blue color");
+					break;
+				case COLOR_BLACK:
+					pOut->PrintMessage("Action: a click on black color");
+					break;
+				}
+
+			} while (ColorSelected != NO_COLOR);
+
+			pOut->PrintMessage("Action: No color selected");
+			//clearing color icons
+			pOut->ClearColorPalette();
+			break;
+
+		case TO_CLEAR:
+			pOut->PrintMessage("Action: CLear window");
+			break;
+
+		case TO_DELETE:
+			pOut->PrintMessage("Action: delete figure");
+			break;
 		
 		case STATUS:
 				pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
@@ -341,16 +409,6 @@ case PLAY_RECORDING :
 
 		case EMPTY:
 				pOut->PrintMessage("Action: a click on empty area in the Design Tool Bar, Click anywhere");
-				break;
-
-		case TO_DRAW:
-				pOut->PrintMessage("Action: Switch to Draw Mode, creating simualtion tool bar");
-				pOut->CreateDrawToolBar();
-				break;
-
-		case TO_PLAY:
-				pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
-				pOut->CreatePlayToolBar();
 				break;
 
 

@@ -45,26 +45,34 @@ ActionType Input::GetUserAction() const
 		{	
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int ClickedItemOrder = (x / UI.MenuItemWidth);
+			int ClickedItemOrder = (x / (UI.MenuItemWidth +UI.wx));
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
 			switch (ClickedItemOrder)
 			{
+			case ITM_SWITCH_PM: return TO_PLAY;
+			case ITM_SELECT: return SELECT_FIGURE;
+			case ITM_UNDO: return TO_UNDO;
+			case ITM_REDO: return TO_REDO;
+			case ITM_SAVE: return SAVE_FIGURE;
+
 			case ITM_RECT: return DRAW_RECT;
-			case ITM_EXIT: return EXIT;	
 			case ITM_SQUARE: return DRAW_SQUARE;
-                        case ITM_TRIANGLE: return DRAW_TRIANGLE;
-                        case ITM_HEXA: return DRAW_HEXA;
-                        case ITM_CIRCLE: return DRAW_CIRCLE;
-                        case ITM_TO_DRAW: return TO_DRAW;
-                        case ITM_PLAY_RECORDING: return PLAY_RECORDING;
-						case ITM_SELECT: return SELECT_FIGURE;
-						case ITM_SAVE: return SAVE_FIGURE;
-                        case ITM_MOVE_FIGURE: return MOVE_FIGURE;
-						case ITM_UNDO: return TO_UNDO;
-						case ITM_REDO: return TO_REDO;
-						case ITM_PICK_BY_TYPE: return PICK_BY_TYPE;
+			case ITM_TRIANGLE: return DRAW_TRIANGLE;
+			case ITM_HEXA: return DRAW_HEXA;
+			case ITM_CIRCLE: return DRAW_CIRCLE;
+			
+			case ITM_MOVE_FIGURE: return MOVE_FIGURE;
+			case ITM_PLAY_RECORDING: return PLAY_RECORDING;
+			case ITM_TO_DRAW: return TO_DRAW;
+			case ITM_LOAD: return TO_LOAD;
+			
+			case ITM_COLORS: return TO_COLOR;
+
+			case ITM_CLEAR: return TO_CLEAR;
+			case ITM_DELETE: return TO_DELETE;
+			case ITM_EXIT: return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -75,6 +83,7 @@ ActionType Input::GetUserAction() const
 		{
 			return DRAWING_AREA;	
 		}
+
 		
 		//[3] User clicks on the status bar
 		return STATUS;
@@ -89,6 +98,46 @@ ActionType Input::GetUserAction() const
 
 }
 /////////////////////////////////
+
+ColorType Input::GetColor() const
+{
+	int x, y;
+	pWind->WaitMouseClick(x, y);
+
+	if (y >= UI.ToolBarHeight && y < UI.ToolBarHeight + UI.ColorItemWidth)
+	{
+		int ClickedColorOrder = (x - UI.ColorXi )/ UI.ColorItemWidth ;
+
+		switch (ClickedColorOrder)
+		{
+		case CLR_GREEN: return COLOR_GREEN;
+		case CLR_RED: return COLOR_RED;
+		case CLR_ORANGE: return COLOR_ORANGE;
+		case CLR_YELLOW: return COLOR_YELLOW;
+		case CLR_BLUE: return COLOR_BLUE;
+		case CLR_BLACK: return COLOR_BLACK;
+		default: return NO_COLOR;
+		}
+	}
+	return NO_COLOR;
+
+}
+
+void Input :: CheckHexagonPoint(Point& P, Output* pO) 
+{
+	//HexaGfxInfo.HexagonLength = 100; 
+	
+	while (
+		P.y < UI.ToolBarHeight + sqrt(3) / 2 * 100 || 
+		UI.height - P.y < 100 + UI.StatusBarHeight || 
+		P.x < 100 || 
+		UI.width - P.x < 100)
+	
+	{
+		pO->PrintMessage("Invalid point, choose another point");
+		GetPointClicked(P.x, P.y);
+	}
+}
 	
 Input::~Input()
 {
