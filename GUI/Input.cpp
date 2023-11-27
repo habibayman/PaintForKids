@@ -94,13 +94,13 @@ ActionType Input::GetUserAction() const
 
 		//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-		int ClickedItemOrder = (x / UI.MenuItemWidth);
+		int ClickedItemOrder = x / (UI.MenuItemWidth + UI.wx);
 		//Divide x coord of the point clicked by the menu item width (int division)
 		//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
-			MENU_PickByColor,
-			Menu_PickByShape,
-			Menu_PickByBoth;
+		MENU_PickByColor,
+		Menu_PickByShape,
+		Menu_PickByBoth;
 		switch (ClickedItemOrder)
 		{
 		case MENU_SWITCH_DM: return TO_DRAW;
@@ -141,35 +141,31 @@ ColorType Input::GetColor() const
 ///////////////////////Shapes Validation Functions/////////////////////////
 
 void Input::Point_Validation(Point& P, Output* pOut, Input* pIn)
+while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight)
 {
-	while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight)
-	{
-		pOut->PrintMessage("Please pick a valid point inside the drawing area");
-		pIn->GetPointClicked(P.x, P.y);
-	}
-
-	if (P.y > UI.ToolBarHeight || P.y < UI.height - UI.StatusBarHeight)
-	{
-		pOut->PrintMessage("You picked a valid point <3");
-	}
+	pOut->PrintMessage("Please pick a valid point inside the drawing area");
+	pIn->GetPointClicked(P.x, P.y);
 }
 
-void Input :: Hexagon_Validation(Point& P, Output* pO) 
+if (P.y > UI.ToolBarHeight || P.y < UI.height - UI.StatusBarHeight)
 {
-	//HexaGfxInfo.HexagonLength = 100; 
+	pOut->PrintMessage("You picked a valid point <3");
+}
+}
+
+const int HexagonLength = 100;
 	
 	while (
-		P.y < UI.ToolBarHeight + sqrt(3) / 2 * 100 || 
-		UI.height - P.y < 100 + UI.StatusBarHeight || 
-		P.x < 100 || 
-		UI.width - P.x < 100)
+		P.y < UI.ToolBarHeight + sqrt(3) / 2 * HexagonLength ||
+		UI.height - P.y < HexagonLength + UI.StatusBarHeight ||
+		P.x < HexagonLength ||
+		UI.width - P.x < HexagonLength)
 
 	{
 		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		GetPointClicked(P.x, P.y);
 	}
 }
-
 void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
 {
 	double r1 = abs(P1.x - 0);
@@ -198,8 +194,7 @@ void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO,
 void Input::Square_Validation(Point& p1, Output* pO, Input* pI)
 {
 	float Square_length = 100;
-
-	while (p1.y < (UI.ToolBarHeight + UI.PenWidth + Square_length / 2) ||
+	while (p1.y < (UI.ToolBarHeight + Square_length / 2) ||
 		p1.y > UI.height - UI.StatusBarHeight ||
 		p1.y > UI.height - (UI.StatusBarHeight + Square_length / 2) ||
 		p1.x < Square_length / 2 ||
@@ -219,6 +214,7 @@ void Input::Rect_Validation(Point& p1, Point& p2, Output* pO, Input* pI)
 			GetPointClicked(p1.x, p1.y);
 			GetPointClicked(p2.x, p2.y);
 		}
+
 }
 Input::~Input()
 {
