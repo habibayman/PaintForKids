@@ -345,9 +345,8 @@ int main()
 			pOut->PrintMessage("Action: Start Play Recording , Click anywhere");
 			break;
 
-		case TO_DRAW:
-			pOut->PrintMessage("Action: Switch to Draw Mode, creating simualtion tool bar");
-			pOut->CreateDrawToolBar();
+		case ITM_STOP_RECORDING:
+			pOut->PrintMessage("Action: Stop Recording, Click anywhere");
 			break;
 		
 		case TO_LOAD:

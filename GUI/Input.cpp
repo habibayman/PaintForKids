@@ -65,7 +65,7 @@ ActionType Input::GetUserAction() const
 			
 			case ITM_MOVE_FIGURE: return MOVE_FIGURE;
 			case ITM_PLAY_RECORDING: return PLAY_RECORDING;
-			case ITM_TO_DRAW: return TO_DRAW;
+			case ITM_STOP_RECORDING: return STOP_RECORDING;
 			case ITM_LOAD: return TO_LOAD;
 			
 			case ITM_COLORS: return TO_COLOR;
@@ -132,7 +132,7 @@ void Input :: CheckHexagonPoint(Point& P, Output* pO)
 		UI.height - P.y < 100 + UI.StatusBarHeight || 
 		P.x < 100 || 
 		UI.width - P.x < 100)
-	
+
 	{
 		pO->PrintMessage("Invalid point, choose another point");
 		GetPointClicked(P.x, P.y);

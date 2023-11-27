@@ -20,7 +20,7 @@ enum ActionType //The actions supported (you can add more if needed)
 	
     MOVE_FIGURE,
     PLAY_RECORDING,
-	TO_DRAW, //Switch interface to Draw mode
+	STOP_RECORDING, //Switch interface to Draw mode
 	TO_LOAD,
 	
 	TO_COLOR,
