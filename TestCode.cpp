@@ -47,6 +47,7 @@ int main()
 	pOut->PrintMessage("Drawing a Rectangle ==> non-filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->Rect_Validation(P1, P2, pOut, pIn);
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -63,6 +64,7 @@ int main()
 	pOut->PrintMessage("Drawing a Rectangle ==> filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->Rect_Validation(P1, P2, pOut, pIn);
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border
@@ -90,6 +92,7 @@ int main()
 	// 2.1.1 - Drawing non-filled square
 	pOut->PrintMessage("Drawing a Square ==> non-filled,  Click one point");
 	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->Square_Validation(P1, pOut, pIn);
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -105,6 +108,7 @@ int main()
 	// 2.1.3 - Drawing a filled square
 	pOut->PrintMessage("Drawing a Square ==> filled,  Click one Point");
 	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->Square_Validation(P1, pOut, pIn);
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border

@@ -187,6 +187,51 @@ void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Inp
 		r4 = abs(P1.y - ((UI.height) - UI.StatusBarHeight));
 	}
 }
+
+//square validation function
+void Input::Square_Validation(Point& p1, Output* pO, Input* pI)
+{
+	float Square_length = 100;
+	while (p1.y < (UI.ToolBarHeight + UI.PenWidth + Square_length / 2) ||
+		p1.y > UI.height - UI.StatusBarHeight ||
+		p1.x < Square_length / 2 ||
+		p1.x > UI.width - Square_length / 2)
+	{
+		pO->PrintMessage("Please click on a valid point");
+		pI->GetPointClicked(p1.x, p1.y);
+	}
+}
+
+//Rectangle validation function
+void Input::Rect_Validation(Point& p1, Point& p2, Output* pO, Input* pI)
+{
+	while (true)
+	{
+
+		while (p1.x == p2.x || p1.y == p2.y)
+		{
+			pO->PrintMessage("There is no distance between the two points, Please choose another two points");
+			GetPointClicked(p1.x, p1.y);
+			GetPointClicked(p2.x, p2.y);
+		}
+
+		while (
+			p1.y < (UI.ToolBarHeight + UI.PenWidth) ||
+			p1.y >(UI.height - UI.StatusBarHeight) ||
+			p2.y < (UI.ToolBarHeight + UI.PenWidth) ||
+			p2.y >(UI.height - UI.StatusBarHeight))
+		{
+			pO->PrintMessage("Please click on a valid point");
+
+			pI->GetPointClicked(p1.x, p1.y);
+			pI->GetPointClicked(p2.x, p2.y);
+		}
+		if (p1.x != p2.x && p1.y != p2.y)
+		{
+			break;
+		}
+	}
+}
 Input::~Input()
 {
 }

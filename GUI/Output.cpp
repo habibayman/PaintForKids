@@ -244,6 +244,7 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	
 }
 //The Draw_Square function
+
 void Output::DrawSquare(Point p, GfxInfo SqrGfxInfo, bool selected) const
 {
 	const int n = 4;
@@ -279,6 +280,7 @@ void Output::DrawSquare(Point p, GfxInfo SqrGfxInfo, bool selected) const
 	pWind->DrawPolygon(x, y, n, style);
 
 }
+
 
 
 //The Draw_triangle function

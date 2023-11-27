@@ -22,7 +22,8 @@ public:
 
 	void CheckHexagonPoint(Point& P, Output* pO);
 	void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI);
-
+	void Square_Validation(Point& p1, Output* pO, Input* pI);
+	void Rect_Validation(Point& p1, Point& p2, Output* pO, Input* pI);
 
 	~Input();
 };
