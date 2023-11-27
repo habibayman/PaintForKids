@@ -59,22 +59,19 @@ ActionType Input::GetUserAction() const
 
 			case ITM_RECT: return DRAW_RECT;
 			case ITM_SQUARE: return DRAW_SQUARE;
-            case ITM_TRIANGLE: return DRAW_TRIANGLE;
-            case ITM_HEXA: return DRAW_HEXA;
-            case ITM_CIRCLE: return DRAW_CIRCLE;
-                        
-
-            case ITM_MOVE_FIGURE: return MOVE_FIGURE;
-
+			case ITM_TRIANGLE: return DRAW_TRIANGLE;
+			case ITM_HEXA: return DRAW_HEXA;
+			case ITM_CIRCLE: return DRAW_CIRCLE;
+			case ITM_MOVE_FIGURE: return MOVE_FIGURE;
 			case ITM_PLAY_RECORDING: return PLAY_RECORDING;
+			case ITM_START_RECORDING: return START_RECORDING;
 			case ITM_STOP_RECORDING: return STOP_RECORDING;
 			case ITM_LOAD: return TO_LOAD;
-
 			case ITM_COLORS: return TO_COLOR;
-
 			case ITM_CLEAR: return TO_CLEAR;
 			case ITM_DELETE: return TO_DELETE;
 			case ITM_EXIT: return EXIT;
+
 
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar

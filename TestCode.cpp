@@ -316,6 +316,7 @@ int main()
 		{
 		case TO_PLAY:
 			pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
+			pOut->ClearToolbar();
 			pOut->CreatePlayToolBar();
 			break;
 
@@ -336,41 +337,53 @@ int main()
 			break;
 
 		case DRAW_RECT:
-				pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
-				break;
-case DRAW_SQUARE:
-	pOut->PrintMessage("Action: Draw a square , Click anywhere");
-	break;
-case DRAW_TRIANGLE:
-	pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
-	break;
-case DRAW_HEXA:
-	pOut->PrintMessage("Action: Draw a Hexagon , Click anywhere");
-	break;
-case DRAW_CIRCLE:
-	pOut->PrintMessage("Action: Draw a Circle , Click anywhere");
-	break;
-case MOVE_FIGURE :
-	pOut->PrintMessage("Action: Move a Figure , Click anywhere");
-	break;
-case PLAY_RECORDING :
-	pOut->PrintMessage("Action: Start Play Recording , Click anywhere");
-	break;
-
-		case STOP_RECORDING:
-			pOut->PrintMessage("Action: Stop Recording, Click anywhere");
+			pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
 			break;
 		
-		case TO_LOAD:
-			pOut->PrintMessage("Action: load graph");
+		case DRAW_SQUARE:
+			pOut->PrintMessage("Action: Draw a square , Click anywhere");
+			break;
+		
+		case DRAW_TRIANGLE:
+			pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
+			break;
+		
+		case DRAW_HEXA:
+			pOut->PrintMessage("Action: Draw a Hexagon , Click anywhere");
+			break;
+		
+		case DRAW_CIRCLE:
+			pOut->PrintMessage("Action: Draw a Circle , Click anywhere");
+			break;
+		
+		case MOVE_FIGURE :
+			pOut->PrintMessage("Action: Move a Figure , Click anywhere");
+			break;
+		
+		case PLAY_RECORDING :
+			pOut->PrintMessage("Action: Start Playing the Recording , Click anywhere");
+			break;
+		
+		case START_RECORDING:
+			pOut->PrintMessage("Action: Start Recording , Click anywhere");
 			break;
 
+		case STOP_RECORDING:
+		pOut->PrintMessage("Action: Stop Recording, Click anywhere");
+		break;
 
-case TO_COLOR:
-	pOut->PrintMessage("Action: a click on color palette");
-	pOut->CreateColorPalette();
+		case TO_LOAD:
+		pOut->PrintMessage("Action: load graph");
+		break;
 
-	do {
+
+
+
+		case TO_COLOR:
+			pOut->PrintMessage("Action: a click on color palette");
+			pOut->CreateColorPalette();
+
+	    do {
 		ColorSelected = pIn->GetColor();
 
 		switch (ColorSelected)
@@ -395,20 +408,20 @@ case TO_COLOR:
 			break;
 		}
 
-	} while (ColorSelected != NO_COLOR);
+	       } while (ColorSelected != NO_COLOR);
 
-	pOut->PrintMessage("Action: No color selected");
-	//clearing color icons
-	pOut->ClearColorPalette();
-	break;
+	   pOut->PrintMessage("Action: No color selected");
+	   //clearing color icons
+	   pOut->ClearColorPalette();
+	   break;
 
-case TO_CLEAR:
-	pOut->PrintMessage("Action: CLear window");
-	break;
+		case TO_CLEAR:
+			   pOut->PrintMessage("Action: CLear window");
+			   break;
 
-case TO_DELETE:
-	pOut->PrintMessage("Action: delete figure");
-	break;
+		case TO_DELETE:
+			   pOut->PrintMessage("Action: delete figure");
+			   break;
 		
 		case STATUS:
 				pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
@@ -421,8 +434,24 @@ case TO_DELETE:
 		case EMPTY:
 				pOut->PrintMessage("Action: a click on empty area in the Design Tool Bar, Click anywhere");
 				break;
+		
+		//Play mode cases
+		case TO_DRAW:
+			pOut->PrintMessage("Action: Switch to Draw Mode, creating Design tool bar"); 
+			pOut->CreateDrawToolBar(); 
+			break;
 
-	
+		case TO_PICK_BY_COLOR:
+			pOut->PrintMessage("Action: you chose to pick by color, Click anywhere");
+			break;
+		
+		case TO_PICK_BY_SHAPE:
+			pOut->PrintMessage("Action: you chose to pick by shape, Click anywhere");
+			break;
+
+		case TO_PICK_BY_BOTH:
+			pOut->PrintMessage("Action: you chose to pick by both, Click anywhere");
+			break;
 
 
 		///TODO: Add more cases for the other action types

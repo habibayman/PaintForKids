@@ -36,7 +36,7 @@ public:
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color
 	int getCrntPenWidth() const;		//get current pen width
-
+	void ClearToolbar() const;  //clears the draw mode's tool bar
 	
 	~Output();
 };
