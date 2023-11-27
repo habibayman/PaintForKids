@@ -11,8 +11,8 @@ public:
 
 	window* CreateWind(int, int, int , int) const; //creates the application window
 	void CreateDrawToolBar() const;	//creates Draw mode toolbar & menu
-	
-	void CreateColorPalette() const; 
+
+	void CreateColorPalette() const;
 
 	void CreatePlayToolBar() const;	//creates Play mode toolbar & menu
 	void CreateStatusBar() const;	//create the status bar
@@ -36,7 +36,7 @@ public:
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color
 	int getCrntPenWidth() const;		//get current pen width
-
+	void ClearToolbar() const;  //clears the draw mode's tool bar
 	
 	~Output();
 };

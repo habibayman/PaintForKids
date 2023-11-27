@@ -47,6 +47,7 @@ int main()
 	pOut->PrintMessage("Drawing a Rectangle ==> non-filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->Rect_Validation(P1, P2, pOut, pIn);
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -63,6 +64,7 @@ int main()
 	pOut->PrintMessage("Drawing a Rectangle ==> filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->Rect_Validation(P1, P2, pOut, pIn);
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border
@@ -90,6 +92,7 @@ int main()
 	// 2.1.1 - Drawing non-filled square
 	pOut->PrintMessage("Drawing a Square ==> non-filled,  Click one point");
 	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->Square_Validation(P1, pOut, pIn);
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -105,6 +108,7 @@ int main()
 	// 2.1.3 - Drawing a filled square
 	pOut->PrintMessage("Drawing a Square ==> filled,  Click one Point");
 	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->Square_Validation(P1, pOut, pIn);
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border
@@ -134,8 +138,16 @@ int main()
 	// 2.3.1 - Drawing non-filled triangle
 	pOut->PrintMessage("Drawing a triangle ==> non-filled,  Click three points");
 	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->Triangle_Input_Valid(P1, pOut, pIn); 
 	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->Triangle_Input_Valid(P2, pOut, pIn);
 	pIn->GetPointClicked(P3.x, P3.y);
+    pIn->Triangle_Input_Valid(P3, pOut, pIn);
+
+	//A check on every point to not draw on the bars
+	//P1 = pIn->Triangle_Input_Valid(P1, pOut);
+	//P2 = pIn->Triangle_Input_Valid(P2, pOut);
+	//P3 = pIn->Triangle_Input_Valid(P3, pOut); 
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -150,8 +162,11 @@ int main()
 	// 2.3.3 - Drawing a filled triangle
 	pOut->PrintMessage("Drawing a triangle ==> filled,  Click three points");
 	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->Triangle_Input_Valid(P1, pOut, pIn);
 	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->Triangle_Input_Valid(P2, pOut, pIn); 
 	pIn->GetPointClicked(P3.x, P3.y);
+	pIn->Triangle_Input_Valid(P3, pOut, pIn); 
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = LIGHTGOLDENRODYELLOW;	//any color for border
@@ -283,9 +298,6 @@ int main()
 	pIn->GetPointClicked(x, y);	//Wait for any click
 
 	pOut->ClearDrawArea();
-	
-	
-
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 4: 
 	//			Input Class : Check for the user action
@@ -307,6 +319,7 @@ int main()
 		{
 		case TO_PLAY:
 			pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
+			pOut->ClearToolbar();
 			pOut->CreatePlayToolBar();
 			break;
 
@@ -329,83 +342,89 @@ int main()
 		case DRAW_RECT:
 			pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
 			break;
-
+		
 		case DRAW_SQUARE:
 			pOut->PrintMessage("Action: Draw a square , Click anywhere");
 			break;
-
+		
 		case DRAW_TRIANGLE:
 			pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
 			break;
-
+		
 		case DRAW_HEXA:
 			pOut->PrintMessage("Action: Draw a Hexagon , Click anywhere");
 			break;
-
+		
 		case DRAW_CIRCLE:
 			pOut->PrintMessage("Action: Draw a Circle , Click anywhere");
 			break;
-
+		
 		case MOVE_FIGURE :
 			pOut->PrintMessage("Action: Move a Figure , Click anywhere");
 			break;
-
+		
 		case PLAY_RECORDING :
-			pOut->PrintMessage("Action: Start Play Recording , Click anywhere");
-			break;
-
-		case ITM_STOP_RECORDING:
-			pOut->PrintMessage("Action: Stop Recording, Click anywhere");
+			pOut->PrintMessage("Action: Start Playing the Recording , Click anywhere");
 			break;
 		
+		case START_RECORDING:
+			pOut->PrintMessage("Action: Start Recording , Click anywhere");
+			break;
+
+		case STOP_RECORDING:
+			pOut->PrintMessage("Action: Stop Recording, Click anywhere");
+			break;
+
 		case TO_LOAD:
 			pOut->PrintMessage("Action: load graph");
 			break;
+		
+
 
 
 		case TO_COLOR:
 			pOut->PrintMessage("Action: a click on color palette");
 			pOut->CreateColorPalette();
-			
-			do {
-				ColorSelected = pIn->GetColor();
 
-				switch (ColorSelected) 
-				{
-				case COLOR_GREEN:
-					pOut->PrintMessage("Action: a click on green color");
-					break;
-				case COLOR_RED:
-					pOut->PrintMessage("Action: a click on red color");
-					break;
-				case COLOR_ORANGE:
-					pOut->PrintMessage("Action: a click on orange color");
-					break;
-				case COLOR_YELLOW:
-					pOut->PrintMessage("Action: a click on yellow color");
-					break;
-				case COLOR_BLUE:
-					pOut->PrintMessage("Action: a click on blue color");
-					break;
-				case COLOR_BLACK:
-					pOut->PrintMessage("Action: a click on black color");
-					break;
-				}
+	    do {
+		ColorSelected = pIn->GetColor();
 
-			} while (ColorSelected != NO_COLOR);
-
-			pOut->PrintMessage("Action: No color selected");
-			//clearing color icons
-			pOut->ClearColorPalette();
+		switch (ColorSelected)
+		{
+		case COLOR_GREEN:
+			pOut->PrintMessage("Action: a click on green color");
 			break;
+		case COLOR_RED:
+			pOut->PrintMessage("Action: a click on red color");
+			break;
+		case COLOR_ORANGE:
+			pOut->PrintMessage("Action: a click on orange color");
+			break;
+		case COLOR_YELLOW:
+			pOut->PrintMessage("Action: a click on yellow color");
+			break;
+		case COLOR_BLUE:
+			pOut->PrintMessage("Action: a click on blue color");
+			break;
+		case COLOR_BLACK:
+			pOut->PrintMessage("Action: a click on black color");
+			break;
+		}
+
+	       } while (ColorSelected != NO_COLOR);
+
+	   pOut->PrintMessage("Action: No color selected");
+	   //clearing color icons
+	   pOut->ClearColorPalette();
+	   break;
 
 		case TO_CLEAR:
-			pOut->PrintMessage("Action: CLear window");
-			break;
+			   pOut->PrintMessage("Action: CLear window");
+			   break;
 
 		case TO_DELETE:
-			pOut->PrintMessage("Action: delete figure");
-			break;
+			   pOut->PrintMessage("Action: delete figure");
+			   break;
 		
 		case STATUS:
 				pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
@@ -418,6 +437,24 @@ int main()
 		case EMPTY:
 				pOut->PrintMessage("Action: a click on empty area in the Design Tool Bar, Click anywhere");
 				break;
+		
+		//Play mode cases
+		case TO_DRAW:
+			pOut->PrintMessage("Action: Switch to Draw Mode, creating Design tool bar"); 
+			pOut->CreateDrawToolBar(); 
+			break;
+
+		case TO_PICK_BY_COLOR:
+			pOut->PrintMessage("Action: you chose to pick by color, Click anywhere");
+			break;
+		
+		case TO_PICK_BY_SHAPE:
+			pOut->PrintMessage("Action: you chose to pick by shape, Click anywhere");
+			break;
+
+		case TO_PICK_BY_BOTH:
+			pOut->PrintMessage("Action: you chose to pick by both, Click anywhere");
+			break;
 
 
 		///TODO: Add more cases for the other action types
