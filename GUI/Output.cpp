@@ -101,18 +101,18 @@ void Output::CreateDrawToolBar() const
 
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
 	MenuItemImages[ITM_SQUARE] = "images\\MenuItems\\Menu_Squ.jpg";
-        MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Tri.jpg";
-        MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
-        MenuItemImages[ITM_HEXA] = "images\\MenuItems\\Menu_Hexa.jpg";
-        MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
-        MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
-		MenuItemImages[ITM_STOP_RECORDING] = "images\\MenuItems\\Menu_Stop_Recording.jpg";
-		MenuItemImages[ITM_LOAD] = "images\\MenuItems\\Menu_loadgraph.jpg";
-
-		MenuItemImages[ITM_COLORS] = "images\\MenuItems\\Menu_colors.jpg";
-		MenuItemImages[ITM_CLEAR] = "images\\MenuItems\\Menu_clear.jpg";
-		MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";
-		MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
+    MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Tri.jpg";
+    MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
+    MenuItemImages[ITM_HEXA] = "images\\MenuItems\\Menu_Hexa.jpg";
+    MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
+    MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
+	MenuItemImages[ITM_START_RECORDING] = "images\\MenuItems\\Menu_Start_Recording.jpg";
+	MenuItemImages[ITM_STOP_RECORDING] = "images\\MenuItems\\Menu_Stop_Recording.jpg"; 
+	MenuItemImages[ITM_LOAD] = "images\\MenuItems\\Menu_loadgraph.jpg";
+	MenuItemImages[ITM_COLORS] = "images\\MenuItems\\Menu_colors.jpg";
+	MenuItemImages[ITM_CLEAR] = "images\\MenuItems\\Menu_clear.jpg";
+	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";
+	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
 
 
@@ -210,6 +210,13 @@ color Output::getCrntFillColor() const	//get current filling color
 	
 int Output::getCrntPenWidth() const		//get current pen width
 {	return UI.PenWidth;	}
+
+void Output::ClearToolbar() const
+{
+	pWind->SetPen(UI.BkGrndColor, 1);
+	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight);
+}
 
 //======================================================================================//
 //								Figures Drawing Functions								//
