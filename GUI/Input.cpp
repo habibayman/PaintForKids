@@ -95,13 +95,13 @@ ActionType Input::GetUserAction() const
 
 		//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-		int ClickedItemOrder = (x / UI.MenuItemWidth);
+		int ClickedItemOrder = x / (UI.MenuItemWidth + UI.wx);
 		//Divide x coord of the point clicked by the menu item width (int division)
 		//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
-			MENU_PickByColor,
-			Menu_PickByShape,
-			Menu_PickByBoth;
+		MENU_PickByColor,
+		Menu_PickByShape,
+		Menu_PickByBoth;
 		switch (ClickedItemOrder)
 		{
 		case MENU_SWITCH_DM: return TO_DRAW;
@@ -192,7 +192,7 @@ void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Inp
 void Input::Square_Validation(Point& p1, Output* pO, Input* pI)
 {
 	float Square_length = 100;
-	while (p1.y < (UI.ToolBarHeight + UI.PenWidth + Square_length / 2) ||
+	while (p1.y < (UI.ToolBarHeight + Square_length / 2) ||
 		p1.y > UI.height - UI.StatusBarHeight ||
 		p1.x < Square_length / 2 ||
 		p1.x > UI.width - Square_length / 2)
@@ -216,9 +216,9 @@ void Input::Rect_Validation(Point& p1, Point& p2, Output* pO, Input* pI)
 		}
 
 		while (
-			p1.y < (UI.ToolBarHeight + UI.PenWidth) ||
+			p1.y < (UI.ToolBarHeight ) ||
 			p1.y >(UI.height - UI.StatusBarHeight) ||
-			p2.y < (UI.ToolBarHeight + UI.PenWidth) ||
+			p2.y < (UI.ToolBarHeight) ||
 			p2.y >(UI.height - UI.StatusBarHeight))
 		{
 			pO->PrintMessage("Please click on a valid point");
