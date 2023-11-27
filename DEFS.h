@@ -20,6 +20,7 @@ enum ActionType //The actions supported (you can add more if needed)
 
 	MOVE_FIGURE,
 	PLAY_RECORDING,
+	START_RECORDING,
 	STOP_RECORDING, //Switch interface to Draw mode
 	TO_LOAD,
 
@@ -30,8 +31,11 @@ enum ActionType //The actions supported (you can add more if needed)
 	EXIT,			//Exit		
 	EMPTY,			//A click on empty place in the toolbar
 	DRAWING_AREA,	//A click on the drawing area
-	STATUS			//A click on the status bar
-
+	STATUS,			//A click on the status bar
+	TO_DRAW,
+	TO_PICK_BY_COLOR,
+	TO_PICK_BY_SHAPE,
+	TO_PICK_BY_BOTH
 
 
 	///TODO: Add the other action types of the two modes

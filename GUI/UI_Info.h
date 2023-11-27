@@ -18,9 +18,6 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	//Note: Items are **(ordered)** here as they appear in menu
 	//If you want to change the menu items order, change the order here
 	ITM_SWITCH_PM,  //Switch to play mode item in menu
-	ITM_RECT,		//Recangle item in menu
-	//TODO: Add more items names here
-	ITM_SWITCH_PM,  //Switch to play mode item in menu
 	ITM_SELECT,     //Select one item
 	ITM_UNDO,
 	ITM_REDO,
@@ -34,6 +31,7 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 
 	ITM_MOVE_FIGURE,
 	ITM_PLAY_RECORDING,
+	ITM_START_RECORDING,
 	ITM_STOP_RECORDING,
 	ITM_LOAD,
 
