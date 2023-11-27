@@ -20,6 +20,8 @@ public:
 	ColorType GetColor() const;//Get the color the user clicks on
 
 	void CheckHexagonPoint(Point& P, Output* pO);
+	void Input::pointValidity(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI);
+
 
 	~Input();
 };
