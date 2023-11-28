@@ -181,7 +181,7 @@ int main()
 	gfxInfo.isFilled = true;//Figure is filled
 	pOut->DrawTri(P1, P2, P3, gfxInfo, false);
 
-	// 2.3.4 - Drawing a highlighted filled rectangle
+	// 2.3.4 - Drawing a highlighted filled triangle
 	pOut->PrintMessage("Drawing a triangle ==> Highlighted filled, Click to Highlight");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->DrawTri(P1, P2, P3, gfxInfo, true);
@@ -249,7 +249,7 @@ int main()
 	pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
 	pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
-	pIn->Circle_Validation(P1, P2, gfxInfo, pOut, pIn);
+	pIn->Circle_Validation(P1, P2, gfxInfo, pOut);
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -266,7 +266,7 @@ int main()
 	pOut->PrintMessage("Drawing a Circle ==> filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
-	pIn->Circle_Validation(P1, P2, gfxInfo, pOut, pIn);
+	pIn->Circle_Validation(P1, P2, gfxInfo, pOut);
 
 
 	gfxInfo.BorderWdth = 6;
@@ -300,9 +300,9 @@ int main()
 	// 2- After reading the string clear the status bar
 	// 3- print on the status bar "You Entered" then print the string
 	// ---------------DONE!----------------
-	string s = pIn->GetSrting(pOut);
+	string Entered_Word = pIn->GetSrting(pOut);
 	pOut->ClearStatusBar();
-	pOut->PrintMessage("You Entered the following :  " + s + " ....Click anywhere to continue ");
+	pOut->PrintMessage("You Entered the following :  " + Entered_Word + " ....Click anywhere to continue ");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 
 	pOut->ClearDrawArea();
