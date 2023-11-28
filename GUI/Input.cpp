@@ -171,11 +171,12 @@ void Input::Point_Validation(Point& P, Output* pOut)
 
 void Input :: Hexagon_Validation(Point& P, Output* pO)
 {
+	
 	while (
 		P.y < UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
 		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight ||
 		P.x < UI.HEXAGON_LENGTH ||
-		UI.width - P.x < UI.HEXAGON_LENGTH)
+		UI.width - P.x < UI.HEXAGON_LENGTH + 3* UI.wx )
 	{
 		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		GetPointClicked(P.x, P.y);
@@ -183,7 +184,7 @@ void Input :: Hexagon_Validation(Point& P, Output* pO)
 	if (!(UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
 		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight ||
 		P.x < UI.HEXAGON_LENGTH ||
-		UI.width - P.x < UI.HEXAGON_LENGTH))
+		UI.width - P.x  < UI.HEXAGON_LENGTH + 3* UI.wx))
 	{
 		pO->PrintMessage("You picked a valid point <3");
 	}

@@ -95,7 +95,7 @@ struct UI_Info	//User Interface Info.
 	
 	//shapes constant lengths
 	float HEXAGON_LENGTH,
-		  SQUARE_LENGTH;
+		SQUARE_LENGTH;
 
 	/// Add more members if needed ------DONE!
 	
