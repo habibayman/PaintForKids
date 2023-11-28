@@ -181,13 +181,7 @@ void Input::Hexagon_Validation(Point& P, Output* pO)
 		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		GetPointClicked(P.x, P.y);
 	}
-	if (!(P.y < UI.wy + UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
-		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy||
-		P.x < UI.wx + UI.HEXAGON_LENGTH ||
-		UI.width - P.x  < UI.HEXAGON_LENGTH + 3* UI.wx))
-	{
-		pO->PrintMessage("You picked a valid point <3");
-	}
+
 	/*
 	1) Checks if the point is inside the drawing area
 	2) Makes sure that when the square is drawn takes the clicked point as its center will be drawn inside the drawing area
