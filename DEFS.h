@@ -65,7 +65,7 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	color FillClr;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
 	int BorderWdth;	//Width of figure borders
-	int CircleRadius; //radii of circle
+	double CircleRadius; //radii of circle
 };
 
 
