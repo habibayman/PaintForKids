@@ -68,4 +68,5 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	int CircleRadius; //radii of circle
 };
 
+
 #endif

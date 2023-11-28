@@ -46,10 +46,10 @@ int main()
 	// 2.1.1 - Drawing non-filled rectangle
 	pOut->PrintMessage("Drawing a Rectangle ==> non-filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->Point_Validation(P1, pOut, pIn);
+	pIn->Point_Validation(P1, pOut);
 	pIn->GetPointClicked(P2.x, P2.y);
-	pIn->Point_Validation(P2, pOut, pIn);
-	pIn->Rect_Validation(P1, P2, pOut, pIn);
+	pIn->Point_Validation(P2, pOut);
+	pIn->Repeatability_Validation(P1, P2, pOut); 
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -65,10 +65,10 @@ int main()
 	// 2.1.3 - Drawing a filled rectangle
 	pOut->PrintMessage("Drawing a Rectangle ==> filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->Point_Validation(P1, pOut, pIn);
+	pIn->Point_Validation(P1, pOut);
 	pIn->GetPointClicked(P2.x, P2.y);
-	pIn->Point_Validation(P2, pOut, pIn);
-	pIn->Rect_Validation(P1, P2, pOut, pIn);
+	pIn->Point_Validation(P2, pOut);
+	pIn->Repeatability_Validation(P1, P2, pOut);
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border
@@ -96,7 +96,7 @@ int main()
 	// 2.1.1 - Drawing non-filled square
 	pOut->PrintMessage("Drawing a Square ==> non-filled,  Click one point");
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->Square_Validation(P1, pOut, pIn);
+	pIn->Square_Validation(P1, pOut);
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -112,7 +112,7 @@ int main()
 	// 2.1.3 - Drawing a filled square
 	pOut->PrintMessage("Drawing a Square ==> filled,  Click one Point");
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->Square_Validation(P1, pOut, pIn);
+	pIn->Square_Validation(P1, pOut);
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = BLUE;	//any color for border
@@ -142,16 +142,15 @@ int main()
 	// 2.3.1 - Drawing non-filled triangle
 	pOut->PrintMessage("Drawing a triangle ==> non-filled,  Click three points");
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->Point_Validation(P1, pOut, pIn); 
+	pIn->Point_Validation(P1, pOut); 
 	pIn->GetPointClicked(P2.x, P2.y);
-	pIn->Point_Validation(P2, pOut, pIn);
+	pIn->Point_Validation(P2, pOut);
+	pIn->Repeatability_Validation(P1, P2, pOut);
 	pIn->GetPointClicked(P3.x, P3.y);
-    pIn->Point_Validation(P3, pOut, pIn);
+    pIn->Point_Validation(P3, pOut);
+	pIn->Repeatability_Validation(P2, P3, pOut);
+	pIn->Repeatability_Validation(P1, P3, pOut);
 
-	//A check on every point to not draw on the bars
-	//P1 = pIn->Triangle_Input_Valid(P1, pOut);
-	//P2 = pIn->Triangle_Input_Valid(P2, pOut);
-	//P3 = pIn->Triangle_Input_Valid(P3, pOut); 
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -166,11 +165,15 @@ int main()
 	// 2.3.3 - Drawing a filled triangle
 	pOut->PrintMessage("Drawing a triangle ==> filled,  Click three points");
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->Point_Validation(P1, pOut, pIn);
+	pIn->Point_Validation(P1, pOut);
 	pIn->GetPointClicked(P2.x, P2.y);
-	pIn->Point_Validation(P2, pOut, pIn); 
+	pIn->Point_Validation(P2, pOut); 
+	pIn->Repeatability_Validation(P1, P2, pOut);
 	pIn->GetPointClicked(P3.x, P3.y);
-	pIn->Point_Validation(P3, pOut, pIn); 
+	pIn->Point_Validation(P3, pOut); 
+	pIn->Repeatability_Validation(P2, P3, pOut);
+	pIn->Repeatability_Validation(P1, P3, pOut);
+
 
 	gfxInfo.BorderWdth = 6;
 	gfxInfo.DrawClr = LIGHTGOLDENRODYELLOW;	//any color for border
@@ -296,6 +299,7 @@ int main()
 	// 1- Read a string from the user on the status bar
 	// 2- After reading the string clear the status bar
 	// 3- print on the status bar "You Entered" then print the string
+	// ---------------DONE!----------------
 	string s = pIn->GetSrting(pOut);
 	pOut->ClearStatusBar();
 	pOut->PrintMessage("You Entered the following :  " + s + " ....Click anywhere to continue ");
