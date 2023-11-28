@@ -169,21 +169,21 @@ void Input::Point_Validation(Point& P, Output* pOut)
 	//Makes sure that the chosen points are inside the drawing area
 }
 
-void Input :: Hexagon_Validation(Point& P, Output* pO)
+void Input::Hexagon_Validation(Point& P, Output* pO)
 {
 	
 	while (
-		P.y < UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
-		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight ||
-		P.x < UI.HEXAGON_LENGTH ||
-		UI.width - P.x < UI.HEXAGON_LENGTH + 3* UI.wx )
+		P.y < UI.wy + UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
+		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy ||
+		P.x < UI.wx + UI.HEXAGON_LENGTH ||
+		UI.width - P.x < UI.HEXAGON_LENGTH + 3 * UI.wx)
 	{
 		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		GetPointClicked(P.x, P.y);
 	}
-	if (!(UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
-		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight ||
-		P.x < UI.HEXAGON_LENGTH ||
+	if (!(P.y < UI.wy + UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
+		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy||
+		P.x < UI.wx + UI.HEXAGON_LENGTH ||
 		UI.width - P.x  < UI.HEXAGON_LENGTH + 3* UI.wx))
 	{
 		pO->PrintMessage("You picked a valid point <3");
@@ -194,32 +194,32 @@ void Input :: Hexagon_Validation(Point& P, Output* pO)
 	*/
 }
 
-void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
+void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO)
 {
 	gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
 
 	while (
-		abs(P1.x - 0)
-		< gfxInfo.CircleRadius || 
-		abs(P1.x - UI.width) < gfxInfo.CircleRadius || 
+		abs(P1.x - UI.wx)
+		< gfxInfo.CircleRadius ||
+		abs(P1.x - UI.width) < gfxInfo.CircleRadius ||
 		abs(P1.y - (UI.ToolBarHeight)) < gfxInfo.CircleRadius ||
 		abs(P1.y - ((UI.height) - UI.StatusBarHeight)) < gfxInfo.CircleRadius ||
-		((P1.x==P2.x)&&(P1.y==P2.y)))
+		((P1.x == P2.x) && (P1.y == P2.y)))
 	{
 		if ((P1.x == P2.x) && (P1.y == P2.y))
 			pO->PrintMessage("You picked the same point, Please choose different  points");
 		else
-		pO->PrintMessage("Please pick a valid point inside the drawing area");
-		pI->GetPointClicked(P1.x, P1.y);	//Wait for any click
+		pO->PrintMessage("Please pick another valid points inside the drawing area");
+		GetPointClicked(P1.x, P1.y);//Wait for any click
 
-		pI->GetPointClicked(P2.x, P2.y);
+		GetPointClicked(P2.x, P2.y);
 		gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
-		
+
 	}
 	/*
 	 1) Checks if the two points are in the drawing area
 	 2) Checks if the normal distance between the two points -RADIUS- creates a circle that's inside the drawig area
-	 3) Checks that the picked points are not the same 
+	 3) Checks that the picked points are not the same
 	*/
 }
 
@@ -227,11 +227,11 @@ void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO,
 void Input::Square_Validation(Point& p1, Output* pO)
 {
 	//float Square_length = 100;
-	while (p1.y < (UI.ToolBarHeight + UI.SQUARE_LENGTH / 2) ||
-		p1.y > UI.height - UI.StatusBarHeight ||
-		p1.y > UI.height - (UI.StatusBarHeight + UI.SQUARE_LENGTH / 2) ||
-		p1.x < UI.SQUARE_LENGTH / 2 ||
-		p1.x > UI.width - UI.SQUARE_LENGTH / 2)
+	while (p1.y < ( UI.wy+UI.ToolBarHeight + UI.SQUARE_LENGTH / 2) ||
+		p1.y > UI.height - UI.StatusBarHeight -UI.wy||
+		p1.y > UI.height - (UI.wy+UI.StatusBarHeight + UI.SQUARE_LENGTH / 2) ||
+		p1.x < (UI.wx+UI.SQUARE_LENGTH / 2) ||
+		p1.x > UI.width - UI.SQUARE_LENGTH / 2-(3*UI.wx))
 	{
 		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		GetPointClicked(p1.x, p1.y);
@@ -250,9 +250,10 @@ void Input::Repeatability_Validation(Point& p1, Point& p2, Output* pO)
 			pO->PrintMessage("You picked the same point, Please choose different  points");
 			GetPointClicked(p2.x, p2.y);
 		}
+		Point_Validation(p2, pO);
 		if (p1.x != p2.x || p1.y != p2.y)
 		{
-			pO->PrintMessage("You picked a valid a valid point <3");
+			pO->PrintMessage("You picked a valid point <3");
 		}
  //Makes sure that the picked points are not the same
 }
