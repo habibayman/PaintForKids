@@ -195,7 +195,7 @@ void Input::Hexagon_Validation(Point& P, Output* pO)
 
 
 
-void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
+void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO)
 {
 	gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
 
@@ -211,9 +211,9 @@ void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO,
 			pO->PrintMessage("You picked the same point, Please choose different  points");
 		else
 			pO->PrintMessage("Please pick a valid point inside the drawing area");
-		pI->GetPointClicked(P1.x, P1.y);	//Wait for any click
+		GetPointClicked(P1.x, P1.y);	//Wait for any click
 
-		pI->GetPointClicked(P2.x, P2.y);
+		GetPointClicked(P2.x, P2.y);
 		gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
 
 	}

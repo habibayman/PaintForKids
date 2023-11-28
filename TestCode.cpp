@@ -249,7 +249,7 @@ int main()
 	pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
 	pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
-	pIn->Circle_Validation(P1, P2, gfxInfo, pOut, pIn);
+	pIn->Circle_Validation(P1, P2, gfxInfo, pOut);
 
 	gfxInfo.BorderWdth = 5;
 	gfxInfo.DrawClr = BLACK;	//any color for border
@@ -266,7 +266,7 @@ int main()
 	pOut->PrintMessage("Drawing a Circle ==> filled,  Click two points");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
-	pIn->Circle_Validation(P1, P2, gfxInfo, pOut, pIn);
+	pIn->Circle_Validation(P1, P2, gfxInfo, pOut);
 
 
 	gfxInfo.BorderWdth = 6;
