@@ -18,11 +18,17 @@ string Input::GetSrting(Output *pO) const
 	char Key;
 	while(1)
 	{
+		pWind->FlushMouseQueue();
+		pWind->FlushKeyQueue();
 		pWind->WaitKeyPress(Key);
-		if(Key == 27 )	//ESCAPE key is pressed
-			return "";	//returns nothing as user has cancelled label
-		if(Key == 13 )	//ENTER key is pressed
-			return Label;
+		if (Key == 27)	//ESCAPE key is pressed
+			return "";
+		//returns nothing as user has cancelled label
+			if (Key == 13)	//ENTER key is pressed
+			{
+				pWind->FlushMouseQueue();
+				return Label;
+			}
 		if((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
 			Label.resize(Label.size() -1 );			
 		else
@@ -171,25 +177,27 @@ void Input :: Hexagon_Validation(Point& P, Output* pO){
 
 void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
 {
-	double r1 = abs(P1.x - 0);
-	double r2 = abs(P1.x - UI.width);
-	double r3 = abs(P1.y - ( UI.ToolBarHeight));
-	double r4 = abs(P1.y - ((UI.height) - UI.StatusBarHeight));
+	
 	gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
 
-	while (P1.y <=  UI.ToolBarHeight || P2.y <= UI.ToolBarHeight || r1
-		< gfxInfo.CircleRadius || r2 < gfxInfo.CircleRadius || r3 < gfxInfo.CircleRadius ||
-		r4 < gfxInfo.CircleRadius)
+	while (
+		abs(P1.x - 0) < gfxInfo.CircleRadius ||
+		abs(P1.x - UI.width) < gfxInfo.CircleRadius ||
+		abs(P1.y - (UI.ToolBarHeight)) < gfxInfo.CircleRadius ||
+		abs(P1.y - ((UI.height) - UI.StatusBarHeight)) < gfxInfo.CircleRadius ||
+		((P1.x==P2.x)&&(P1.y==P2.y)))
 	{
-		pO->PrintMessage("Please pick a valid point inside the drawing area");
+		if ((P1.x == P2.x) && (P1.y == P2.y))
+			pO->PrintMessage("There is no distance between the two points, Please choose another two points");
+		else
+		{
+			pO->PrintMessage("Please pick a valid point inside the drawing area");
+		}
 		pI->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
 		pI->GetPointClicked(P2.x, P2.y);
 		gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
-		r1 = abs(P1.x - 0);
-		r2 = abs(P1.x - UI.width);
-		r3 = abs(P1.y - (UI.ToolBarHeight));
-		r4 = abs(P1.y - ((UI.height) - UI.StatusBarHeight));
+		
 	}
 }
 
