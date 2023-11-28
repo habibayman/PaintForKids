@@ -247,7 +247,6 @@ int main()
 
 	///TODO: Add code to draw Circle in all possible states
 	pIn->GetPointClicked(P1.x, P1.y);	//Wait for any click
-
 	pIn->GetPointClicked(P2.x, P2.y);	//Wait for any 
 	pIn->Circle_Validation(P1, P2, gfxInfo, pOut);
 
