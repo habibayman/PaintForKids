@@ -18,17 +18,16 @@ string Input::GetSrting(Output *pO) const
 	char Key;
 	while(1)
 	{
-		pWind->FlushMouseQueue();
 		pWind->FlushKeyQueue();
+		pWind->FlushMouseQueue();
 		pWind->WaitKeyPress(Key);
-		if (Key == 27)	//ESCAPE key is pressed
-			return "";
-		//returns nothing as user has cancelled label
-			if (Key == 13)	//ENTER key is pressed
-			{
-				pWind->FlushMouseQueue();
-				return Label;
-			}
+		if(Key == 27 )	//ESCAPE key is pressed
+			return "";	//returns nothing as user has cancelled label
+		if (Key == 13)	//ENTER key is pressed
+		{
+			pWind->FlushMouseQueue();
+			return Label;
+		}
 		if((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
 			Label.resize(Label.size() -1 );			
 		else
@@ -77,8 +76,6 @@ ActionType Input::GetUserAction() const
 			case ITM_DELETE: return TO_DELETE;
 			case ITM_EXIT: return EXIT;
 
-
-
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
 		}
@@ -95,28 +92,38 @@ ActionType Input::GetUserAction() const
 	}
 	else	//GUI is in PLAY mode
 	{
-		///TODO: //perform checks similar to Draw mode checks above and return the correspoding action
+		///TODO: //perform checks similar to Draw mode checks above and return the correspoding action --DONE!--
 
-
-		//Check whick Menu item was clicked
-			//==> This assumes that menu items are lined up horizontally <==
-		int ClickedItemOrder = x / (UI.MenuItemWidth + UI.wx);
-		//Divide x coord of the point clicked by the menu item width (int division)
-		//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
-
-		MENU_PickByColor,
-		Menu_PickByShape,
-		Menu_PickByBoth;
-		switch (ClickedItemOrder)
+		//[1] If user clicks on the Toolbar
+		if (y >= 0 && y < UI.ToolBarHeight)
 		{
-		case MENU_SWITCH_DM: return TO_DRAW;
-		case MENU_PickByColor: return TO_PICK_BY_COLOR;
-		case Menu_PickByShape: return TO_PICK_BY_SHAPE; 
-		case Menu_PickByBoth: return TO_PICK_BY_BOTH; 
+			//Check whick Menu item was clicked
+			//==> This assumes that menu items are lined up horizontally <==
+			int ClickedItemOrder = x / (UI.MenuItemWidth + UI.wx);
+			//Divide x coord of the point clicked by the menu item width (int division)
+			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
-		default: return EMPTY;	//just for now. This should be updated //edit: updated!
+			switch (ClickedItemOrder)
+			{
+			case MENU_SWITCH_DM: return TO_DRAW;
+			case MENU_PickByColor: return TO_PICK_BY_COLOR;
+			case Menu_PickByShape: return TO_PICK_BY_SHAPE;
+			case Menu_PickByBoth: return TO_PICK_BY_BOTH;
+
+			default: return EMPTY;	//just for now. This should be updated //edit: updated!
+			}
 		}
+		//[2] User clicks on the drawing area
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		{
+			return DRAWING_AREA;
+		}
+
+
+		//[3] User clicks on the status bar
+		return STATUS;
 	}
+
 
 }
 
@@ -147,85 +154,108 @@ ColorType Input::GetColor() const
 
 ///////////////////////Shapes Validation Functions/////////////////////////
 
-void Input::Point_Validation(Point& P, Output* pOut, Input* pIn)
+void Input::Point_Validation(Point& P, Output* pOut)
 {
-while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight)
-{
-	pOut->PrintMessage("Please pick a valid point inside the drawing area");
-	pIn->GetPointClicked(P.x, P.y);
+	while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight)
+	{
+		pOut->PrintMessage("Please pick a valid point inside the drawing area");
+		GetPointClicked(P.x, P.y);
+	}
+
+	if (P.y > UI.ToolBarHeight || P.y < UI.height - UI.StatusBarHeight)
+    {
+		pOut->PrintMessage("You picked a valid point <3");
+    }
+	//Makes sure that the chosen points are inside the drawing area
 }
 
-if (P.y > UI.ToolBarHeight || P.y < UI.height - UI.StatusBarHeight)
+void Input::Hexagon_Validation(Point& P, Output* pO)
 {
-	pOut->PrintMessage("You picked a valid point <3");
-}
-}
-
-void Input :: Hexagon_Validation(Point& P, Output* pO){
-	const int HexagonLength = 100;
 	while (
-		P.y < UI.ToolBarHeight + sqrt(3) / 2 * HexagonLength ||
-		UI.height - P.y < HexagonLength + UI.StatusBarHeight ||
-		P.x < HexagonLength ||
-		UI.width - P.x < HexagonLength)
-
+		P.y < UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
+		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight ||
+		P.x < UI.HEXAGON_LENGTH ||
+		UI.width - P.x < UI.HEXAGON_LENGTH)
 	{
 		pO->PrintMessage("Please pick a valid point inside the drawing area");
 		GetPointClicked(P.x, P.y);
 	}
+	if (!(UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
+		UI.height - P.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight ||
+		P.x < UI.HEXAGON_LENGTH ||
+		UI.width - P.x < UI.HEXAGON_LENGTH))
+	{
+		pO->PrintMessage("You picked a valid point <3");
+	}
+	/*
+	1) Checks if the point is inside the drawing area
+	2) Makes sure that when the square is drawn takes the clicked point as its center will be drawn inside the drawing area
+	*/
 }
+
+
 
 void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO, Input* pI)
 {
-	
 	gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
 
 	while (
-		abs(P1.x - 0) < gfxInfo.CircleRadius ||
+		abs(P1.x - 0)
+		< gfxInfo.CircleRadius ||
 		abs(P1.x - UI.width) < gfxInfo.CircleRadius ||
 		abs(P1.y - (UI.ToolBarHeight)) < gfxInfo.CircleRadius ||
 		abs(P1.y - ((UI.height) - UI.StatusBarHeight)) < gfxInfo.CircleRadius ||
-		((P1.x==P2.x)&&(P1.y==P2.y)))
+		((P1.x == P2.x) && (P1.y == P2.y)))
 	{
 		if ((P1.x == P2.x) && (P1.y == P2.y))
-			pO->PrintMessage("There is no distance between the two points, Please choose another two points");
+			pO->PrintMessage("You picked the same point, Please choose different  points");
 		else
-		{
 			pO->PrintMessage("Please pick a valid point inside the drawing area");
-		}
 		pI->GetPointClicked(P1.x, P1.y);	//Wait for any click
 
 		pI->GetPointClicked(P2.x, P2.y);
 		gfxInfo.CircleRadius = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2));
-		
+
 	}
+	/*
+	 1) Checks if the two points are in the drawing area
+	 2) Checks if the normal distance between the two points -RADIUS- creates a circle that's inside the drawig area
+	 3) Checks that the picked points are not the same
+	*/
 }
 
 //square validation function
-void Input::Square_Validation(Point& p1, Output* pO, Input* pI)
+void Input::Square_Validation(Point& p1, Output* pO)
 {
-	float Square_length = 100;
-	while (p1.y < (UI.ToolBarHeight + Square_length / 2) ||
+	//float Square_length = 100;
+	while (p1.y < (UI.ToolBarHeight + UI.SQUARE_LENGTH / 2) ||
 		p1.y > UI.height - UI.StatusBarHeight ||
-		p1.y > UI.height - (UI.StatusBarHeight + Square_length / 2) ||
-		p1.x < Square_length / 2 ||
-		p1.x > UI.width - Square_length / 2)
+		p1.y > UI.height - (UI.StatusBarHeight + UI.SQUARE_LENGTH / 2) ||
+		p1.x < UI.SQUARE_LENGTH / 2 ||
+		p1.x > UI.width - UI.SQUARE_LENGTH / 2)
 	{
 		pO->PrintMessage("Please pick a valid point inside the drawing area");
-		pI->GetPointClicked(p1.x, p1.y);
+		GetPointClicked(p1.x, p1.y);
 	}
+	/*
+	1) Checks if the point is inside the drawing area
+	2) Makes sure that when the square is drawn takes the clicked point as its center will be drawn inside the drawing area
+	*/
 }
 
-//Rectangle validation function
-void Input::Rect_Validation(Point& p1, Point& p2, Output* pO, Input* pI)
+// makes sure the chosen points are different 
+void Input::Repeatability_Validation(Point& p1, Point& p2, Output* pO)
 {
-		while (p1.x == p2.x || p1.y == p2.y)
+		while (p1.x == p2.x && p1.y == p2.y)
 		{
-			pO->PrintMessage("There is no distance between the two points, Please choose another two points");
-			GetPointClicked(p1.x, p1.y);
+			pO->PrintMessage("You picked the same point, Please choose different  points");
 			GetPointClicked(p2.x, p2.y);
 		}
-
+		if (p1.x != p2.x || p1.y != p2.y)
+		{
+			pO->PrintMessage("You picked a valid a valid point <3");
+		}
+ //Makes sure that the picked points are not the same
 }
 Input::~Input()
 {

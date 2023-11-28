@@ -19,30 +19,24 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	//If you want to change the menu items order, change the order here
 	ITM_SWITCH_PM,  //Switch to play mode item in menu
 
-	ITM_SELECT,     //Select one item
+	ITM_SELECT,     
 	ITM_UNDO,
 	ITM_REDO,
 	ITM_SAVE,
-
 	ITM_RECT,
 	ITM_SQUARE,
 	ITM_TRIANGLE,
 	ITM_HEXA,
 	ITM_CIRCLE,
-
 	ITM_MOVE_FIGURE,
 	ITM_PLAY_RECORDING,
 	ITM_START_RECORDING,
 	ITM_STOP_RECORDING,
 	ITM_LOAD,
-
 	ITM_COLORS,
-
 	ITM_CLEAR,
-	ITM_DELETE,      //Delete item in menu
-	ITM_EXIT,		//Exit item
-
-
+	ITM_DELETE,     
+	ITM_EXIT,		
 
 	DRAW_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum
 	
@@ -70,12 +64,9 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	MENU_PickByColor,
 	Menu_PickByShape,
 	Menu_PickByBoth,
-	PLAY_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum
 	
+	PLAY_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum	
 };
-
-
-
 
 
 __declspec(selectany) //This line to prevent "redefinition error"
@@ -101,8 +92,12 @@ struct UI_Info	//User Interface Info.
 	color DrawBarColor;     //Draw bar color 
 	
 	int PenWidth;			//width of the pen that draws shapes
+	
+	//shapes constant lengths
+	float HEXAGON_LENGTH,
+		  SQUARE_LENGTH;
 
-	/// Add more members if needed
+	/// Add more members if needed ------DONE!
 	
 }UI;	//create a global object UI
 

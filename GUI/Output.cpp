@@ -28,6 +28,9 @@ Output::Output()
 
 	UI.PenWidth = 3;	//width of the figures frames
 
+	//Shapes_Constants
+	UI.HEXAGON_LENGTH = 100;
+	UI.SQUARE_LENGTH = 140;
 
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
@@ -92,18 +95,19 @@ void Output::CreateDrawToolBar() const
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuItem
 	string MenuItemImages[DRAW_ITM_COUNT];
-	MenuItemImages[ITM_SWITCH_PM] = "images\\MenuItems\\Menu_SwitchPM.jpg";
-	MenuItemImages[ITM_SELECT] = "images\\MenuItems\\Menu_Select.jpg";
-	MenuItemImages[ITM_UNDO] = "images\\MenuItems\\Menu_Undo.jpg";
-	MenuItemImages[ITM_REDO] = "images\\MenuItems\\Menu_Redo.jpg";
-	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_Save.jpg";
-
+    //shapes images
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
 	MenuItemImages[ITM_SQUARE] = "images\\MenuItems\\Menu_Squ.jpg";
     MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Tri.jpg";
     MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
     MenuItemImages[ITM_HEXA] = "images\\MenuItems\\Menu_Hexa.jpg";
-    MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
+    //Features images
+	MenuItemImages[ITM_SWITCH_PM] = "images\\MenuItems\\Menu_SwitchPM.jpg"; 
+	MenuItemImages[ITM_SELECT] = "images\\MenuItems\\Menu_Select.jpg"; 
+	MenuItemImages[ITM_UNDO] = "images\\MenuItems\\Menu_Undo.jpg"; 
+	MenuItemImages[ITM_REDO] = "images\\MenuItems\\Menu_Redo.jpg"; 
+	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_Save.jpg"; 
+	MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
     MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
 	MenuItemImages[ITM_START_RECORDING] = "images\\MenuItems\\Menu_Start_Recording.jpg";
 	MenuItemImages[ITM_STOP_RECORDING] = "images\\MenuItems\\Menu_Stop_Recording.jpg"; 
@@ -113,11 +117,9 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
-
-
-	//TODO: Prepare images for each menu item and add it to the list
+	//TODO: Prepare images for each menu item and add it to the list //Done!
+	
 	//Draw menu item one image at a time
-
 	for (int i = 0; i < DRAW_ITM_COUNT; i++) {
 		pWind->DrawImage(MenuItemImages[i], (i * UI.MenuItemWidth) + (UI.wx *i), UI.wy, UI.MenuItemWidth, UI.ToolBarHeight- UI.wy*2);
 	}
@@ -125,7 +127,7 @@ void Output::CreateDrawToolBar() const
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-// Added a second toolbar for the colors 
+//Created a color palette 
 
 void Output::CreateColorPalette() const
 {
@@ -248,15 +250,15 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 void Output::DrawSquare(Point p, GfxInfo SqrGfxInfo, bool selected) const
 {
 	const int n = 4;
-	const float length = 100;
+	//const float length = 100;
 	double angle = atan(1); ;
 	int x[n];
 	int y[n];
 
 	for (int i = 0; i < n; i++)
 	{
-		x[i] = p.x + length * sqrt(2) / 2 * cos(angle);
-		y[i] = p.y - length * sqrt(2) / 2 * sin(angle);
+		x[i] = p.x + UI.SQUARE_LENGTH * sqrt(2) / 2 * cos(angle);
+		y[i] = p.y - UI.SQUARE_LENGTH * sqrt(2) / 2 * sin(angle);
 		angle += asin(1);
 	}
 
@@ -310,7 +312,7 @@ void Output::DrawTri(Point p1, Point p2, Point p3, GfxInfo TriGfxInfo, bool sele
 void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 
 	const int n = 6;
-	const int HexagonLength = 100;
+	//const int HexagonLength = 100;
 	color DrawingClr;
 
 	// pi/3 value, hexagon is divided into 6 equal parts 
@@ -319,8 +321,8 @@ void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 	int x[n]; int y[n];
 
 	for (int i = 0; i < n; i++) {
-		x[i] = P.x + HexagonLength * cos(angle * i);
-		y[i] = P.y - HexagonLength * sin(angle * i);
+		x[i] = P.x + UI.HEXAGON_LENGTH * cos(angle * i);
+		y[i] = P.y - UI.HEXAGON_LENGTH * sin(angle * i);
 	}
 
 
