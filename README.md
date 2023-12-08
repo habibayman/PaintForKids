@@ -5,3 +5,6 @@ Paint for Kids is a creative application developed using C++ and CMUgraphics, cr
 Developed collaboratively by:
 | [Amira Khaled](https://github.com/AmiraKhalid04)| [Tasneem Mohamed](https://github.com/Tasneemmohammed0) | [Habiba Ayman](https://github.com/habibayman) | [Helana Nady](https://github.com/HelanaNady) | 
 |------|------|-------|-----|
+
+## Installation
+It will run on visual stuido 19 only. It won't run on any other versions.
