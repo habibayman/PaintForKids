@@ -160,9 +160,6 @@ void Output::ClearColorPalette()const
 
 void Output::CreatePlayToolBar() const
 {
-	UI.InterfaceMode = MODE_PLAY;
-
-
 	pWind->SetPen(UI.DrawBarColor, 1);
 	pWind->SetBrush(UI.DrawBarColor);
 	pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight);

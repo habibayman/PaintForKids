@@ -5,7 +5,7 @@
 #include "Actions\AddHexaAction.h"
 #include "Actions\AddCircleAction.h"
 #include "Actions\SelectFigureAction.h"
-
+#include "Actions\SwitchToPlayAction.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -58,6 +58,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new SelectFigureAction(this);
 		break;
 
+	case TO_PLAY:
+		pAct = new SwitchToPlayAction(this);
+		break;
 	case EXIT:
 		///create ExitAction here
 
