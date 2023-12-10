@@ -8,7 +8,7 @@ Developed collaboratively by:
 |------|------|-------|-----|
 
 ## Installation
-(1) Clone the repository to your local machine.
-(2) Compile and run the project using a C++ compiler with the CMUgraphics library properly linked.
-    P.S. It runs on visual stuido 19 only.
+(1) Clone the repository to your local machine.<br />
+(2) Compile and run the project using a C++ compiler with the CMUgraphics library properly linked.<br />
+    P.S. It runs on visual stuido 19 only.<br />
 (3) Enjoy the game and let your creativity flourish!
