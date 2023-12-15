@@ -35,3 +35,17 @@ bool CHexagon::Isbelonging(Point P) const
 	}
 	return false;
 }
+
+void CHexagon::Move(Point P)
+{
+	Center = P;
+}
+
+bool CHexagon::IsValid()
+{
+	return !(Center.y < UI.wy + UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
+		UI.height - Center.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy ||
+		Center.x < UI.wx + UI.HEXAGON_LENGTH ||
+		UI.width - Center.x < UI.HEXAGON_LENGTH + 3 * UI.wx);
+}
+

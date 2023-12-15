@@ -12,6 +12,9 @@ public:
 	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
+	virtual void Move(Point P);
+	virtual bool IsValid();
+	
 	//virtual void PrintInfo(Output* pOut);
 };
 

@@ -54,3 +54,28 @@ bool CTriangle::Isbelonging(Point P) const
 	*/
 	return false;
 }
+
+void CTriangle::Move(Point P)
+{
+	Point Center;
+	Center.x = (Corner1.x + Corner2.x + Corner3.x) / 3;
+	Center.y = (Corner1.y + Corner2.y + Corner3.y) / 3;
+
+	int deltaX = P.x - Center.x;
+	int deltaY = P.y - Center.y;
+
+	Corner1.x += deltaX;
+	Corner2.x += deltaX;
+	Corner3.x += deltaX;
+
+	Corner1.y += deltaY;
+	Corner2.y += deltaY;
+	Corner3.y += deltaY;
+}
+
+bool CTriangle:: IsValid()
+{
+	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
+		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight ||
+		Corner3.y < UI.ToolBarHeight || Corner3.y > UI.height - UI.StatusBarHeight);
+}

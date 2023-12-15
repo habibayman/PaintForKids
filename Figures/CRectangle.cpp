@@ -38,3 +38,26 @@ bool CRectangle::Isbelonging(Point P) const
 	}
 	return false;
 }
+
+void CRectangle::Move(Point P)
+{
+	//calculting center of old shape 
+	Point Center;
+	Center.x = (Corner1.x + Corner2.x) / 2;
+	Center.y = (Corner1.y + Corner2.y) / 2;
+
+	int deltaX = P.x - Center.x;
+	int deltaY = P.y - Center.y;
+
+	Corner1.x += deltaX;
+	Corner2.x += deltaX;
+
+	Corner1.y += deltaY;
+	Corner2.y += deltaY;
+}
+
+bool CRectangle::IsValid()
+{
+	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
+		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight);
+}

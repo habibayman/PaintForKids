@@ -158,7 +158,7 @@ void Input::Point_Validation(Point& P, Output* pOut)
 {
 	while (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight)
 	{
-		pOut->PrintMessage("Please pick a valid point inside the drawing area");
+		pOut->PrintMessage("Please pick a valid point");
 		GetPointClicked(P.x, P.y);
 	}
 
@@ -178,7 +178,7 @@ void Input::Hexagon_Validation(Point& P, Output* pO)
 		P.x < UI.wx + UI.HEXAGON_LENGTH ||
 		UI.width - P.x < UI.HEXAGON_LENGTH + 3 * UI.wx)
 	{
-		pO->PrintMessage("Please pick a valid point inside the drawing area");
+		pO->PrintMessage("Please pick a valid point");
 		GetPointClicked(P.x, P.y);
 	}
 
@@ -203,7 +203,7 @@ void Input::Circle_Validation(Point& P1, Point& P2, GfxInfo gfxInfo, Output* pO)
 		if ((P1.x == P2.x) && (P1.y == P2.y))
 			pO->PrintMessage("You picked the same point, Please choose different  points");
 		else
-		pO->PrintMessage("Please pick another valid points inside the drawing area");
+		pO->PrintMessage("Please pick another valid point");
 		GetPointClicked(P1.x, P1.y);//Wait for any click
 
 		GetPointClicked(P2.x, P2.y);
@@ -227,7 +227,7 @@ void Input::Square_Validation(Point& p1, Output* pO)
 		p1.x < (UI.wx+UI.SQUARE_LENGTH / 2) ||
 		p1.x > UI.width - UI.SQUARE_LENGTH / 2-(3*UI.wx))
 	{
-		pO->PrintMessage("Please pick a valid point inside the drawing area");
+		pO->PrintMessage("Please pick a valid point");
 		GetPointClicked(p1.x, p1.y);
 	}
 	/*

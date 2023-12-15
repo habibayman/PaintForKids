@@ -6,6 +6,7 @@
 #include "Actions\AddCircleAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SwitchToPlayAction.h"
+#include "Actions\MoveFigureAction.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -57,7 +58,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SELECT_FIGURE:
 		pAct = new SelectFigureAction(this);
 		break;
-
+	case MOVE_FIGURE:
+		pAct = new MoveFigureAction(this);
+		break;
 	case TO_PLAY:
 		pAct = new SwitchToPlayAction(this);
 		break;

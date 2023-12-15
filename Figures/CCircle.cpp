@@ -28,3 +28,23 @@ bool CCircle::Isbelonging(Point P) const
 	return false;
 }
 
+void CCircle::Move(Point P)
+{
+	int deltaX = P.x - Center.x;
+	int deltaY = P.y - Center.y;
+
+	Center = P;
+
+	CirclePoint.x += deltaX;
+	CirclePoint.y += deltaY;
+}
+
+bool CCircle::IsValid()
+{
+	// radius of Circle 
+	double CircleRadius = sqrt(pow(Center.x - CirclePoint.x, 2) + pow(Center.y - CirclePoint.y, 2));  
+	return !(abs(Center.x - UI.wx) < CircleRadius ||
+		abs(Center.x - UI.width) < CircleRadius ||
+		abs(Center.y - (UI.ToolBarHeight)) < CircleRadius ||
+		abs(Center.y - ((UI.height) - UI.StatusBarHeight)) < CircleRadius);
+}

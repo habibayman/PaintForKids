@@ -29,3 +29,18 @@ bool CSquare::Isbelonging(Point P) const
 	}
 	return false;
 }
+
+void CSquare::Move(Point P)
+{
+	Center = P;
+}
+
+bool CSquare::IsValid()
+{
+	return !(Center.y < (UI.wy + UI.ToolBarHeight + UI.SQUARE_LENGTH / 2) ||
+		Center.y > UI.height - UI.StatusBarHeight - UI.wy ||
+		Center.y > UI.height - (UI.wy + UI.StatusBarHeight + UI.SQUARE_LENGTH / 2) ||
+		Center.x < (UI.wx + UI.SQUARE_LENGTH / 2) ||
+		Center.x > UI.width - UI.SQUARE_LENGTH / 2 - (3 * UI.wx));
+}
+

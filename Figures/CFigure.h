@@ -26,6 +26,10 @@ public:
 
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
+	virtual void Move(Point P) = 0; //Move the figure to new position
+
+	//validation function for figure points
+	virtual bool IsValid() = 0;
 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
