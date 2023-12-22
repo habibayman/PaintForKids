@@ -20,6 +20,7 @@ public:
 //==================================================================================//
 	virtual void StartGame(Output* pOut);
 	virtual int GetFigureNumber();
+	virtual color GetFigureColor();
 	virtual void HideFigure(bool);
 	virtual bool FigisHidden();
 

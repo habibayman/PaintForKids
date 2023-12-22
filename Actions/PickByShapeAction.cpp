@@ -20,7 +20,7 @@ void PickByShapeAction::ReadActionParameters()
 void PickByShapeAction::Execute()
 {
 	int TotalFig = 0;
-	int selected = 0;
+	int selected = 0; 
 	Output* pOut = pManager->GetOutput();
 	int PickedShapeNum = pManager->RandomFigure(TotalFig);
 	pManager->ResetPlayMode();

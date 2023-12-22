@@ -52,7 +52,7 @@ public:
 	virtual int GetFigureNumber() = 0;
 	virtual void HideFigure(bool) = 0;
 	virtual bool FigisHidden()=0;
-
+	virtual color GetFigureColor() = 0;
 
 
 };

@@ -11,6 +11,7 @@
 #include"Figures/CSquare.h"
 #include"Figures/CTriangle.h"
 #include"Actions/PickByShapeAction.h"
+#include"Actions/PickByColorAction.h"
 //Main class that manages everything in the application.
 class ApplicationManager
 {
@@ -43,6 +44,7 @@ public:
 
 	// -- PlayMode Management Functions
 	int RandomFigure(int& TotalFig);
+	color RandomColor(int& TotalFig);
 	void ResetPlayMode();
 
 	// -- Interface Management Functions

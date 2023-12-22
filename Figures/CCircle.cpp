@@ -61,6 +61,10 @@ int CCircle::GetFigureNumber()
 {
 	return FigureNumber;
 }
+color CCircle::GetFigureColor()
+{
+	return FigGfxInfo.FillClr;
+}
 void CCircle::HideFigure(bool b)
 {
 	isHidden = b;
