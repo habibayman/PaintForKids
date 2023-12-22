@@ -53,6 +53,7 @@ public:
 	virtual void HideFigure(bool) = 0;
 	virtual bool FigisHidden()=0;
 	virtual color GetFigureColor() = 0;
+	string ChosenColorName();
 
 
 };

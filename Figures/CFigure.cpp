@@ -28,4 +28,18 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.FillClr = Fclr;
 }
 
-
+string CFigure::ChosenColorName()
+{
+	if(this->GetFigureColor()==BLACK)
+		return "BLACK";
+	if (this->GetFigureColor() == YELLOW)
+		return "YELLOW";
+	if (this->GetFigureColor() == ORANGE)
+		return "ORANGE";
+	if (this->GetFigureColor() == RED)
+		return "RED";
+	if (this->GetFigureColor() == GREEN)
+		return "GREEN";
+	if (this->GetFigureColor() == BLUE)
+		return "BLUE";
+}

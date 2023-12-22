@@ -149,77 +149,16 @@ color ApplicationManager::RandomColor(int& TotalFig)
 {
 	TotalFig = 0;
 	int type = rand() % FigCount;
-	(FigList[type])->GetFigureColor();
 
-	{
-		if((FigList[type])->GetFigureColor()==BLACK)
-		{
 			for (int i = 0; i < FigCount; i++)
 			{
-				if ((FigList[i])->GetFigureColor() == BLACK)
+				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor())
 					TotalFig++;
 			}
-			pOut->PrintMessage("Please Pick all black figures");
-			return BLACK;
-		}
-		if ((FigList[type])->GetFigureColor() == YELLOW)
-		{
-			for (int i = 0; i < FigCount; i++)
-			{
-				if ((FigList[i])->GetFigureColor() == YELLOW)
-					TotalFig++;
-			}
-			pOut->PrintMessage("Please Pick all yellow figures");
-
-			return YELLOW;
-		}
-
-		if ((FigList[type])->GetFigureColor() == ORANGE)
-		{
-			for (int i = 0; i < FigCount; i++)
-			{
-				if ((FigList[i])->GetFigureColor() == ORANGE)
-					TotalFig++;
-			}
-			pOut->PrintMessage("Please Pick all orange figures");
-
-			return ORANGE;
-		}
-		if ((FigList[type])->GetFigureColor() == RED)
-		{
-			for (int i = 0; i < FigCount; i++)
-			{
-				if ((FigList[i])->GetFigureColor() == RED)
-					TotalFig++;
-			}
-			pOut->PrintMessage("Please Pick all red figures");
-
-			return RED;
-		}
-		if ((FigList[type])->GetFigureColor() == GREEN)
-		{
-			for (int i = 0; i < FigCount; i++)
-			{
-				if ((FigList[i])->GetFigureColor() == GREEN)
-					TotalFig++;
-			}
-			pOut->PrintMessage("Please Pick all green figures");
-
-			return GREEN;
-		}
-		if ((FigList[type])->GetFigureColor() == BLUE)
-		{
-			for (int i = 0; i < FigCount; i++)
-			{
-				if ((FigList[i])->GetFigureColor() == BLUE)
-					TotalFig++;
-			}
-			pOut->PrintMessage("Please Pick all blue figures");
-
-			return BLUE;
-		}
-
-	}
+			pOut->PrintMessage("Please Pick all "+ (FigList[type])->ChosenColorName() + " figures");
+			return (FigList[type])->GetFigureColor();
+		
+		
 }
 void ApplicationManager::ResetPlayMode()
 {
