@@ -184,6 +184,7 @@
     <ClCompile Include="Actions\SelectFigureAction.cpp" />
     <ClCompile Include="Actions\PickByShapeAction.cpp" />
     <ClCompile Include="Actions\PickByColorAction.cpp" />
+    <ClCompile Include="Actions\PickByBothAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddCircleAction.h" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Actions\SelectFigureAction.h" />
     <ClInclude Include="Actions\PickByShapeAction.h" />
     <ClInclude Include="Actions\PickByColorAction.h" />
+    <ClInclude Include="Actions\PickByBothAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

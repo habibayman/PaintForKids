@@ -84,11 +84,11 @@ bool CTriangle:: IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-void CTriangle::StartGame(Output* pOut)
+string CTriangle::StartGame()
 {
-	pOut->PrintMessage("Please Pick all Triangles");
-
+	return ("Please Pick all TRIANGLES");
 }
+
 int CTriangle::GetFigureNumber()
 {
 	return FigureNumber;

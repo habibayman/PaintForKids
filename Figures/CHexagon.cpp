@@ -53,12 +53,10 @@ bool CHexagon::IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-void CHexagon::StartGame(Output* pOut)
+string CHexagon::StartGame()
 {
-	pOut->PrintMessage("Please Pick all Hexagons");
-
+	return ("Please Pick all HEXAGONS");
 }
-
 int CHexagon::GetFigureNumber()
 {
 	return FigureNumber;

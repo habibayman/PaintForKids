@@ -49,12 +49,10 @@ bool CSquare::IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-void CSquare::StartGame(Output* pOut)
+string CSquare::StartGame()
 {
-	pOut->PrintMessage("Please Pick all Squares");
-
+	return ("Please Pick all SQUARES");
 }
-
 int CSquare::GetFigureNumber()
 {
 	return FigureNumber;

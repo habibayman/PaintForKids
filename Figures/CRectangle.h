@@ -19,7 +19,7 @@ public:
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-	virtual void StartGame(Output* pOut);
+	virtual string StartGame();
 	virtual int GetFigureNumber();
 	virtual color GetFigureColor();
 	virtual void HideFigure(bool);

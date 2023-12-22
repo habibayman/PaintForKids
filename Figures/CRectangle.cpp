@@ -66,10 +66,9 @@ bool CRectangle::IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-void CRectangle::StartGame(Output* pOut)
+string CRectangle::StartGame()
 {
-	pOut->PrintMessage("Please Pick all Rectangles");
-
+	return ("Please Pick all RECTANGLES");
 }
 int CRectangle::GetFigureNumber()
 {

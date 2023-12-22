@@ -27,7 +27,9 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.isFilled = true;
 	FigGfxInfo.FillClr = Fclr;
 }
-
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
 string CFigure::ChosenColorName()
 {
 	if(this->GetFigureColor()==BLACK)

@@ -6,8 +6,7 @@
 #include "Actions\AddCircleAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SwitchToPlayAction.h"
-#include "Actions\MoveFigureAction.h"
-
+#include "Actions\MoveFigureAction.h"\
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -69,6 +68,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case TO_PICK_BY_COLOR:
 		pAct = new PickByColorAction(this);
+		break;
+	case TO_PICK_BY_BOTH:
+		pAct = new PickByBothAction(this);
 		break;
 	case EXIT:
 		///create ExitAction here
@@ -135,7 +137,7 @@ int ApplicationManager::RandomFigure(int& TotalFig)
 {
 	TotalFig = 0;
 	int type = rand() % FigCount;
-	(FigList[type])->StartGame(pOut);
+	pOut->PrintMessage(FigList[type]->StartGame());
 
 	for (int i = 0; i < FigCount; i++)
 	{
@@ -159,6 +161,19 @@ color ApplicationManager::RandomColor(int& TotalFig)
 			return (FigList[type])->GetFigureColor();
 		
 		
+}
+CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
+{
+	TotalFig = 0;
+	int type = rand() % FigCount;
+	pOut->PrintMessage(FigList[type]->StartGame()+" with color : "+ (FigList[type])->ChosenColorName());
+	for (int i = 0; i < FigCount; i++)
+	{
+		if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()&&
+			( FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber()))
+			TotalFig++;
+	}
+	return FigList[type];
 }
 void ApplicationManager::ResetPlayMode()
 {

@@ -53,9 +53,9 @@ bool CCircle::IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-void CCircle::StartGame(Output* pOut)
+string CCircle :: StartGame()
 {
-	pOut->PrintMessage("Please Pick all Circles");
+	return ("Please Pick all CIRCLES");
 }
 int CCircle::GetFigureNumber()
 {
