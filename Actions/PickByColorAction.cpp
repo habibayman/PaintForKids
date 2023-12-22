@@ -59,5 +59,5 @@ void PickByColorAction::Execute()
 		Execute();
 	}
 	else
-		pOut->PrintMessage("CONGRATUS!!GAME FINISHED !Number of Selected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
+		pOut->PrintMessage("CONGRATS!!GAME FINISHED !Number of Selected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
 }
