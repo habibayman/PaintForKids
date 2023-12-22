@@ -64,6 +64,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_PLAY:
 		pAct = new SwitchToPlayAction(this);
 		break;
+	case TO_PICK_BY_SHAPE:
+		pAct = new PickByShapeAction(this);
+		break;
 	case EXIT:
 		///create ExitAction here
 
@@ -122,12 +125,91 @@ CFigure* ApplicationManager::GetLastSelected()
 {
 	return LastSelectedFig;
 }
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+int ApplicationManager::RandomFigure(int& TotalFig)
+{
+	TotalFig = 0;
+	int type = rand() % FigCount;
+	(FigList[type])->StartGame(pOut);
+
+	{
+		if (dynamic_cast<CRectangle*>(FigList[type]))
+		{
+			for (int i = 0; i < FigCount; i++)
+			{
+				if (dynamic_cast<CRectangle*>(FigList[i]))
+					TotalFig++;
+			}
+			return 1;
+		}
+		if (dynamic_cast<CSquare*>(FigList[type]))
+		{
+
+			for (int i = 0; i < FigCount; i++)
+			{
+				if (dynamic_cast<CSquare*>(FigList[i]))
+					TotalFig++;
+			}
+			return 2;
+
+		}
+		
+		if (dynamic_cast<CTriangle*>(FigList[type]))
+		{
+
+			for (int i = 0; i < FigCount; i++)
+			{
+				if (dynamic_cast<CTriangle*>(FigList[i]))
+					TotalFig++;
+			}
+			return 3;
+
+		}
+		if (dynamic_cast<CHexagon*>(FigList[type]))
+		{
+
+			for (int i = 0; i < FigCount; i++)
+			{
+				if (dynamic_cast<CHexagon*>(FigList[i]))
+					TotalFig++;
+			}
+			return 4;
+
+		}
+		if (dynamic_cast<CCircle*>(FigList[type]))
+		{
+
+			for (int i = 0; i < FigCount; i++)
+			{
+				if (dynamic_cast<CCircle*>(FigList[i]))
+					TotalFig++;
+			}
+			return 5;
+
+		}
+		
+	}
+}
+void ApplicationManager::ResetPlayMode()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		FigList[i]->HideFigure(false);
+	}
+}
+
+
+
+
 
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {
-	for (int i = 0; i < FigCount; i++)
-		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+	for (int i = 0; (i < FigCount); i++)
+		if (FigList[i]->FigisHidden() != true)
+			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

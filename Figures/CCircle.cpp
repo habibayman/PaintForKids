@@ -4,6 +4,7 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 {
 	Center = P1;
 	CirclePoint = P2;
+	FigureNumber = 5;
 }
 
 void CCircle::Draw(Output* pOut) const
@@ -47,4 +48,25 @@ bool CCircle::IsValid()
 		abs(Center.x - UI.width) < CircleRadius ||
 		abs(Center.y - (UI.ToolBarHeight)) < CircleRadius ||
 		abs(Center.y - ((UI.height) - UI.StatusBarHeight)) < CircleRadius);
+}
+
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+void CCircle::StartGame(Output* pOut)
+{
+	pOut->PrintMessage("Please Pick all Circles");
+}
+int CCircle::GetFigureNumber()
+{
+	return FigureNumber;
+}
+void CCircle::HideFigure(bool b)
+{
+	isHidden = b;
+}
+
+bool CCircle::FigisHidden()
+{
+	return isHidden;
 }

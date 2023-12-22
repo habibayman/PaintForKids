@@ -3,7 +3,7 @@
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-
+	FigureNumber = 4;
 }
 
 void CHexagon::Draw(Output* pOut) const
@@ -49,3 +49,28 @@ bool CHexagon::IsValid()
 		UI.width - Center.x < UI.HEXAGON_LENGTH + 3 * UI.wx);
 }
 
+
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+void CHexagon::StartGame(Output* pOut)
+{
+	pOut->PrintMessage("Please Pick all Hexagons");
+
+}
+
+int CHexagon::GetFigureNumber()
+{
+	return FigureNumber;
+}
+
+void CHexagon::HideFigure(bool b)
+{
+	isHidden = b;
+
+}
+
+bool CHexagon::FigisHidden()
+{
+	return isHidden;
+}

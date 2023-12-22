@@ -3,6 +3,7 @@
 CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
+	FigureNumber = 2;
 }
 
 void CSquare::Draw(Output* pOut) const
@@ -44,3 +45,28 @@ bool CSquare::IsValid()
 		Center.x > UI.width - UI.SQUARE_LENGTH / 2 - (3 * UI.wx));
 }
 
+
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+void CSquare::StartGame(Output* pOut)
+{
+	pOut->PrintMessage("Please Pick all Squares");
+
+}
+
+int CSquare::GetFigureNumber()
+{
+	return FigureNumber;
+}
+
+void CSquare::HideFigure(bool b)
+{
+	isHidden = b;
+
+}
+
+bool CSquare::FigisHidden()
+{
+	return isHidden;
+}

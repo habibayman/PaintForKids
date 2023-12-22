@@ -4,6 +4,7 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 {
 	Corner1 = P1;
 	Corner2 = P2;
+	FigureNumber = 1;
 }
 
 
@@ -60,4 +61,27 @@ bool CRectangle::IsValid()
 {
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight);
+}
+
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+void CRectangle::StartGame(Output* pOut)
+{
+	pOut->PrintMessage("Please Pick all Rectangles");
+
+}
+int CRectangle::GetFigureNumber()
+{
+	return FigureNumber;
+}
+void CRectangle::HideFigure(bool b)
+{
+	isHidden = b;
+
+}
+
+bool CRectangle::FigisHidden()
+{
+	return isHidden;
 }

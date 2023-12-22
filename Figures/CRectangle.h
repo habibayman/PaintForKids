@@ -16,6 +16,14 @@ public:
 	virtual bool IsValid();
 	
 	//virtual void PrintInfo(Output* pOut);
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+	virtual void StartGame(Output* pOut);
+	virtual int GetFigureNumber();
+	virtual void HideFigure(bool);
+	virtual bool FigisHidden();
+
 };
 
 #endif

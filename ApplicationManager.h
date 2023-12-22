@@ -5,7 +5,12 @@
 #include "Figures\CFigure.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
-
+#include"Figures/CRectangle.h"
+#include"Figures/CCircle.h"
+#include"Figures/CHexagon.h"
+#include"Figures/CSquare.h"
+#include"Figures/CTriangle.h"
+#include"Actions/PickByShapeAction.h"
 //Main class that manages everything in the application.
 class ApplicationManager
 {
@@ -36,6 +41,9 @@ public:
 	void SetLastSelected(CFigure* pFig);    //set the last selected figure
 	CFigure* GetLastSelected();             //get the last selected figure
 
+	// -- PlayMode Management Functions
+	int RandomFigure(int& TotalFig);
+	void ResetPlayMode();
 
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
