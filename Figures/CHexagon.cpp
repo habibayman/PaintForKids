@@ -1,9 +1,11 @@
 #include "CHexagon.h"
+#include <fstream>
 
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-
+	ShapeType = HEXAGON;
+	ID++;
 }
 
 void CHexagon::Draw(Output* pOut) const
@@ -47,5 +49,22 @@ bool CHexagon::IsValid()
 		UI.height - Center.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy ||
 		Center.x < UI.wx + UI.HEXAGON_LENGTH ||
 		UI.width - Center.x < UI.HEXAGON_LENGTH + 3 * UI.wx);
+}
+
+void CHexagon::Save(ofstream& OutFile)
+{
+	OutFile << "Hexagon" << "\t" << ID << "\t"; //type and ID 
+	OutFile << Center.x << "\t" << Center.y << "\t"; //Coordinates
+	OutFile < FigGfxInfo.DrawClr;
+	OutFile << "\t";
+	if (FigGfxInfo.isFilled)
+	{
+		OutFile < FigGfxInfo.FillClr;
+	}
+	else
+	{
+		OutFile << "NO_FILL" << "\n";
+	}
+	//Drawing color and fill color 
 }
 

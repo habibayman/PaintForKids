@@ -23,6 +23,9 @@ class color {
     unsigned char ucGreen;
     unsigned char ucBlue;
 
+    //Overriding the stream operator to output the color name directly 
+    friend ofstream& operator < (ofstream& output, const color& currentcolor);
+
 };
 
 bool operator==(color a, color b);

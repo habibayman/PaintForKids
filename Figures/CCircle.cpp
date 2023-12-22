@@ -1,9 +1,12 @@
 #include "CCircle.h"
+#include <fstream>
 
 CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
 	CirclePoint = P2;
+	ShapeType = CIRCLE;
+	ID++;
 }
 
 void CCircle::Draw(Output* pOut) const
@@ -47,4 +50,21 @@ bool CCircle::IsValid()
 		abs(Center.x - UI.width) < CircleRadius ||
 		abs(Center.y - (UI.ToolBarHeight)) < CircleRadius ||
 		abs(Center.y - ((UI.height) - UI.StatusBarHeight)) < CircleRadius);
+}
+
+void CCircle::Save(ofstream& OutFile)
+{
+	OutFile << "Circle" << "\t" << ID << "\t"; //type and ID
+	OutFile << Center.x << "\t" << Center.y << "\t" << CirclePoint.x << "\t" << CirclePoint.y << "\t"; //Coordinates
+	OutFile < FigGfxInfo.DrawClr;
+	OutFile << "\t";
+	if (FigGfxInfo.isFilled)
+	{
+		OutFile < FigGfxInfo.FillClr;
+	}
+	else
+	{
+		OutFile << "NO_FILL" << "\n";
+	}
+	//Drawing color and fill color 
 }

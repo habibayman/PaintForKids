@@ -32,15 +32,18 @@ public:
 
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
-	CFigure* GetFigure(Point P) const; //Search for a figure given a point inside the figure
+	CFigure* GetFigure(Point P) const;      //Search for a figure given a point inside the figure
 	void SetLastSelected(CFigure* pFig);    //set the last selected figure
 	CFigure* GetLastSelected();             //get the last selected figure
-
-
+	void SaveAll(ofstream& OutFile);        //calls Save(..) for each figure in the FigList
+	int Get_FigCount() const;               //Returns the number of figures
+	void ClearAll();                        //deletes all the drawn figures from the array
+	void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
 	Output* GetOutput() const; //Return pointer to the output
-	void UpdateInterface() const;	//Redraws all the drawing window	
+	void UpdateInterface() const;	//Redraws all the drawing window
+
 };
 
 #endif

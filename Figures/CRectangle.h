@@ -14,6 +14,7 @@ public:
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
 	virtual bool IsValid();
+	void Save(ofstream& OutFile);
 	
 	//virtual void PrintInfo(Output* pOut);
 };

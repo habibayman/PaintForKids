@@ -5,6 +5,8 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
 	FigGfxInfo.BorderWidth = UI.PenWidth;
+	ID = 0;
+	ID++;
 }
 
 void CFigure::SetSelected(bool s)

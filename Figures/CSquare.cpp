@@ -1,8 +1,11 @@
 #include "CSquare.h"
+#include <fstream>
 
 CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
+	ShapeType = SQUARE;
+	ID++;
 }
 
 void CSquare::Draw(Output* pOut) const
@@ -42,5 +45,22 @@ bool CSquare::IsValid()
 		Center.y > UI.height - (UI.wy + UI.StatusBarHeight + UI.SQUARE_LENGTH / 2) ||
 		Center.x < (UI.wx + UI.SQUARE_LENGTH / 2) ||
 		Center.x > UI.width - UI.SQUARE_LENGTH / 2 - (3 * UI.wx));
+}
+
+void CSquare::Save(ofstream& OutFile)
+{
+	OutFile << "Square" << "\t" << ID << "\t"; //type and ID 
+	OutFile << Center.x << "\t"  << Center.y << "\t"; //Coordinates
+	OutFile < FigGfxInfo.DrawClr;
+	OutFile << "\t";
+	if (FigGfxInfo.isFilled)
+	{
+		OutFile < FigGfxInfo.FillClr ;
+	}
+	else
+	{
+		OutFile << "NO_FILL" << "\n";
+	}
+	//Drawing color and fill color 
 }
 

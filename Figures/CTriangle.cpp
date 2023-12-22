@@ -1,11 +1,13 @@
 ﻿#include "CTriangle.h"
+#include <fstream>
 
 CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Corner1 = P1;
 	Corner2 = P2;
 	Corner3 = P3;
-
+	ShapeType = TRIANGLE;
+	ID++;
 }
 
 void CTriangle::Draw(Output* pOut) const
@@ -78,4 +80,21 @@ bool CTriangle:: IsValid()
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight ||
 		Corner3.y < UI.ToolBarHeight || Corner3.y > UI.height - UI.StatusBarHeight);
+}
+
+void CTriangle::Save(ofstream& OutFile)
+{
+	OutFile << "Triangle" << "\t" << ID << "\t"; //type and ID
+	OutFile << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t" << Corner3.x << "\t" << Corner3.y << "\t"; //Coordinates
+	OutFile < FigGfxInfo.DrawClr;
+	OutFile << "\t";
+	if (FigGfxInfo.isFilled)
+	{
+		OutFile < FigGfxInfo.FillClr;
+	}
+	else
+	{
+		OutFile << "NO_FILL" << "\n";
+	}
+	//Drawing color and fill color 
 }

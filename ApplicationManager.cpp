@@ -4,6 +4,9 @@
 #include "Actions\AddTriAction.h"
 #include "Actions\AddHexaAction.h"
 #include "Actions\AddCircleAction.h"
+#include "Actions\ClearAction.h" 
+#include "Actions\DeleteAction.h" 
+#include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SwitchToPlayAction.h"
 #include "Actions\MoveFigureAction.h"
@@ -61,9 +64,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case MOVE_FIGURE:
 		pAct = new MoveFigureAction(this);
 		break;
+	case SAVE_FIGURE:
+		pAct = new SaveAction(this);
+		break;
 	case TO_PLAY:
 		pAct = new SwitchToPlayAction(this);
 		break;
+	case TO_CLEAR:
+		pAct = new ClearAction(this); 
+		break;
+	case TO_DELETE:
+		pAct = new DeleteAction(this);
 	case EXIT:
 		///create ExitAction here
 
@@ -121,6 +132,46 @@ void ApplicationManager::SetLastSelected(CFigure* pFig)
 CFigure* ApplicationManager::GetLastSelected()
 {
 	return LastSelectedFig;
+}
+
+void ApplicationManager::SaveAll(ofstream& OutFile)
+{
+
+	for (int i = 0; i < FigCount; i++)
+		FigList[i]->Save(OutFile);
+}
+
+int ApplicationManager::Get_FigCount() const
+{
+	return FigCount;
+}
+
+void ApplicationManager::ClearAll()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		delete FigList[i];
+	}
+	FigCount = 0;
+}
+
+void ApplicationManager::Delete(CFigure* pFig)
+{
+	int selected_index;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] == pFig)
+		{
+			selected_index = i;
+			for (int j = selected_index; j < FigCount - 1; j++)
+			{
+				swap(FigList[j], FigList[j + 1]);
+			}
+			delete FigList[FigCount];
+			FigCount--;
+		}
+	}
+	UpdateInterface();
 }
 
 //Draw all figures on the user interface

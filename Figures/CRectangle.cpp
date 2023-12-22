@@ -1,9 +1,12 @@
 #include "CRectangle.h"
+#include <fstream>
 
 CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Corner1 = P1;
 	Corner2 = P2;
+	ShapeType = RECTANGLE;
+	ID++;
 }
 
 
@@ -60,4 +63,23 @@ bool CRectangle::IsValid()
 {
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight);
+}
+
+void CRectangle::Save(ofstream& OutFile)
+{
+	OutFile << "Rectangle" << "\t" << ID << "\t"; //type and ID
+	OutFile << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t"; //Coordinates
+	OutFile < FigGfxInfo.DrawClr;
+	OutFile << "\t";
+	if (FigGfxInfo.isFilled)
+	{
+		OutFile < FigGfxInfo.FillClr;
+		OutFile << "\n";
+	}
+	else
+	{
+		OutFile << "NO_FILL";
+		OutFile << "\n";
+	}
+	//Drawing color and fill color 
 }
