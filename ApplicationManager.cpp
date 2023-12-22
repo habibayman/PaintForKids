@@ -135,37 +135,39 @@ CFigure* ApplicationManager::GetLastSelected()
 //==================================================================================//
 int ApplicationManager::RandomFigure(int& TotalFig)
 {
-	TotalFig = 0;
-	int type = rand() % FigCount;
+	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	int type = rand() % FigCount;	//choose a random index in FigList array
 	pOut->PrintMessage(FigList[type]->StartGame());
 
+
+	//counts number of existing figures with same property as the Figure of the Game
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber())
 			TotalFig++;
 	}
 	
-	return FigList[type]->GetFigureNumber();	
+	return FigList[type]->GetFigureNumber();		//Return number of the Figure chosen randomly
 }
 color ApplicationManager::RandomColor(int& TotalFig)
 {
-	TotalFig = 0;
-	int type = rand() % FigCount;
+	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	int type = rand() % FigCount;	//choose a random index in FigList array
 
+
+	//counts number of existing figures with same property as the Figure of the Game
 			for (int i = 0; i < FigCount; i++)
 			{
-				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor())
+				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()) 
 					TotalFig++;
 			}
 			pOut->PrintMessage("Please Pick all "+ (FigList[type])->ChosenColorName() + " figures");
-			return (FigList[type])->GetFigureColor();
-		
-		
+			return (FigList[type])->GetFigureColor();	//Return  color of the Figure chosen randomly
 }
 CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
 {
-	TotalFig = 0;
-	int type = rand() % FigCount;
+	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	int type = rand() % FigCount;	//choose a random index in FigList array
 	pOut->PrintMessage(FigList[type]->StartGame()+" with color : "+ (FigList[type])->ChosenColorName());
 	for (int i = 0; i < FigCount; i++)
 	{
@@ -173,13 +175,13 @@ CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
 			( FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber()))
 			TotalFig++;
 	}
-	return FigList[type];
+	return FigList[type];	//Return the color of the Figure chosen randomly
 }
 void ApplicationManager::ResetPlayMode()
 {
 	for (int i = 0; i < FigCount; i++)
 	{
-		FigList[i]->HideFigure(false);
+		FigList[i]->HideFigure(false);	//Unhide all the figures
 	}
 }
 
@@ -191,7 +193,7 @@ void ApplicationManager::ResetPlayMode()
 void ApplicationManager::UpdateInterface() const
 {
 	for (int i = 0; (i < FigCount); i++)
-		if (FigList[i]->FigisHidden() != true)
+		if (FigList[i]->FigisHidden() != true) // to make sure not to draw a hidden figure
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////

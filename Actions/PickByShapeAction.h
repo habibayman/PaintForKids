@@ -4,7 +4,8 @@ class PickByShapeAction :
     public Action
 {
 	Point P1;
-	int ctrTrue;
+	int ctrTrue;  //counter of true selected figure
+
 
 	
 

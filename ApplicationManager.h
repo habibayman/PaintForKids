@@ -44,10 +44,10 @@ public:
 	CFigure* GetLastSelected();             //get the last selected figure
 
 	// -- PlayMode Management Functions
-	int RandomFigure(int& TotalFig);
-	color RandomColor(int& TotalFig);
-	CFigure* RandomColoredFigure(int& TotalFig);
-	void ResetPlayMode();
+	int RandomFigure(int& TotalFig);	//choose a random figure to start the same
+	color RandomColor(int& TotalFig);	//choose a random color to start the same
+	CFigure* RandomColoredFigure(int& TotalFig);	//choose a random  colored figure to start the same
+	void ResetPlayMode();	//Reset the game
 
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
