@@ -134,63 +134,15 @@ int ApplicationManager::RandomFigure(int& TotalFig)
 	int type = rand() % FigCount;
 	(FigList[type])->StartGame(pOut);
 
+	for (int i = 0; i < FigCount; i++)
 	{
-		if (dynamic_cast<CRectangle*>(FigList[type]))
-		{
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (dynamic_cast<CRectangle*>(FigList[i]))
-					TotalFig++;
-			}
-			return 1;
-		}
-		if (dynamic_cast<CSquare*>(FigList[type]))
-		{
-
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (dynamic_cast<CSquare*>(FigList[i]))
-					TotalFig++;
-			}
-			return 2;
-
-		}
-		
-		if (dynamic_cast<CTriangle*>(FigList[type]))
-		{
-
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (dynamic_cast<CTriangle*>(FigList[i]))
-					TotalFig++;
-			}
-			return 3;
-
-		}
-		if (dynamic_cast<CHexagon*>(FigList[type]))
-		{
-
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (dynamic_cast<CHexagon*>(FigList[i]))
-					TotalFig++;
-			}
-			return 4;
-
-		}
-		if (dynamic_cast<CCircle*>(FigList[type]))
-		{
-
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (dynamic_cast<CCircle*>(FigList[i]))
-					TotalFig++;
-			}
-			return 5;
-
-		}
-		
+		if (FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber())
+			TotalFig++;
 	}
+	
+	return FigList[type]->GetFigureNumber();
+
+		
 }
 void ApplicationManager::ResetPlayMode()
 {
