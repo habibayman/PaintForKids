@@ -49,27 +49,29 @@ bool CSquare::IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-string CSquare::StartGame()
+void CSquare::StartGame(Output* pOut, int P)	 //Print a proper message to start the game
 {
-	return ("Please Pick all SQUARES");
+	if (P == TO_PICK_BY_SHAPE)
+		pOut->PrintMessage("Please Pick all SQUARES");
+	else if (P == TO_PICK_BY_COLOR)
+		pOut->PrintMessage("Please Pick all Figures with color: " + this->ChosenColorName());
+	else if (P == TO_PICK_BY_BOTH)
+		pOut->PrintMessage("Please Pick all SQUARES with color: " + this->ChosenColorName());
 }
-int CSquare::GetFigureNumber()
+int CSquare::GetFigureNumber()	//Get figure number
 {
 	return FigureNumber;
 }
-
-color CSquare::GetFigureColor()
+color CSquare::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
 }
-
-void CSquare::HideFigure(bool b)
+void CSquare::HideFigure(bool b) //Hide\Unhide the figure
 {
 	isHidden = b;
-
 }
 
-bool CSquare::FigisHidden()
+bool CSquare::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }

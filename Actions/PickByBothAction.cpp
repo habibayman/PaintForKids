@@ -21,8 +21,12 @@ void PickByBothAction::Execute()
 	CFigure* PickedColoredFigure = pManager->RandomColoredFigure(TotalFig); //to get the Figure of the Game
 
 	// to redraw the figures if the kid wants to play again after finishing the game
+
 	pManager->ResetPlayMode();
 	pManager->UpdateInterface();
+
+	PickedColoredFigure->StartGame(pOut, TO_PICK_BY_BOTH);	// Start the game 
+
 	while (ctrTrue != TotalFig)
 	{
 
@@ -43,7 +47,7 @@ void PickByBothAction::Execute()
 			{
 				ctrTrue++;
 			}
-			pOut->PrintMessage(" No. Selected True Figures : " + to_string(ctrTrue) + " No. Selected False Figures :" + to_string(selected - ctrTrue));
+			pOut->PrintMessage("Number ofSelected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
 			pManager->UpdateInterface();
 		}
 
@@ -59,5 +63,5 @@ void PickByBothAction::Execute()
 		Execute();
 	}
 	else
-		pOut->PrintMessage("CONGRATUS!!GAME FINISHED ! No. Selected True Figures : " + to_string(ctrTrue) + " No. Selected False Figures :" + to_string(selected - ctrTrue));
+		pOut->PrintMessage("CONGRATUS!!GAME FINISHED ! Number of Selected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
 }

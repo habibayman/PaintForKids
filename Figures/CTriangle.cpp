@@ -84,26 +84,30 @@ bool CTriangle:: IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-string CTriangle::StartGame()
+void CTriangle::StartGame(Output* pOut, int P)	 //Print a proper message to start the game
 {
-	return ("Please Pick all TRIANGLES");
+	if(P == TO_PICK_BY_SHAPE)
+		pOut->PrintMessage("Please Pick all TRIANGLES");
+	else if(P == TO_PICK_BY_COLOR)
+		pOut->PrintMessage("Please Pick all Figures with color: " + this->ChosenColorName());
+	else if (P == TO_PICK_BY_BOTH)
+		pOut->PrintMessage("Please Pick all TRIANGLES with color: " + this->ChosenColorName());
 }
 
-int CTriangle::GetFigureNumber()
+int CTriangle::GetFigureNumber()	//Get figure number
 {
 	return FigureNumber;
 }
-color CTriangle::GetFigureColor()
+color CTriangle::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
 }
-void CTriangle::HideFigure(bool b)
+void CTriangle::HideFigure(bool b) //Hide\Unhide the figure
 {
 	isHidden = b;
-
 }
 
-bool CTriangle::FigisHidden()
+bool CTriangle::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }

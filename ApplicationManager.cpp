@@ -133,11 +133,11 @@ CFigure* ApplicationManager::GetLastSelected()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-int ApplicationManager::RandomFigure(int& TotalFig)
+CFigure* ApplicationManager::RandomFigure(int& TotalFig)
 {
 	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
 	int type = rand() % FigCount;	//choose a random index in FigList array
-	pOut->PrintMessage(FigList[type]->StartGame());
+	
 
 
 	//counts number of existing figures with same property as the Figure of the Game
@@ -147,9 +147,9 @@ int ApplicationManager::RandomFigure(int& TotalFig)
 			TotalFig++;
 	}
 	
-	return FigList[type]->GetFigureNumber();		//Return number of the Figure chosen randomly
+	return FigList[type];		//Return number of the Figure chosen randomly
 }
-color ApplicationManager::RandomColor(int& TotalFig)
+CFigure* ApplicationManager::RandomColor(int& TotalFig)
 {
 	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
 	int type = rand() % FigCount;	//choose a random index in FigList array
@@ -161,14 +161,12 @@ color ApplicationManager::RandomColor(int& TotalFig)
 				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()) 
 					TotalFig++;
 			}
-			pOut->PrintMessage("Please Pick all "+ (FigList[type])->ChosenColorName() + " figures");
-			return (FigList[type])->GetFigureColor();	//Return  color of the Figure chosen randomly
+			return FigList[type];	//Return  color of the Figure chosen randomly
 }
 CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
 {
 	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
 	int type = rand() % FigCount;	//choose a random index in FigList array
-	pOut->PrintMessage(FigList[type]->StartGame()+" with color : "+ (FigList[type])->ChosenColorName());
 	for (int i = 0; i < FigCount; i++)
 	{
 		if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()&&

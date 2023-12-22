@@ -18,11 +18,14 @@ void PickByColorAction::Execute()
 	int TotalFig = 0;//Total Figures on screen with the property of the picked one(Figure Game which had been chosen randomly)
 	int selected = 0;//Total Figures chosen by the kid
 	Output* pOut = pManager->GetOutput();
-	color PickedFigureColor = pManager->RandomColor(TotalFig);//to get the Figure Game Color
+	CFigure* PickedFigure = pManager->RandomColor(TotalFig);//to get the Figure Game Color
 
 	// to redraw the figures if the kid wants to play again after finishing the game
 	pManager->ResetPlayMode();
 	pManager->UpdateInterface();
+
+	PickedFigure->StartGame(pOut, TO_PICK_BY_COLOR);	// Start the game 
+
 	while (ctrTrue != TotalFig)
 	{
 
@@ -36,11 +39,11 @@ void PickByColorAction::Execute()
 			pOut->ClearDrawArea();
 
 			//checks if the kid clicked on a  true figure 
-			if (PickedFigureColor == pManager->GetFigure(P1)->GetFigureColor())
+			if (PickedFigure->GetFigureColor() == pManager->GetFigure(P1)->GetFigureColor())
 			{
 				ctrTrue++;
 			}
-			pOut->PrintMessage(" No. Selected True Figures : " + to_string(ctrTrue) + " No. Selected False Figures :" + to_string(selected - ctrTrue));
+			pOut->PrintMessage(" Number of Selected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
 			pManager->UpdateInterface();
 		}
 
@@ -56,5 +59,5 @@ void PickByColorAction::Execute()
 		Execute();
 	}
 	else
-		pOut->PrintMessage("CONGRATUS!!GAME FINISHED ! No. Selected True Figures : " + to_string(ctrTrue) + " No. Selected False Figures :" + to_string(selected - ctrTrue));
+		pOut->PrintMessage("CONGRATUS!!GAME FINISHED !Number of Selected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
 }

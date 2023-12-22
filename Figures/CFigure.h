@@ -48,7 +48,7 @@ public:
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-	virtual string StartGame() = 0;
+	virtual void StartGame(Output*,int) = 0;
 	virtual int GetFigureNumber() = 0;
 	virtual void HideFigure(bool) = 0;
 	virtual bool FigisHidden()=0;

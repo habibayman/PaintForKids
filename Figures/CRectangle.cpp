@@ -66,25 +66,31 @@ bool CRectangle::IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-string CRectangle::StartGame()
+void CRectangle::StartGame(Output* pOut, int P)	 //Print a proper message to start the game
 {
-	return ("Please Pick all RECTANGLES");
+	if (P == TO_PICK_BY_SHAPE)
+		pOut->PrintMessage("Please Pick all RECTANGLES");
+	else if(P == TO_PICK_BY_COLOR)
+		pOut->PrintMessage("Please Pick all Figures with color: " + this->ChosenColorName());
+	else if (P == TO_PICK_BY_BOTH)
+		pOut->PrintMessage("Please Pick all RECTANGLES with color: " + this->ChosenColorName());
 }
-int CRectangle::GetFigureNumber()
+int CRectangle::GetFigureNumber()	//Get figure number
 {
 	return FigureNumber;
 }
-color CRectangle::GetFigureColor()
+color CRectangle::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
 }
-void CRectangle::HideFigure(bool b)
+void CRectangle::HideFigure(bool b) //Hide\Unhide the figure
 {
 	isHidden = b;
-
 }
 
-bool CRectangle::FigisHidden()
+bool CRectangle::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }
+
+

@@ -53,24 +53,29 @@ bool CCircle::IsValid()
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-string CCircle :: StartGame()
+void CCircle :: StartGame(Output* pOut, int P)	 //Print a proper message to start the game
 {
-	return ("Please Pick all CIRCLES");
+	if (P == TO_PICK_BY_SHAPE)
+	pOut->PrintMessage ("Please Pick all CIRCLES");
+	else if (P == TO_PICK_BY_COLOR)
+	pOut->PrintMessage("Please Pick all Figures with color: "+ this->ChosenColorName());
+	else if(P == TO_PICK_BY_BOTH)
+		pOut->PrintMessage("Please Pick all CIRCLES with color: " + this->ChosenColorName());
 }
-int CCircle::GetFigureNumber()
+int CCircle::GetFigureNumber()	//Get figure number
 {
 	return FigureNumber;
 }
-color CCircle::GetFigureColor()
+color CCircle::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
 }
-void CCircle::HideFigure(bool b)
+void CCircle::HideFigure(bool b) //Hide\Unhide the figure
 {
 	isHidden = b;
 }
 
-bool CCircle::FigisHidden()
+bool CCircle::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }
