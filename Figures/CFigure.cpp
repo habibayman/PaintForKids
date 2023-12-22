@@ -6,7 +6,6 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	Selected = false;
 	FigGfxInfo.BorderWidth = UI.PenWidth;
 	ID = 0;
-	ID++;
 }
 
 void CFigure::SetSelected(bool s)

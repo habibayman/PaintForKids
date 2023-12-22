@@ -12,6 +12,7 @@ protected:
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	Point point;
+	//to be used in loading yet might be deleted 
 	enum Shapes
 	{
 		RECTANGLE, SQUARE, TRIANGLE, HEXAGON, CIRCLE

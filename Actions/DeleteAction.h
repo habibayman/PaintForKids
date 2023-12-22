@@ -2,6 +2,7 @@
 #define DELETE_H
 
 #include "Action.h"
+#include "SelectFigureAction.h"
 
 class DeleteAction: public Action
 {
