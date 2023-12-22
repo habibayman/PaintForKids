@@ -140,9 +140,7 @@ int ApplicationManager::RandomFigure(int& TotalFig)
 			TotalFig++;
 	}
 	
-	return FigList[type]->GetFigureNumber();
-
-		
+	return FigList[type]->GetFigureNumber();	
 }
 void ApplicationManager::ResetPlayMode()
 {
