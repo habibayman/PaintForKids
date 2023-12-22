@@ -93,6 +93,10 @@ int CTriangle::GetFigureNumber()
 {
 	return FigureNumber;
 }
+color CTriangle::GetFigureColor()
+{
+	return FigGfxInfo.FillClr;
+}
 void CTriangle::HideFigure(bool b)
 {
 	isHidden = b;

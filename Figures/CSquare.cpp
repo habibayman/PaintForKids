@@ -60,6 +60,11 @@ int CSquare::GetFigureNumber()
 	return FigureNumber;
 }
 
+color CSquare::GetFigureColor()
+{
+	return FigGfxInfo.FillClr;
+}
+
 void CSquare::HideFigure(bool b)
 {
 	isHidden = b;

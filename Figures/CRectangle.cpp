@@ -75,6 +75,10 @@ int CRectangle::GetFigureNumber()
 {
 	return FigureNumber;
 }
+color CRectangle::GetFigureColor()
+{
+	return FigGfxInfo.FillClr;
+}
 void CRectangle::HideFigure(bool b)
 {
 	isHidden = b;

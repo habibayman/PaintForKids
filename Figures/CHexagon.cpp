@@ -64,6 +64,11 @@ int CHexagon::GetFigureNumber()
 	return FigureNumber;
 }
 
+color CHexagon::GetFigureColor()
+{
+	return FigGfxInfo.FillClr;
+}
+
 void CHexagon::HideFigure(bool b)
 {
 	isHidden = b;
