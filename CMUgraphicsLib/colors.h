@@ -7,6 +7,8 @@ This file was last modified on 05.16.1999
 #define COLORS_H
 
 #include "version.h"
+#include <fstream>
+using namespace std;
 
 class color {
 
