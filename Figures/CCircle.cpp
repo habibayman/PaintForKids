@@ -5,13 +5,10 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 {
 	Center = P1;
 	CirclePoint = P2;
-	ShapeType = CIRCLE;
 	ID++;
 	FigureNumber = 5;
 
-	FigureNumber = 5;
-	ShapeType = CIRCLE;
-	ID++;
+	
 }
 
 void CCircle::Draw(Output* pOut) const

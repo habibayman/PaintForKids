@@ -6,7 +6,6 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 	Corner1 = P1;
 	Corner2 = P2;
 	Corner3 = P3;
-	ShapeType = TRIANGLE;
 	ID++;
 	FigureNumber = 3;
 
@@ -100,7 +99,7 @@ void CTriangle::Save(ofstream& OutFile)
 	}
 	//Drawing color and fill color 
 }
-}
+
 
 //==================================================================================//
 //							PlayMode Management Functions							//

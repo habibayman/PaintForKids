@@ -13,12 +13,7 @@ protected:
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	Point point;
 	//to be used in loading yet might be deleted 
-	enum Shapes
-	{
-		RECTANGLE, SQUARE, TRIANGLE, HEXAGON, CIRCLE
-	};
-	Shapes ShapeType;
-
+	
 	
 	/// Add more parameters if needed.
 	//---PlayMode parameters

@@ -4,7 +4,6 @@
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ShapeType = HEXAGON;
 	ID++;
 	FigureNumber = 4;
 }

@@ -4,7 +4,6 @@
 CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ShapeType = SQUARE;
 	ID++;
 	FigureNumber = 2;
 }

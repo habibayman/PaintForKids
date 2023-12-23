@@ -5,7 +5,6 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 {
 	Corner1 = P1;
 	Corner2 = P2;
-	ShapeType = RECTANGLE;
 	ID++;
 	FigureNumber = 1;
 }
@@ -84,7 +83,7 @@ void CRectangle::Save(ofstream& OutFile)
 	}
 	//Drawing color and fill color 
 }
-}
+
 
 //==================================================================================//
 //							PlayMode Management Functions							//

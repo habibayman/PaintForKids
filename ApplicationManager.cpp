@@ -74,6 +74,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case TO_DELETE:
 		pAct = new DeleteAction(this);
+		break;
 	case TO_PICK_BY_SHAPE:
 		pAct = new PickByShapeAction(this);
 		break;
