@@ -9,8 +9,7 @@
 #include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SwitchToPlayAction.h"
-#include "Actions\MoveFigureAction.h"
-
+#include "Actions\MoveFigureAction.h"\
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -75,6 +74,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case TO_DELETE:
 		pAct = new DeleteAction(this);
+	case TO_PICK_BY_SHAPE:
+		pAct = new PickByShapeAction(this);
+		break;
+	case TO_PICK_BY_COLOR:
+		pAct = new PickByColorAction(this);
+		break;
+	case TO_PICK_BY_BOTH:
+		pAct = new PickByBothAction(this);
+		break;
 	case EXIT:
 		///create ExitAction here
 
@@ -174,11 +182,69 @@ void ApplicationManager::Delete(CFigure* pFig)
 	UpdateInterface();
 }
 
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+CFigure* ApplicationManager::RandomFigure(int& TotalFig)
+{
+	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	int type = rand() % FigCount;	//choose a random index in FigList array
+	
+
+
+	//counts number of existing figures with same property as the Figure of the Game
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber())
+			TotalFig++;
+	}
+	
+	return FigList[type];		//Return number of the Figure chosen randomly
+}
+CFigure* ApplicationManager::RandomColor(int& TotalFig)
+{
+	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	int type = rand() % FigCount;	//choose a random index in FigList array
+
+
+	//counts number of existing figures with same property as the Figure of the Game
+			for (int i = 0; i < FigCount; i++)
+			{
+				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()) 
+					TotalFig++;
+			}
+			return FigList[type];	//Return  color of the Figure chosen randomly
+}
+CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
+{
+	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	int type = rand() % FigCount;	//choose a random index in FigList array
+	for (int i = 0; i < FigCount; i++)
+	{
+		if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()&&
+			( FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber()))
+			TotalFig++;
+	}
+	return FigList[type];	//Return the color of the Figure chosen randomly
+}
+void ApplicationManager::ResetPlayMode()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		FigList[i]->HideFigure(false);	//Unhide all the figures
+	}
+}
+
+
+
+
+
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {
-	for (int i = 0; i < FigCount; i++)
-		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+	for (int i = 0; (i < FigCount); i++)
+		if (FigList[i]->FigisHidden() != true) // to make sure not to draw a hidden figure
+			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

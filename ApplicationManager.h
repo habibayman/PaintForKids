@@ -5,7 +5,14 @@
 #include "Figures\CFigure.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
-
+#include"Figures/CRectangle.h"
+#include"Figures/CCircle.h"
+#include"Figures/CHexagon.h"
+#include"Figures/CSquare.h"
+#include"Figures/CTriangle.h"
+#include"Actions/PickByShapeAction.h"
+#include"Actions/PickByColorAction.h"
+#include"Actions/PickByBothAction.h"
 //Main class that manages everything in the application.
 class ApplicationManager
 {
@@ -39,6 +46,13 @@ public:
 	int Get_FigCount() const;               //Returns the number of figures
 	void ClearAll();                        //deletes all the drawn figures from the array
 	void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
+
+	// -- PlayMode Management Functions
+	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same
+	CFigure* RandomColor(int& TotalFig);	//choose a random color to start the same
+	CFigure* RandomColoredFigure(int& TotalFig);	//choose a random  colored figure to start the same
+	void ResetPlayMode();	//Reset the game
+
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
 	Output* GetOutput() const; //Return pointer to the output

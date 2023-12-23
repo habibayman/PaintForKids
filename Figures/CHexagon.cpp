@@ -6,6 +6,7 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 	Center = P1;
 	ShapeType = HEXAGON;
 	ID++;
+	FigureNumber = 4;
 }
 
 void CHexagon::Draw(Output* pOut) const
@@ -68,3 +69,34 @@ void CHexagon::Save(ofstream& OutFile)
 	//Drawing color and fill color 
 }
 
+
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+void CHexagon::StartGame(Output* pOut, int P)	 //Print a proper message to start the game
+{
+	if (P == TO_PICK_BY_SHAPE)
+		pOut->PrintMessage("Please Pick all HEXAGONS");
+	else if (P == TO_PICK_BY_COLOR)
+		pOut->PrintMessage("Please Pick all Figures with color: " + this->ChosenColorName());
+	else if (P == TO_PICK_BY_BOTH)
+		pOut->PrintMessage("Please Pick all HEXAGONS with color: " + this->ChosenColorName());
+
+}
+int CHexagon::GetFigureNumber()	//Get figure number
+{
+	return FigureNumber;
+}
+color CHexagon::GetFigureColor()	//Get figure color
+{
+	return FigGfxInfo.FillClr;
+}
+void CHexagon::HideFigure(bool b) //Hide\Unhide the figure
+{
+	isHidden = b;
+}
+
+bool CHexagon::FigisHidden()	//Know if figure is hidden or not
+{
+	return isHidden;
+}

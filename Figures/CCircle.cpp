@@ -7,6 +7,11 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 	CirclePoint = P2;
 	ShapeType = CIRCLE;
 	ID++;
+	FigureNumber = 5;
+
+	FigureNumber = 5;
+	ShapeType = CIRCLE;
+	ID++;
 }
 
 void CCircle::Draw(Output* pOut) const
@@ -68,3 +73,34 @@ void CCircle::Save(ofstream& OutFile)
 	}
 	//Drawing color and fill color 
 }
+
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+void CCircle :: StartGame(Output* pOut, int P)	 //Print a proper message to start the game
+{
+	if (P == TO_PICK_BY_SHAPE)
+	pOut->PrintMessage ("Please Pick all CIRCLES");
+	else if (P == TO_PICK_BY_COLOR)
+	pOut->PrintMessage("Please Pick all Figures with color: "+ this->ChosenColorName());
+	else if(P == TO_PICK_BY_BOTH)
+		pOut->PrintMessage("Please Pick all CIRCLES with color: " + this->ChosenColorName());
+}
+int CCircle::GetFigureNumber()	//Get figure number
+{
+	return FigureNumber;
+}
+color CCircle::GetFigureColor()	//Get figure color
+{
+	return FigGfxInfo.FillClr;
+}
+void CCircle::HideFigure(bool b) //Hide\Unhide the figure
+{
+	isHidden = b;
+}
+
+bool CCircle::FigisHidden()	//Know if figure is hidden or not
+{
+	return isHidden;
+}
+

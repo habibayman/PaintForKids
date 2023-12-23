@@ -19,8 +19,11 @@ protected:
 	};
 	Shapes ShapeType;
 
+	
 	/// Add more parameters if needed.
-
+	//---PlayMode parameters
+	bool isHidden = false;
+	int FigureNumber;
 public:
 	CFigure(GfxInfo FigureGfxInfo);
 
@@ -45,6 +48,19 @@ public:
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
+
+	
+//==================================================================================//
+//							PlayMode Management Functions							//
+//==================================================================================//
+	virtual void StartGame(Output*,int) = 0;
+	virtual int GetFigureNumber() = 0;
+	virtual void HideFigure(bool) = 0;
+	virtual bool FigisHidden()=0;
+	virtual color GetFigureColor() = 0;
+	string ChosenColorName();
+
+
 };
 
 #endif

@@ -163,6 +163,42 @@
     <ClCompile Include="Actions\LoadAction.cpp" />
     <ClCompile Include="Actions\DeleteAction.cpp" />
     <ClCompile Include="Actions\ClearAction.cpp" />
+    <ClCompile Include="Actions\AddCircleAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddHexaAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddTriAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddSquareAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\MoveFigureAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\PickByShapeAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\SelectFigureAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\SwitchToPlayAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\CCircle.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\CSquare.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\CHexagon.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\CTriangle.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -265,6 +301,42 @@
     <ClInclude Include="Actions\LoadAction.h" />
     <ClInclude Include="Actions\DeleteAction.h" />
     <ClInclude Include="Actions\ClearAction.h" />
+    <ClInclude Include="Actions\AddSquareAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddCircleAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddTriAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddHexaAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\MoveFigureAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\PickByShapeAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\SelectFigureAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\SwitchToPlayAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\CCircle.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\CSquare.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\CHexagon.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\CTriangle.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
