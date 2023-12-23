@@ -32,13 +32,21 @@ void AddHexaAction::ReadActionParameters()
 
 void AddHexaAction::Execute()
 {
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+	if (!PlayingRecord)
+		ReadActionParameters();
 
-	//This action needs to read some parameters first
-	ReadActionParameters();
-
-	//Create a square with the parameters read from the user
+	//Create a hexagon with the parameters read from the user
 	CHexagon* H = new CHexagon(P1, HexaGfxInfo);
 
-	//Add the square to the list of figures
+	//Add a hexagon to the list of figures
 	pManager->AddFigure(H);
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
+
 }

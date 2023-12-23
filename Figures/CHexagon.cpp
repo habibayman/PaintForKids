@@ -43,7 +43,7 @@ void CHexagon::Move(Point P)
 	Center = P;
 }
 
-bool CHexagon::IsValid()
+bool CHexagon::IsValidMove()
 {
 	return !(Center.y < UI.wy + UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
 		UI.height - Center.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy ||

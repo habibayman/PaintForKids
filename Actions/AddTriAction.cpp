@@ -49,13 +49,20 @@ void AddTriAction::ReadActionParameters()
 
 void AddTriAction::Execute()
 {
-	//This action needs to read some parameters first
-	ReadActionParameters();
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+	if (!PlayingRecord)
+		ReadActionParameters();
 
 	//Create a Triangle with the parameters read from the user
 	CTriangle* T = new CTriangle(P1, P2, P3, TriGfxInfo);
 
 	//Add the Triangle to the list of figures
 	pManager->AddFigure(T);
+
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
 }
 

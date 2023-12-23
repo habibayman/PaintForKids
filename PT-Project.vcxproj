@@ -128,6 +128,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actions\Action.cpp" />
     <ClCompile Include="Actions\AddCircleAction.cpp" />
     <ClCompile Include="Actions\AddHexaAction.cpp" />
     <ClCompile Include="Actions\AddSquareAction.cpp" />
@@ -136,7 +137,10 @@
     <ClCompile Include="Actions\DeleteAction.cpp" />
     <ClCompile Include="Actions\LoadAction.cpp" />
     <ClCompile Include="Actions\MoveFigureAction.cpp" />
+    <ClCompile Include="Actions\PlayRecordingAction.cpp" />
     <ClCompile Include="Actions\SaveAction.cpp" />
+    <ClCompile Include="Actions\StartRecordingAction.cpp" />
+    <ClCompile Include="Actions\StopRecordingAction.cpp" />
     <ClCompile Include="Actions\SwitchToPlayAction.cpp" />
     <ClCompile Include="Figures\CTriangle.cpp" />
     <ClCompile Include="Figures\CSquare.cpp" />
@@ -199,7 +203,10 @@
     <ClInclude Include="Actions\DeleteAction.h" />
     <ClInclude Include="Actions\LoadAction.h" />
     <ClInclude Include="Actions\MoveFigureAction.h" />
+    <ClInclude Include="Actions\PlayRecordingAction.h" />
     <ClInclude Include="Actions\SaveAction.h" />
+    <ClInclude Include="Actions\StartRecordingAction.h" />
+    <ClInclude Include="Actions\StopRecordingAction.h" />
     <ClInclude Include="Actions\SwitchToPlayAction.h" />
     <ClInclude Include="Figures\CTriangle.h" />
     <ClInclude Include="Figures\CSquare.h" />

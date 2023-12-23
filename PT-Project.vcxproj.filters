@@ -199,6 +199,12 @@
     <ClCompile Include="Figures\CTriangle.cpp">
       <Filter>Figures Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\PickByColorAction.cpp" />
+    <ClCompile Include="Actions\PickByBothAction.cpp" />
+    <ClCompile Include="Actions\Action.cpp" />
+    <ClCompile Include="Actions\StartRecordingAction.cpp" />
+    <ClCompile Include="Actions\PlayRecordingAction.cpp" />
+    <ClCompile Include="Actions\StopRecordingAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -337,6 +343,11 @@
     <ClInclude Include="Figures\CTriangle.h">
       <Filter>Figures Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\PickByColorAction.h" />
+    <ClInclude Include="Actions\PickByBothAction.h" />
+    <ClInclude Include="Actions\StartRecordingAction.h" />
+    <ClInclude Include="Actions\PlayRecordingAction.h" />
+    <ClInclude Include="Actions\StopRecordingAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

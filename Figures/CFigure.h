@@ -33,7 +33,7 @@ public:
 	virtual void Move(Point P) = 0; //Move the figure to new position
 
 	//validation function for figure points
-	virtual bool IsValid() = 0;
+	virtual bool IsValidMove() = 0;
 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure

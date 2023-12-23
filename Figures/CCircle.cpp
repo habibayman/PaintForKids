@@ -44,7 +44,7 @@ void CCircle::Move(Point P)
 	CirclePoint.y += deltaY;
 }
 
-bool CCircle::IsValid()
+bool CCircle::IsValidMove()
 {
 	// radius of Circle 
 	double CircleRadius = sqrt(pow(Center.x - CirclePoint.x, 2) + pow(Center.y - CirclePoint.y, 2));  

@@ -17,6 +17,7 @@
 class ApplicationManager
 {
 	enum { MaxFigCount = 200 };	//Max no of figures
+	enum { MaxRecordingCount = 20 }; //Max no of recorded actions
 
 private:
 	int FigCount;		//Actual number of figures
@@ -27,6 +28,11 @@ private:
 	//Pointers to Input and Output classes
 	Input* pIn;
 	Output* pOut;
+
+	Action* RecordingList[MaxRecordingCount]; //List of recorded actions
+	bool IsRecording;
+	int RecordsCount;
+	bool PlayingRecord;
 
 public:
 	ApplicationManager();
@@ -58,6 +64,15 @@ public:
 	Output* GetOutput() const; //Return pointer to the output
 	void UpdateInterface() const;	//Redraws all the drawing window
 
+	// -- Recording Management Functions 
+	void SetIsRecording(bool IsRecording);              //sets recording state
+	bool GetIsRecording() const;                        //returns recording state 
+	void AddRecordedAction(Action* pRecordedAction);    //Adds the recorded action to RecordingList
+	int GetRecordsCount() const;                        //returns the number of recorded actions
+	void PlayRecording(int RecordingNumber);            //plays recorded action
+	bool GetPlayingRecord() const;                      //returns playing recording state
+	void SetPlayingRecord(bool IsPlaying);              //sets playing recording state
+	void ClearRecordingList();                          //clears recording list of any old recordings
 };
 
 #endif

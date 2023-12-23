@@ -59,7 +59,7 @@ void CRectangle::Move(Point P)
 	Corner2.y += deltaY;
 }
 
-bool CRectangle::IsValid()
+bool CRectangle::IsValidMove()
 {
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight);

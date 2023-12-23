@@ -20,7 +20,10 @@ public:
 	virtual void ReadActionParameters() =0;
 	
 	//Execute action (code depends on action type)
-	virtual void Execute() =0;
+	virtual void Execute() = 0;
+
+	//non-virtual function to check if the action can be recorded or not
+	bool Recording();
 
 };
 

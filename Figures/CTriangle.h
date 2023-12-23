@@ -14,7 +14,7 @@ public:
 	double CalculateTriArea(Point P1, Point P2, Point P3) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
-	virtual bool IsValid();
+	virtual bool IsValidMove();
 	void Save(ofstream& OutFile);
 //==================================================================================//
 //							PlayMode Management Functions							//

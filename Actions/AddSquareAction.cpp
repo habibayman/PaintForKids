@@ -32,12 +32,20 @@ void AddSquareAction::ReadActionParameters()
 
 void AddSquareAction::Execute()
 {
-	//This action needs to read some parameters first
-	ReadActionParameters();
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+	if (!PlayingRecord)
+		ReadActionParameters();
 
 	//Create a square with the parameters read from the user
 	CSquare* S = new CSquare(P1, SquareGfxInfo);
 
 	//Add the square to the list of figures
 	pManager->AddFigure(S);
+
+	//if the action is being recorded, add it to the RecordingLis
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
 }

@@ -76,7 +76,7 @@ void CTriangle::Move(Point P)
 	Corner3.y += deltaY;
 }
 
-bool CTriangle:: IsValid()
+bool CTriangle:: IsValidMove()
 {
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight ||

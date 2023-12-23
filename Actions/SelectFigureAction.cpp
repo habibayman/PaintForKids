@@ -28,8 +28,12 @@ void SelectFigureAction::Execute()
 {
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
-	//This action needs to read some parameters first
-	ReadActionParameters();
+
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+	
+	if (!PlayingRecord)
+		ReadActionParameters();
 
 	if (pManager->GetFigure(P1))
 	{
@@ -64,6 +68,10 @@ void SelectFigureAction::Execute()
 			pManager->SetLastSelected(NULL);
 		}
 	}
+
+	//if the action is being recorded, add it to the RecordingLis
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
 }
-
-

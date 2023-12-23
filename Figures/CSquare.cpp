@@ -38,7 +38,7 @@ void CSquare::Move(Point P)
 	Center = P;
 }
 
-bool CSquare::IsValid()
+bool CSquare::IsValidMove()
 {
 	return !(Center.y < (UI.wy + UI.ToolBarHeight + UI.SQUARE_LENGTH / 2) ||
 		Center.y > UI.height - UI.StatusBarHeight - UI.wy ||
