@@ -13,6 +13,9 @@ void CFigure::SetSelected(bool s)
 	Selected = s;
 }
 
+CFigure::CFigure()
+{}
+
 bool CFigure::IsSelected() const
 {
 	return Selected;

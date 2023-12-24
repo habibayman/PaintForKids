@@ -199,6 +199,7 @@
     <ClCompile Include="Figures\CTriangle.cpp">
       <Filter>Figures Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\SoundModeAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -337,6 +338,7 @@
     <ClInclude Include="Figures\CTriangle.h">
       <Filter>Figures Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\SoundModeAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

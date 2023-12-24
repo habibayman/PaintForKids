@@ -8,7 +8,7 @@ class DeleteAction: public Action
 {
 	CFigure* ToBeDeleted;
 public:
-	DeleteAction(ApplicationManager* pApp);
+	DeleteAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 };

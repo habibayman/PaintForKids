@@ -6,8 +6,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
-{}
+AddRectAction::AddRectAction(ApplicationManager * pApp, bool muted):Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\RectangleSound"), NULL, SND_SYNC);
+	}
+}
 
 void AddRectAction::ReadActionParameters() 
 {	

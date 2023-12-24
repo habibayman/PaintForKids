@@ -18,9 +18,9 @@ Output::Output()
 	UI.ColorItemWidth = 30;
 	UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
 
-	UI.DrawColor = BLUE;	//Drawing color
-	UI.FillColor = GREEN;	//Filling color
-	UI.MsgColor = BLACK;		//Messages color
+	UI.DrawColor = BLUE;	//Drawing color 
+	UI.FillColor = GREEN;	//Filling color 
+	UI.MsgColor = BLACK;		//Messages color 
 	UI.BkGrndColor = WHITE;	//Background color changed color from LIGHTGOLDENRODYELLOW to WHITE
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
 	UI.StatusBarColor = LIGHTSTEELBLUE;
@@ -114,6 +114,7 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_LOAD] = "images\\MenuItems\\Menu_loadgraph.jpg";
 	MenuItemImages[ITM_COLORS] = "images\\MenuItems\\Menu_colors.jpg";
 	MenuItemImages[ITM_CLEAR] = "images\\MenuItems\\Menu_clear.jpg";
+	MenuItemImages[ITM_SOUND] = "images\\MenuItems\\Menu_Sound.jpg";
 	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
@@ -203,11 +204,19 @@ color Output::getCrntDrawColor() const	//get current drawing color
 {
 	return UI.DrawColor;
 }
+void Output::setCrntDrawColor(color newcolor)
+{
+	UI.DrawBarColor = newcolor;
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 color Output::getCrntFillColor() const	//get current filling color
 {
 	return UI.FillColor;
+}
+void Output::setCrntFillColor(color newcolor)
+{
+	UI.FillColor = newcolor;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -224,7 +233,7 @@ void Output::ClearToolbar() const
 }
 
 //======================================================================================//
-//								Figures Drawing Functions								//
+//								Figures Drawing Functions						  //
 //======================================================================================//
 
 void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) const
@@ -318,7 +327,7 @@ void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 
 	const int n = 6;
 	//const int HexagonLength = 100;
-	color DrawingClr;
+	color DrawingClr; 
 
 	// pi/3 value, hexagon is divided into 6 equal parts 
 	const double angle = (4.0 / 3.0) * atan(1.0);
@@ -332,11 +341,11 @@ void Output::DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const {
 
 
 	if (selected)
-		DrawingClr = UI.HighlightColor;
+		DrawingClr = UI.HighlightColor; 
 	else
-		DrawingClr = HexaGfxInfo.DrawClr;
+		DrawingClr = HexaGfxInfo.DrawClr; 
 
-	pWind->SetPen(DrawingClr, HexaGfxInfo.BorderWidth);
+	pWind->SetPen(DrawingClr, HexaGfxInfo.BorderWidth); 
 
 	drawstyle style;
 	if (HexaGfxInfo.isFilled)

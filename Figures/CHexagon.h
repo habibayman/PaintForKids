@@ -5,8 +5,10 @@ class CHexagon :
 {
 private:
 	Point Center;
+	string ReadDrawColor, ReadFillColor;
 public:
 	CHexagon(Point, GfxInfo FigureGfxInfo);
+	CHexagon();
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
@@ -20,6 +22,8 @@ public:
 	virtual color GetFigureColor(); //Get figure color
 	virtual void HideFigure(bool);  //Hide\Unhide the figure
 	virtual bool FigisHidden(); //Know if figure is hidden or not
+	virtual void Save(ofstream& OutFile);
+	virtual void Load(ifstream& InFile);
 };
 
 

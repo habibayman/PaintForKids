@@ -7,7 +7,7 @@ class MoveFigureAction : public Action
 private:
 	Point P;
 public:
-	MoveFigureAction(ApplicationManager* pApp);
+	MoveFigureAction(ApplicationManager* pApp, bool muted);
 
 	//Read the point's parameters
 	virtual void ReadActionParameters();

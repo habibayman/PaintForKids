@@ -8,13 +8,16 @@ class CRectangle : public CFigure
 private:
 	Point Corner1;
 	Point Corner2;
+	string ReadDrawColor, ReadFillColor;
 public:
 	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
+	CRectangle();
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
 	virtual bool IsValid();
 	void Save(ofstream& OutFile);
+	void Load(ifstream& InFile);
 	
 	//virtual void PrintInfo(Output* pOut);
 //==================================================================================//

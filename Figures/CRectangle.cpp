@@ -9,6 +9,10 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 	FigureNumber = 1;
 }
 
+CRectangle::CRectangle()
+{
+}
+
 
 void CRectangle::Draw(Output* pOut) const
 {
@@ -116,3 +120,24 @@ bool CRectangle::FigisHidden()	//Know if figure is hidden or not
 }
 
 
+
+void CRectangle::Load(ifstream& InFile)
+{
+	InFile >> ID; //Read the ID
+	InFile >> Corner1.x >> Corner1.y; //Read point 1
+	InFile >> Corner2.x >> Corner2.y; //Read point 2
+	InFile >> ReadDrawColor;
+	FigGfxInfo.DrawClr = StringToColor(ReadDrawColor);
+	InFile >> ReadFillColor;
+	if (ReadFillColor.compare("NO_FILL"))
+	{
+		FigGfxInfo.isFilled = 1;
+		FigGfxInfo.FillClr = StringToColor(ReadFillColor);
+	}
+	else
+	{
+		FigGfxInfo.isFilled = 0;
+	}
+	FigGfxInfo.BorderWidth = UI.PenWidth; 
+	Selected = false; 
+}
