@@ -5,14 +5,17 @@ class CHexagon :
 {
 private:
 	Point Center;
+	string ReadDrawColor, ReadFillColor;
 public:
 	CHexagon(Point, GfxInfo FigureGfxInfo);
+	CHexagon();
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
 	virtual bool IsValid();
 	virtual void SetID(int);
 	void Save(ofstream& OutFile);
+	void Load(ifstream& InFile);
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

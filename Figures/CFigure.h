@@ -3,6 +3,8 @@
 
 #include "..\defs.h"
 #include "..\GUI\Output.h"
+#include <fstream>
+using namespace std;
 
 //Base class for all figures
 class CFigure
@@ -11,7 +13,6 @@ protected:
     int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
-	Point point;
 	//to be used in loading yet might be deleted 
 	
 	
@@ -22,6 +23,7 @@ protected:
 public:
 	CFigure(GfxInfo FigureGfxInfo);
 	virtual void SetID(int)=0;	//set fig ID
+	CFigure(); 
 
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
@@ -42,7 +44,7 @@ public:
 
 
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
-	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
+	virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
 
 	

@@ -7,7 +7,7 @@ private:
 	Point P1; //Hexagon Center
 	GfxInfo HexaGfxInfo;
 public:
-	AddHexaAction(ApplicationManager* pApp);
+	AddHexaAction(ApplicationManager* pApp, bool muted);
 
 	//Reads Hexagon parameters
 	virtual void ReadActionParameters();

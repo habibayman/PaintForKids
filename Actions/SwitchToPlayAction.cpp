@@ -5,8 +5,12 @@
 #include "..\GUI\Output.h"
 
 
-SwitchToPlayAction::SwitchToPlayAction(ApplicationManager* pApp) : Action(pApp)
+SwitchToPlayAction::SwitchToPlayAction(ApplicationManager* pApp, bool muted) : Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void SwitchToPlayAction::ReadActionParameters()

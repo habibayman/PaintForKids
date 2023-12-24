@@ -28,6 +28,7 @@ enum ActionType //The actions supported (you can add more if needed)
 	TO_COLOR,
 	TO_CLEAR,
 	TO_DELETE,
+	SOUND_MODE,
 
 	EXIT,			//Exit		
 	EMPTY,			//A click on empty place in the toolbar

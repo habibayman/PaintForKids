@@ -1,18 +1,22 @@
 #pragma once
 #include "CFigure.h"
+using namespace std;
 class CSquare :
 	public CFigure
 {
 private:
 	Point Center;
+	string ReadDrawColor, ReadFillColor;
 public:
 	CSquare(Point, GfxInfo FigureGfxInfo);
+	CSquare();
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
 	virtual bool IsValid();
 	virtual void SetID(int);
 	void Save(ofstream& OutFile);
+	void Load(ifstream& InFile); 
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

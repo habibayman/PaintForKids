@@ -7,8 +7,12 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-AddCircleAction::AddCircleAction(ApplicationManager* pApp) :Action(pApp)
+AddCircleAction::AddCircleAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\CircleSound"), NULL, SND_SYNC); 
+	}
 }
 
 void AddCircleAction::ReadActionParameters()

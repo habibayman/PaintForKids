@@ -10,6 +10,9 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 
 }
 
+CTriangle::CTriangle()
+{}
+
 void CTriangle::Draw(Output* pOut) const
 {
 	pOut->DrawTri(Corner1, Corner2, Corner3, FigGfxInfo, Selected);
@@ -134,4 +137,26 @@ void CTriangle::HideFigure(bool b) //Hide\Unhide the figure
 bool CTriangle::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+
+void CTriangle::Load(ifstream& InFile)
+{
+	InFile >> ID; //Read the ID
+	InFile >> Corner1.x >> Corner1.y; //Read point 1
+	InFile >> Corner2.x >> Corner2.y; //Read point 2
+	InFile >> Corner3.x >> Corner3.y; //Read point 3
+	InFile >> ReadDrawColor;
+	FigGfxInfo.DrawClr = StringToColor(ReadDrawColor);
+	InFile >> ReadFillColor;
+	if (ReadFillColor.compare("NO_FILL"))
+	{
+		FigGfxInfo.isFilled = 1;
+		FigGfxInfo.FillClr = StringToColor(ReadFillColor);
+	}
+	else
+	{
+		FigGfxInfo.isFilled = 0;
+	}
+	FigGfxInfo.BorderWidth = UI.PenWidth;
+	Selected = false;
 }

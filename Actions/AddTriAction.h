@@ -7,7 +7,7 @@ private:
 	Point P1, P2, P3; //Rectangle Corners
 	GfxInfo TriGfxInfo;
 public:
-	AddTriAction(ApplicationManager* pApp);
+	AddTriAction(ApplicationManager* pApp, bool muted);
 
 	//Reads rectangle parameters
 	virtual void ReadActionParameters();

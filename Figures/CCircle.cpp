@@ -10,6 +10,10 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 	
 }
 
+CCircle::CCircle()
+{
+}
+
 void CCircle::Draw(Output* pOut) const
 {
 	pOut->DrawCircle(Center, CirclePoint, FigGfxInfo, Selected);
@@ -74,17 +78,38 @@ void CCircle::Save(ofstream& OutFile)
 	}
 	//Drawing color and fill color 
 }
+void CCircle::Load(ifstream& InFile)
+{
+	InFile >> ID; //Read the ID
+	InFile >> Center.x >> Center.y; //Read the center point
+	InFile >> CirclePoint.x >> CirclePoint.y; //Read the circle point
+	//set FigGfxInfo data
+	InFile >> ReadDrawColor;
+	FigGfxInfo.DrawClr = StringToColor(ReadDrawColor);
+	InFile >> ReadFillColor;
+	if (ReadFillColor.compare("NO_FILL"))
+	{
+		FigGfxInfo.isFilled = 1;
+		FigGfxInfo.FillClr = StringToColor(ReadFillColor);
+	}
+	else
+	{
+		FigGfxInfo.isFilled = 0;
+	}
+	FigGfxInfo.BorderWidth = UI.PenWidth;
+	Selected = false; 
+}
 
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
-void CCircle :: StartGame(Output* pOut, int P)	 //Print a proper message to start the game
+void CCircle::StartGame(Output* pOut, int P)	 //Print a proper message to start the game
 {
 	if (P == TO_PICK_BY_SHAPE)
-	pOut->PrintMessage ("Please Pick all CIRCLES");
+		pOut->PrintMessage("Please Pick all CIRCLES");
 	else if (P == TO_PICK_BY_COLOR)
-	pOut->PrintMessage("Please Pick all Figures with color: "+ this->ChosenColorName());
-	else if(P == TO_PICK_BY_BOTH)
+		pOut->PrintMessage("Please Pick all Figures with color: " + this->ChosenColorName());
+	else if (P == TO_PICK_BY_BOTH)
 		pOut->PrintMessage("Please Pick all CIRCLES with color: " + this->ChosenColorName());
 }
 int CCircle::GetFigureNumber()	//Get figure number
@@ -100,8 +125,8 @@ void CCircle::HideFigure(bool b) //Hide\Unhide the figure
 	isHidden = b;
 }
 
+
 bool CCircle::FigisHidden()	//Know if figure is hidden or not
-{
-	return isHidden;
+{	return isHidden;
 }
 

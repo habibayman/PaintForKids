@@ -7,9 +7,11 @@ private:
 	Point Corner1;
 	Point Corner2;
 	Point Corner3;
+	string ReadDrawColor, ReadFillColor;
 
 public:
 	CTriangle(Point, Point, Point, GfxInfo FigureGfxInfo);
+	CTriangle(); 
 	virtual void Draw(Output* pOut) const;
 	double CalculateTriArea(Point P1, Point P2, Point P3) const;
 	virtual bool Isbelonging(Point P) const;
@@ -17,6 +19,7 @@ public:
 	virtual bool IsValid();
 	virtual void SetID(int);
 	void Save(ofstream& OutFile);
+	void Load(ifstream& InFile); 
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

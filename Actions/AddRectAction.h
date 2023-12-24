@@ -10,7 +10,7 @@ private:
 	Point P1, P2; //Rectangle Corners
 	GfxInfo RectGfxInfo;
 public:
-	AddRectAction(ApplicationManager *pApp);
+	AddRectAction(ApplicationManager *pApp, bool muted);
 
 	//Reads rectangle parameters
 	virtual void ReadActionParameters();

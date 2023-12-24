@@ -29,6 +29,7 @@ private:
 	//Pointers to Input and Output classes
 	Input* pIn;
 	Output* pOut;
+	bool muted;
 
 public:
 	ApplicationManager();
@@ -47,14 +48,13 @@ public:
 	void SaveAll(ofstream& OutFile);        //calls Save(..) for each figure in the FigList
 	int Get_FigCount() const;               //Returns the number of figures
 	void ClearAll();                        //deletes all the drawn figures from the array
-	void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
+void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
 
 	// -- PlayMode Management Functions
 	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same
 	CFigure* RandomColor(int& TotalFig);	//choose a random color to start the same
 	CFigure* RandomColoredFigure(int& TotalFig);	//choose a random  colored figure to start the same
 	void ResetPlayMode();	//Reset the game
-
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
 	Output* GetOutput() const; //Return pointer to the output

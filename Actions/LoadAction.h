@@ -2,14 +2,18 @@
 #define LOAD_H
 
 #include "Action.h"
+#include "..\Figures\CFigure.h"  
 
 class LoadAction: public Action
 {
 	string FileName;
+	CFigure* CurrentFigure; 
+	int ReadFigCount;
+	string ReadDrawColor, ReadFillColor, ReadType;
 public:
-	LoadAction(ApplicationManager* pApp);
+	LoadAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
-	//virtual void Execute();
+	virtual void Execute();
 
 };
 #endif

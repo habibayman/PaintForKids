@@ -1,10 +1,16 @@
 #include "CHexagon.h"
 #include <fstream>
+#include <string>
+using namespace std;
 
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
 	FigureNumber = 4;
+}
+
+CHexagon::CHexagon()
+{
 }
 
 void CHexagon::Draw(Output* pOut) const
@@ -103,3 +109,24 @@ bool CHexagon::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }
+void CHexagon::Load(ifstream& InFile)
+{
+	InFile >> ID; //Read the ID
+	InFile >> Center.x >> Center.y; //Read the center point
+	//set FigGfxInfo data
+	InFile >> ReadDrawColor;
+	FigGfxInfo.DrawClr = StringToColor(ReadDrawColor);
+	InFile >> ReadFillColor;
+	if (ReadFillColor.compare("NO_FILL"))
+	{
+		FigGfxInfo.isFilled = 1;
+		FigGfxInfo.FillClr = StringToColor(ReadFillColor);
+	}
+	else
+	{
+		FigGfxInfo.isFilled = 0;
+	}
+	FigGfxInfo.BorderWidth = UI.PenWidth;
+	Selected = false;
+}
+
