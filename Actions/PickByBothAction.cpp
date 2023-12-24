@@ -47,7 +47,7 @@ void PickByBothAction::Execute()
 			{
 				ctrTrue++;
 			}
-			pOut->PrintMessage("Number ofSelected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
+			pOut->PrintMessage("True picks : " + to_string(ctrTrue) + " vs. False picks :" + to_string(selected - ctrTrue));
 			pManager->UpdateInterface();
 		}
 
@@ -63,5 +63,5 @@ void PickByBothAction::Execute()
 		Execute();
 	}
 	else
-		pOut->PrintMessage("CONGRATS!!GAME FINISHED ! Number of Selected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
+		pOut->PrintMessage("CONGRATS!!GAME FINISHED ! Number of true picks : " + to_string(ctrTrue) + " vs. Number of false picks :" + to_string(selected - ctrTrue));
 }
