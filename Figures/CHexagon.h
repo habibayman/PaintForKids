@@ -14,6 +14,7 @@ public:
 	virtual void Move(Point P);
 	virtual bool IsValid();
 	void Save(ofstream& OutFile);
+	void Load(ifstream& InFile);
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
@@ -22,8 +23,6 @@ public:
 	virtual color GetFigureColor(); //Get figure color
 	virtual void HideFigure(bool);  //Hide\Unhide the figure
 	virtual bool FigisHidden(); //Know if figure is hidden or not
-	virtual void Save(ofstream& OutFile);
-	virtual void Load(ifstream& InFile);
 };
 
 

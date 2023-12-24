@@ -74,7 +74,7 @@ void CCircle::Save(ofstream& OutFile)
 	}
 	//Drawing color and fill color 
 }
-d CCircle::Load(ifstream& InFile)
+void CCircle::Load(ifstream& InFile)
 {
 	InFile >> ID; //Read the ID
 	InFile >> Center.x >> Center.y; //Read the center point

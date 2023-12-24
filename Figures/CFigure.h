@@ -3,6 +3,8 @@
 
 #include "..\defs.h"
 #include "..\GUI\Output.h"
+#include <fstream>
+using namespace std;
 
 //Base class for all figures
 class CFigure
