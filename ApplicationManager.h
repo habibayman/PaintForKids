@@ -73,6 +73,7 @@ public:
 	bool GetPlayingRecord() const;                      //returns playing recording state
 	void SetPlayingRecord(bool IsPlaying);              //sets playing recording state
 	void ClearRecordingList();                          //clears recording list of any old recordings
+	int GetMaxRecordingCount();
 };
 
 #endif

@@ -21,6 +21,10 @@ void DeleteAction::Execute()
 	//bool PlayingRecord = pManager->GetPlayingRecord();
 
 	ToBeDeleted = pManager->GetLastSelected();
+	
+	//trying something
+	ToBeDeleted->SetSelected(true);
+	/*pManager->UpdateInterface();*/
 
 	if (ToBeDeleted)
 	{

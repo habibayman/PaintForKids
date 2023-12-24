@@ -311,6 +311,11 @@ void ApplicationManager::ClearRecordingList()
 	RecordsCount = 0;
 }
 
+int ApplicationManager::GetMaxRecordingCount()
+{
+	return MaxRecordingCount;
+}
+
 bool ApplicationManager::GetPlayingRecord() const
 {
 	return PlayingRecord;
