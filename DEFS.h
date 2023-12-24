@@ -19,6 +19,7 @@ enum ActionType //The actions supported (you can add more if needed)
 	DRAW_CIRCLE,        //Draw circle
 
 	MOVE_FIGURE,
+	MOVE_BY_DRAGGING,
 	PLAY_RECORDING,
 	START_RECORDING,
 	STOP_RECORDING, //Switch interface to Draw mode

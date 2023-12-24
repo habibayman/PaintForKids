@@ -13,6 +13,8 @@
 #include"Actions/PickByShapeAction.h"
 #include"Actions/PickByColorAction.h"
 #include"Actions/PickByBothAction.h"
+#include "Actions\MoveByDragAction.h"\
+
 //Main class that manages everything in the application.
 class ApplicationManager
 {

@@ -29,6 +29,7 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_HEXA,
 	ITM_CIRCLE,
 	ITM_MOVE_FIGURE,
+	ITM_MOVE_BY_DRAGGING,
 	ITM_PLAY_RECORDING,
 	ITM_START_RECORDING,
 	ITM_STOP_RECORDING,

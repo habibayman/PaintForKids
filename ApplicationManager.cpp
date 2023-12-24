@@ -10,6 +10,7 @@
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SwitchToPlayAction.h"
 #include "Actions\MoveFigureAction.h"\
+#include "Actions\MoveByDragAction.h"\
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -62,6 +63,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case MOVE_FIGURE:
 		pAct = new MoveFigureAction(this);
+		break;
+	case MOVE_BY_DRAGGING:
+		pAct = new MoveByDragAction(this);
 		break;
 	case SAVE_FIGURE:
 		pAct = new SaveAction(this);

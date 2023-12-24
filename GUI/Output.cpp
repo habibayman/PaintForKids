@@ -108,6 +108,7 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_REDO] = "images\\MenuItems\\Menu_Redo.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_Save.jpg";
 	MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
+	MenuItemImages[ITM_MOVE_BY_DRAGGING] = "images\\MenuItems\\Menu_MoveByDrag.jpg";
 	MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
 	MenuItemImages[ITM_START_RECORDING] = "images\\MenuItems\\Menu_Start_Recording.jpg";
 	MenuItemImages[ITM_STOP_RECORDING] = "images\\MenuItems\\Menu_Stop_Recording.jpg";
@@ -373,6 +374,11 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected
 	pWind->SetBrush(CircleGfxInfo.FillClr);
 	pWind->DrawCircle(P1.x, P1.y, CircleGfxInfo.CircleRadius, style);
 
+}
+
+buttonstate Output::GetMouseState(const button btMouse, int& iX, int& iY)
+{
+	return pWind->GetButtonState(btMouse, iX, iY);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
