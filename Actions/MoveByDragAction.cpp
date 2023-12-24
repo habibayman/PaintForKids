@@ -35,7 +35,7 @@ void MoveByDragAction::Execute()
 		if (SelectedFig->Isbelonging(P))	//checks that point is inside the figure
 		{
 			//Loop to handle dragging action
-			while (pOut->GetMouseState(LEFT_BUTTON, P.x, P.y) == BUTTON_UP)
+			while (pIn->GetMouseState(LEFT_BUTTON, P.x, P.y) == BUTTON_UP)
 			{
 				pOut->ClearDrawArea();
 				SelectedFig->Move(P);

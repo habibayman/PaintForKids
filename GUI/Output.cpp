@@ -376,10 +376,7 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected
 
 }
 
-buttonstate Output::GetMouseState(const button btMouse, int& iX, int& iY)
-{
-	return pWind->GetButtonState(btMouse, iX, iY);
-}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 Output::~Output()

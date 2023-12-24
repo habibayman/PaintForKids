@@ -28,6 +28,7 @@ public:
 	
 	//shapes moving validation 
 
+	buttonstate GetMouseState(const button btMouse, int& iX, int& iY); //get mouse state
 
 
 	~Input();

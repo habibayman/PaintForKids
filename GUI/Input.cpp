@@ -252,6 +252,10 @@ void Input::Repeatability_Validation(Point& p1, Point& p2, Output* pO)
 		}
  //Makes sure that the picked points are not the same
 }
+buttonstate Input::GetMouseState(const button btMouse, int& iX, int& iY)
+{
+	return pWind->GetButtonState(btMouse, iX, iY);
+}
 Input::~Input()
 {
 }

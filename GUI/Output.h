@@ -35,7 +35,6 @@ public:
 	void DrawHexagon(Point P, GfxInfo HexaGfxInfo, bool selected) const; //Draw a hexagon 
     void DrawCircle(Point P1, Point P2,  GfxInfo Circle, bool selected) const; //Draw a circle 
 
-	buttonstate GetMouseState(const button btMouse, int& iX, int& iY); //get mouse state
 	~Output();
 };
 
