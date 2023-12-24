@@ -24,18 +24,6 @@ double CTriangle::CalculateTriArea(Point P1, Point P2, Point P3) const
 
 bool CTriangle::Isbelonging(Point P) const
 {
-	//calculate length of three sides
-
-	float l12 = sqrt(pow(Corner1.x - Corner2.x, 2) + pow(Corner1.y - Corner2.y, 2));
-	float l13 = sqrt(pow(Corner1.x - Corner3.x, 2) + pow(Corner1.y - Corner3.y, 2));
-	float l23 = sqrt(pow(Corner2.x - Corner3.x, 2) + pow(Corner2.y - Corner3.y, 2));
-
-	//calculate length between each vertex and the point
-
-	float P1P = sqrt(pow(Corner1.x - P.x, 2) + pow(Corner1.y - P.y, 2));
-	float P2P = sqrt(pow(Corner2.x - P.x, 2) + pow(Corner2.y - P.y, 2));
-	float P3P = sqrt(pow(Corner3.x - P.x, 2) + pow(Corner3.y - P.y, 2));
-
 	//Calculate the area of the total triangle and subtriangles
 	double TotalArea = CalculateTriArea(Corner1, Corner2, Corner3);
 	double A1 = CalculateTriArea(P, Corner1, Corner2);
@@ -43,18 +31,10 @@ bool CTriangle::Isbelonging(Point P) const
 	double A3 = CalculateTriArea(P, Corner2, Corner3);
 
 	// Check if the sum of the areas of the sub-triangles is equal to the total area
-	if (fabs((P1P + P2P) - l12) < 0.1 ||
-		fabs((P1P + P3P) - l13) < 0.1 ||
-		fabs((P2P + P3P) - l23) < 0.1)
+	if (TotalArea == (A1 + A2 + A3))
 	{
 		return true;
 	}
-
-	/*if (TotalArea == (A1 + A2 + A3))
-	{
-		// TODO: if figure is filled return true
-	}
-	*/
 	return false;
 }
 
@@ -64,8 +44,8 @@ void CTriangle::Move(Point P)
 	Center.x = (Corner1.x + Corner2.x + Corner3.x) / 3;
 	Center.y = (Corner1.y + Corner2.y + Corner3.y) / 3;
 
-	int deltaX = P.x - Center.x;
-	int deltaY = P.y - Center.y;
+	deltaX = P.x - Center.x;
+    deltaY = P.y - Center.y;
 
 	Corner1.x += deltaX;
 	Corner2.x += deltaX;
@@ -74,6 +54,18 @@ void CTriangle::Move(Point P)
 	Corner1.y += deltaY;
 	Corner2.y += deltaY;
 	Corner3.y += deltaY;
+}
+
+void CTriangle::UndoMove()
+{
+
+	Corner1.x -= deltaX;
+	Corner2.x -= deltaX;
+	Corner3.x -= deltaX;
+
+	Corner1.y -= deltaY;
+	Corner2.y -= deltaY;
+	Corner3.y -= deltaY;
 }
 
 bool CTriangle:: IsValid()
@@ -100,6 +92,13 @@ void CTriangle::Save(ofstream& OutFile)
 	//Drawing color and fill color 
 }
 
+void CTriangle::PrintInfo(Output* pOut)
+{
+	string info = "ID: " + to_string(ID) + ", Coordinates (" + to_string(Corner1.x) + ", " + to_string(Corner1.y) + "), ("
+		+ to_string(Corner2.x) + ", " + to_string(Corner2.y) + "), (" + to_string(Corner3.x) + ", " + to_string(Corner3.y) + ")";
+	pOut->PrintMessage(info);
+}
+
 
 //==================================================================================//
 //							PlayMode Management Functions							//
@@ -121,6 +120,10 @@ int CTriangle::GetFigureNumber()	//Get figure number
 color CTriangle::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
+}
+color CTriangle::GetDrawColor()
+{
+	return FigGfxInfo.DrawClr;
 }
 void CTriangle::HideFigure(bool b) //Hide\Unhide the figure
 {
