@@ -5,7 +5,6 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 {
 	Corner1 = P1;
 	Corner2 = P2;
-	ID++;
 	FigureNumber = 1;
 }
 
@@ -63,6 +62,11 @@ bool CRectangle::IsValid()
 {
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight);
+}
+
+void CRectangle::SetID(int id)
+{
+	ID = id;
 }
 
 void CRectangle::Save(ofstream& OutFile)

@@ -21,6 +21,7 @@ protected:
 	int FigureNumber;
 public:
 	CFigure(GfxInfo FigureGfxInfo);
+	virtual void SetID(int)=0;	//set fig ID
 
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected

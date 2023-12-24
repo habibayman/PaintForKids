@@ -109,7 +109,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if (FigCount < MaxFigCount)
+	{
 		FigList[FigCount++] = pFig;
+		FigList[FigCount - 1]->SetID(FigCount);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

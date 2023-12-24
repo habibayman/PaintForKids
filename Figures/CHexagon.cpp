@@ -4,7 +4,6 @@
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ID++;
 	FigureNumber = 4;
 }
 
@@ -49,6 +48,11 @@ bool CHexagon::IsValid()
 		UI.height - Center.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy ||
 		Center.x < UI.wx + UI.HEXAGON_LENGTH ||
 		UI.width - Center.x < UI.HEXAGON_LENGTH + 3 * UI.wx);
+}
+
+void CHexagon::SetID(int id)
+{
+	ID = id;
 }
 
 void CHexagon::Save(ofstream& OutFile)

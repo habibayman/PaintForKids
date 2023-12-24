@@ -15,6 +15,7 @@ public:
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
 	virtual bool IsValid();
+	virtual void SetID(int);
 	void Save(ofstream& OutFile);
 //==================================================================================//
 //							PlayMode Management Functions							//

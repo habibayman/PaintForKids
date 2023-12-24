@@ -5,7 +5,6 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 {
 	Center = P1;
 	CirclePoint = P2;
-	ID++;
 	FigureNumber = 5;
 
 	
@@ -52,6 +51,11 @@ bool CCircle::IsValid()
 		abs(Center.x - UI.width) < CircleRadius ||
 		abs(Center.y - (UI.ToolBarHeight)) < CircleRadius ||
 		abs(Center.y - ((UI.height) - UI.StatusBarHeight)) < CircleRadius);
+}
+
+void CCircle::SetID(int id)
+{
+	ID = id;
 }
 
 void CCircle::Save(ofstream& OutFile)

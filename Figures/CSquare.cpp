@@ -4,7 +4,6 @@
 CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ID++;
 	FigureNumber = 2;
 }
 
@@ -45,6 +44,11 @@ bool CSquare::IsValid()
 		Center.y > UI.height - (UI.wy + UI.StatusBarHeight + UI.SQUARE_LENGTH / 2) ||
 		Center.x < (UI.wx + UI.SQUARE_LENGTH / 2) ||
 		Center.x > UI.width - UI.SQUARE_LENGTH / 2 - (3 * UI.wx));
+}
+
+void CSquare::SetID(int id)
+{
+	ID = id;
 }
 
 void CSquare::Save(ofstream& OutFile)

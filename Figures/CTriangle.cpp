@@ -6,7 +6,6 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 	Corner1 = P1;
 	Corner2 = P2;
 	Corner3 = P3;
-	ID++;
 	FigureNumber = 3;
 
 }
@@ -81,6 +80,11 @@ bool CTriangle:: IsValid()
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight ||
 		Corner3.y < UI.ToolBarHeight || Corner3.y > UI.height - UI.StatusBarHeight);
+}
+
+void CTriangle::SetID(int id)
+{
+	ID = id;
 }
 
 void CTriangle::Save(ofstream& OutFile)
