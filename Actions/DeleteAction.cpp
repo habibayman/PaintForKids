@@ -9,7 +9,7 @@ DeleteAction::DeleteAction(ApplicationManager* pApp): Action(pApp)
 
 void DeleteAction::ReadActionParameters() 
 {
-	ToBeDeleted = pManager->GetLastSelected();
+	
 }
 
 void DeleteAction::Execute()
@@ -18,9 +18,9 @@ void DeleteAction::Execute()
 	Output* pOut = pManager->GetOutput(); 
 	
 	//if the recording isn't playing, read the action parameters first
-	bool PlayingRecord = pManager->GetPlayingRecord();
+	//bool PlayingRecord = pManager->GetPlayingRecord();
 
-	ReadActionParameters();
+	ToBeDeleted = pManager->GetLastSelected();
 
 	if (ToBeDeleted)
 	{

@@ -21,7 +21,15 @@ void ClearAction::ReadActionParameters()
 
 void ClearAction::Execute()
 {
-	ReadActionParameters(); 
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+
+	if (!PlayingRecord)
+	{
+		ReadActionParameters();
+	}
+
+
 	if (checker == "y" || checker == "Y")
 	{
 		Output* pOut = pManager->GetOutput();
@@ -29,4 +37,11 @@ void ClearAction::Execute()
 		pManager->ClearAll();
 		pOut->PrintMessage("All cleared!");
 	}
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
+
 }

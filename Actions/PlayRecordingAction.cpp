@@ -35,7 +35,7 @@ void PlayRecordingAction::Execute()
 		pOut->ClearDrawArea();
 
 		//trying something
-		//pManager->SetLastSelected(NULL);
+		pManager->SetLastSelected(NULL);
 
 		for (int i = 0; i < pManager->GetRecordsCount(); i++)
 		{

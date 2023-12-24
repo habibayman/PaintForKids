@@ -35,43 +35,64 @@ void SelectFigureAction::Execute()
 	if (!PlayingRecord)
 		ReadActionParameters();
 
-	if (pManager->GetFigure(P1))
-	{
-		if (pManager->GetLastSelected())  //If there is a figure selected return true
-		{
-			if (pManager->GetLastSelected() == pManager->GetFigure(P1)) //if the last figure selected is the figure that I want to select, unselect it
-			{
-				pManager->GetFigure(P1)->SetSelected(false);
-				pManager->SetLastSelected(NULL);
-			}
-			else                                                     // else if the last figure selected is not the figure I want to select
-			{
-				pManager->GetLastSelected()->SetSelected(false);     //unselect the figure that is selected
-				pManager->GetFigure(P1)->SetSelected(true);          //select the figure that I want to select
-				pManager->SetLastSelected(pManager->GetFigure(P1));  //set it as the last selected figure
-				//pManager->GetFigure(P1)->PrintInfo(pOut);            // print info of the selected figure
-			}
-		}
-		else                                                        //if no figure is being already selected
-		{
-			pManager->GetFigure(P1)->SetSelected(true);             //select the figure I want to select
-			pManager->SetLastSelected(pManager->GetFigure(P1));     //set it as the last selected figure
-			//pManager->GetFigure(P1)->PrintInfo(pOut);               // print info of the selected figure
-		}
+	 CFigure* newSelected = pManager->GetFigure(P1);
+	 CFigure* selected = pManager->GetLastSelected();
 
-	}
-	else
-	{
-		if (pManager->GetLastSelected() != NULL)
-		{
-			pManager->GetLastSelected()->SetSelected(false);
-			pManager->SetLastSelected(NULL);
-		}
-	}
+	 if(!newSelected)
+	 {
+	 	if(!selected)
+	 		return;
 
-	//if the action is being recorded, add it to the RecordingLis
+	 	selected->SetSelected(false);
+	 	selected = nullptr; 
+	 	return;
+	 }
+
+	 newSelected->SetSelected(true);
+	 pManager->SetLastSelected(newSelected);
+
+	 if(selected)
+	 {
+	 	selected->SetSelected(false);
+	 }
+
+	//if the action is being recorded, add it to the RecordingList
 	if (Recording())
 	{
 		pManager->AddRecordedAction(this);
 	}
+
+	//if (pManager->GetFigure(P1))
+	//{
+	//	if (pManager->GetLastSelected())  //If there is a figure selected return true
+	//	{
+	//		if (pManager->GetLastSelected() == pManager->GetFigure(P1)) //if the last figure selected is the figure that I want to select, unselect it
+	//		{
+	//			pManager->GetFigure(P1)->SetSelected(false);
+	//			pManager->SetLastSelected(NULL);
+	//		}
+	//		else                                                     // else if the last figure selected is not the figure I want to select
+	//		{
+	//			pManager->GetLastSelected()->SetSelected(false);     //unselect the figure that is selected
+	//			pManager->GetFigure(P1)->SetSelected(true);          //select the figure that I want to select
+	//			pManager->SetLastSelected(pManager->GetFigure(P1));  //set it as the last selected figure
+	//			//pManager->GetFigure(P1)->PrintInfo(pOut);            // print info of the selected figure
+	//		}
+	//	}
+	//	else                                                        //if no figure is being already selected
+	//	{
+	//		pManager->GetFigure(P1)->SetSelected(true);             //select the figure I want to select
+	//		pManager->SetLastSelected(pManager->GetFigure(P1));     //set it as the last selected figure
+	//		//pManager->GetFigure(P1)->PrintInfo(pOut);               // print info of the selected figure
+	//	}
+
+	//}
+	//else
+	//{
+	//	if (pManager->GetLastSelected() != NULL)
+	//	{
+	//		pManager->GetLastSelected()->SetSelected(false);
+	//		pManager->SetLastSelected(NULL);
+	//	}
+	//}
 }
