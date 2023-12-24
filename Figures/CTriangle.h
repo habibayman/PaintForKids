@@ -10,9 +10,11 @@ private:
 	Point TempDelta[5];
 	int deltaX;
 	int deltaY;
+	string ReadDrawColor, ReadFillColor;
 
 public:
 	CTriangle(Point, Point, Point, GfxInfo FigureGfxInfo);
+	CTriangle(); 
 	virtual void Draw(Output* pOut) const;
 	double CalculateTriArea(Point P1, Point P2, Point P3) const;
 	virtual bool Isbelonging(Point P) const;
@@ -22,6 +24,7 @@ public:
 	void Save(ofstream& OutFile);
 	void PrintInfo(Output* pOut);
 
+	void Load(ifstream& InFile); 
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

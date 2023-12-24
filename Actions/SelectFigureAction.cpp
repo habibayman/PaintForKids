@@ -6,8 +6,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-SelectFigureAction::SelectFigureAction(ApplicationManager* pApp) :Action(pApp)
-{}
+SelectFigureAction::SelectFigureAction(ApplicationManager* pApp, bool muted) :Action(pApp)
+{
+if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void SelectFigureAction::ReadActionParameters()
 {

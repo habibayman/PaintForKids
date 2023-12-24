@@ -11,8 +11,10 @@ private:
 	Point TempDelta[5];
 	int deltaX;
 	int deltaY;
+	string ReadDrawColor, ReadFillColor;
 public:
 	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
+	CRectangle();
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
@@ -21,6 +23,9 @@ public:
 	void Save(ofstream& OutFile);
 	void PrintInfo(Output* pOut);
 
+	void Load(ifstream& InFile);
+	
+	//virtual void PrintInfo(Output* pOut);
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

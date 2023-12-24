@@ -6,13 +6,18 @@
 #include "Actions\AddCircleAction.h"
 #include "Actions\ClearAction.h" 
 #include "Actions\DeleteAction.h" 
+#include "Actions\LoadAction.h"
 #include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
+#include "Actions\SoundModeAction.h"  
 #include "Actions\SwitchToPlayAction.h"
 #include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
+#include "Actions\MoveFigureAction.h"
+#include <Windows.h>
+#include "MMSystem.h"
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -30,6 +35,9 @@ ApplicationManager::ApplicationManager()
 		FigList[i] = NULL;
 	for (int i = 0; i < 5; i++)
 		Undoarr[i] = NULL;
+
+	//Sound is played by default
+	muted = false;
 }
 
 //==================================================================================//
@@ -50,43 +58,49 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 	case DRAW_RECT:
-		pAct = new AddRectAction(this);
+		pAct = new AddRectAction(this, muted);
 		break;
 	case DRAW_SQUARE:
-		pAct = new AddSquareAction(this);
+		pAct = new AddSquareAction(this, muted);
 		break;
 	case DRAW_HEXA:
-		pAct = new AddHexaAction(this);
+		pAct = new AddHexaAction(this, muted);
 		break;
 	case DRAW_TRIANGLE:
-		pAct = new AddTriAction(this);
+		pAct = new AddTriAction(this,muted); 
 		break;
 	case DRAW_CIRCLE:
-		pAct = new AddCircleAction(this);
+		pAct = new AddCircleAction(this, muted); 
 		break;
 	case SELECT_FIGURE:
-		pAct = new SelectFigureAction(this);
+		pAct = new SelectFigureAction(this, muted); 
 		break;
 	case MOVE_FIGURE:
-		pAct = new MoveFigureAction(this);
+		pAct = new MoveFigureAction(this, muted);
 		break;
 	case SAVE_FIGURE:
-		pAct = new SaveAction(this);
+		pAct = new SaveAction(this, muted);
+		break;
+	case TO_LOAD:
+		pAct = new LoadAction(this, muted);
 		break;
 	case TO_PLAY:
-		pAct = new SwitchToPlayAction(this);
+		pAct = new SwitchToPlayAction(this, muted);
 		break;
 	case TO_CLEAR:
-		pAct = new ClearAction(this); 
+		pAct = new ClearAction(this, muted); 
 		break;
 	case TO_DELETE:
-		pAct = new DeleteAction(this);
+		pAct = new DeleteAction(this, muted);
 		break;
 	case TO_PICK_BY_SHAPE:
 		pAct = new PickByShapeAction(this);
 		break;
 	case TO_PICK_BY_COLOR:
 		pAct = new PickByColorAction(this);
+		break;
+	case SOUND_MODE:
+		pAct = new SoundModeAction(this, &muted);
 		break;
 	case TO_PICK_BY_BOTH:
 		pAct = new PickByBothAction(this);
@@ -118,7 +132,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 }
 //==================================================================================//
-//						Figures Management Functions								//
+//						Figures Management Functions						   //
 //==================================================================================//
 
 //Add a figure to the list of figures

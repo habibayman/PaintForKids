@@ -7,7 +7,7 @@ class SaveAction: public Action
 {
 	string FileName;
 public:
-	SaveAction(ApplicationManager* pApp);
+	SaveAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	void Undo();

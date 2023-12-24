@@ -24,11 +24,11 @@ enum ActionType //The actions supported (you can add more if needed)
 	STOP_RECORDING, //Switch interface to Draw mode
 	TO_LOAD,
 
-	FILL_COLOR,
 	DRAW_COLOR,
-	TO_COLOR,
+	FILL_COLOR,
 	TO_CLEAR,
 	TO_DELETE,
+	SOUND_MODE,
 
 	EXIT,			//Exit		
 	EMPTY,			//A click on empty place in the toolbar

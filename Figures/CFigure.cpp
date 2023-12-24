@@ -6,15 +6,15 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	Selected = false;
 	FigGfxInfo.BorderWidth = UI.PenWidth;
 	LastDrawColor = BLUE;
-	LastFillColor = WHITE;
-	ID = 0;
-	MoveCount = 0;
 }
 
 void CFigure::SetSelected(bool s)
 {
 	Selected = s;
 }
+
+CFigure::CFigure()
+{}
 
 bool CFigure::IsSelected() const
 {

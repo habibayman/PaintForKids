@@ -5,8 +5,12 @@
 
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
+AddSquareAction::AddSquareAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\SquareSound"), NULL, SND_SYNC);
+	}
 }
 
 void AddSquareAction::ReadActionParameters()

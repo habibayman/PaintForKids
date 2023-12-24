@@ -7,7 +7,7 @@ private:
 	Point P1; //Square Center
 	GfxInfo SquareGfxInfo;
 public:
-	AddSquareAction(ApplicationManager* pApp);
+	AddSquareAction(ApplicationManager* pApp, bool muted);
 
 	//Reads square parameters
 	virtual void ReadActionParameters();

@@ -73,8 +73,8 @@ ActionType Input::GetUserAction() const
 			case ITM_LOAD: return TO_LOAD;
 			case ITM_FILL_COLOR: return FILL_COLOR;
 			case ITM_DRAW_COLOR: return DRAW_COLOR;
-			case ITM_COLORS: return TO_COLOR;
 			case ITM_CLEAR: return TO_CLEAR;
+			case ITM_SOUND: return SOUND_MODE;
 			case ITM_DELETE: return TO_DELETE;
 			case ITM_EXIT: return EXIT;
 

@@ -4,8 +4,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-DeleteAction::DeleteAction(ApplicationManager* pApp): Action(pApp)
-{}
+DeleteAction::DeleteAction(ApplicationManager* pApp, bool muted): Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void DeleteAction::ReadActionParameters() 
 {

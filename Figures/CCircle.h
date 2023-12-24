@@ -9,8 +9,10 @@ private:
     Point TempDelta[5];
     int deltaX;
     int deltaY;
+    string ReadDrawColor, ReadFillColor;
 public:
     CCircle(Point, Point, GfxInfo FigureGfxInfo);
+    CCircle();
     virtual void Draw(Output* pOut) const;
     virtual bool Isbelonging(Point P) const;
     virtual void Move(Point P);
@@ -19,6 +21,7 @@ public:
     void Save(ofstream& OutFile);
     void PrintInfo(Output* pOut);
  
+    void Load(ifstream& InFile);
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

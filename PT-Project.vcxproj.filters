@@ -204,6 +204,7 @@
     <ClCompile Include="Actions\ChangeDrawClrAction.cpp" />
     <ClCompile Include="Actions\ChangeFillClrAction.cpp" />
     <ClCompile Include="Actions\UndoAction.cpp" />
+    <ClCompile Include="Actions\SoundModeAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -347,6 +348,7 @@
     <ClInclude Include="Actions\ChangeDrawClrAction.h" />
     <ClInclude Include="Actions\ChangeFillClrAction.h" />
     <ClInclude Include="Actions\UndoAction.h" />
+    <ClInclude Include="Actions\SoundModeAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

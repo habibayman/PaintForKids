@@ -7,7 +7,7 @@ private:
 	Point P1, P2, P3; //Triangle points
 	GfxInfo TriGfxInfo;
 public:
-	AddTriAction(ApplicationManager* pApp);
+	AddTriAction(ApplicationManager* pApp, bool muted);
 
 	//Reads triangle parameters
 	virtual void ReadActionParameters();

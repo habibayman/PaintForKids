@@ -5,8 +5,12 @@
 
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-AddHexaAction::AddHexaAction(ApplicationManager* pApp) : Action(pApp)
+AddHexaAction::AddHexaAction(ApplicationManager* pApp, bool muted) : Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\HexagonSound"), NULL, SND_SYNC);
+	}
 }
 
 void AddHexaAction::ReadActionParameters()

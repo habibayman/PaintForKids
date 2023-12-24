@@ -13,6 +13,9 @@ CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 	}
 }
 
+CSquare::CSquare()
+{}
+
 void CSquare::Draw(Output* pOut) const
 {
 	pOut->DrawSquare(Center, FigGfxInfo, Selected);
@@ -111,3 +114,24 @@ bool CSquare::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }
+void CSquare::Load(ifstream& InFile) 
+{
+	InFile >> ID; //Read the ID
+	InFile >> Center.x >> Center.y; //Read the center point
+	//set FigGfxInfo data
+	InFile >> ReadDrawColor;
+	FigGfxInfo.DrawClr = StringToColor(ReadDrawColor);
+	InFile >> ReadFillColor;
+	if (ReadFillColor.compare("NO_FILL"))
+	{
+		FigGfxInfo.isFilled = 1;
+		FigGfxInfo.FillClr = StringToColor(ReadFillColor);
+	}
+	else
+	{
+		FigGfxInfo.isFilled = 0;
+	}
+	FigGfxInfo.BorderWidth = UI.PenWidth;
+	Selected = false;
+}
+

@@ -4,7 +4,7 @@ class SwitchToPlayAction :
 	public Action
 {
 public:
-	SwitchToPlayAction(ApplicationManager* pApp);
+	SwitchToPlayAction(ApplicationManager* pApp, bool muted);
 
 	//Read 
 	virtual void ReadActionParameters();

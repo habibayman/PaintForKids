@@ -23,8 +23,11 @@ public:
 	void ClearToolbar() const; //clears the draw mode's tool bar
 	void PrintMessage(string msg) const;	//Print a message on Status bar
 	color getCrntDrawColor() const;	//get current drawing color
+	void setCrntDrawColor(color newcolor); //sets the Draw color
 	color getCrntFillColor() const;	//get current filling color
+	void setCrntFillColor(color newcolor); //sets the Fill color
 	int getCrntPenWidth() const; //get current pen width
+	void SetFilled(); //fill/unfill the figure
 	
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const; //Draw a rectangle

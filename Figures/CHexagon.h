@@ -6,8 +6,10 @@ class CHexagon :
 private:
 	Point Center;
     Point TempCenter[5];  //to store the center before moving the figure && 5 is the max number of actions to undo
+	string ReadDrawColor, ReadFillColor;
 public:
 	CHexagon(Point, GfxInfo FigureGfxInfo);
+	CHexagon();
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
@@ -16,6 +18,7 @@ public:
 	void Save(ofstream& OutFile);
 	void PrintInfo(Output* pOut);
 
+	void Load(ifstream& InFile);
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

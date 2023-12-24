@@ -65,8 +65,6 @@ void ChangeDrawClrAction::Execute()
 				UI.DrawColor = BLACK;
 				break;
 			}
-	//	pManager->GetLastSelected()->SetSelected(false);
-	//	pManager->SetLastSelected(NULL);
 		pOut->ClearColorPalette();
 		pManager->AddtoUndo(this);
 	}

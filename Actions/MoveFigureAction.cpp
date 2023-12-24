@@ -4,8 +4,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-MoveFigureAction::MoveFigureAction(ApplicationManager* pApp) : Action(pApp)
-{}
+MoveFigureAction::MoveFigureAction(ApplicationManager* pApp, bool muted) : Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void MoveFigureAction::ReadActionParameters()
 {

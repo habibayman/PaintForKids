@@ -33,6 +33,7 @@ private:
 	//Pointers to Input and Output classes
 	Input* pIn;
 	Output* pOut;
+	bool muted;
 
 public:
 	ApplicationManager();
@@ -56,13 +57,13 @@ public:
 	void AddtoUndo(Action* action);
 	void RemovefromUndo();
 	Action* GetLastActiontoUndo();
+void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
 
 	// -- PlayMode Management Functions
 	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same
 	CFigure* RandomColor(int& TotalFig);	//choose a random color to start the same
 	CFigure* RandomColoredFigure(int& TotalFig);	//choose a random  colored figure to start the same
 	void ResetPlayMode();	//Reset the game
-
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
 	Output* GetOutput() const; //Return pointer to the output

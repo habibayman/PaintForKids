@@ -1,5 +1,7 @@
 #include "CHexagon.h"
 #include <fstream>
+#include <string>
+using namespace std;
 
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
@@ -13,6 +15,10 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 	}
 }
 
+CHexagon::CHexagon()
+{
+}
+
 void CHexagon::Draw(Output* pOut) const
 {
 	pOut->DrawHexagon(Center, FigGfxInfo, Selected);
@@ -21,28 +27,16 @@ void CHexagon::Draw(Output* pOut) const
 
 bool CHexagon::Isbelonging(Point P) const
 {
-	/*
-	1- distance from center to any point on the border = dist1 = (sqrt(3) * r) / (sqrt(3) * cos(t) + sin(t))
-	2- distance from center to any point = dist2 = sqrt(pow(Center.x - P.x, 2) + pow(Center.y - P.y, 2))
-	3- dist1 and dist2 have the same slope, so if dist2 <= dist1, the point belongs to the hexagon
-	r = length && t = atan(slope of the line from center to any point on the border)
-	*/
-	
-	double slope = (P.y - Center.y) / (double)(P.x - Center.x);
-	double dist1 = (sqrt(3) * UI.HEXAGON_LENGTH) / ((sqrt(3) * cos(atan(slope))) + sin(atan(slope)));
-	double dist2 = sqrt(pow(Center.x - P.x, 2) + pow(Center.y - P.y, 2));
-
-	if (dist2 <= dist1)
-	{
-		return true;
-	}
-	return false;
-
-	/*
 	Point q2;
 	q2.x = abs(P.x - Center.x);  //transform the point to quadrant 2
 	q2.y = abs(P.y - Center.y);
-	*/
+	
+	float horizontal = UI.HEXAGON_LENGTH * cos(atan(1) / 3.0);
+	float vertical = UI.HEXAGON_LENGTH / 2;
+
+	if (q2.x > horizontal || q2.y > vertical * 2)
+		return false;
+		return true;
 	
 }
 
@@ -127,3 +121,24 @@ bool CHexagon::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }
+void CHexagon::Load(ifstream& InFile)
+{
+	InFile >> ID; //Read the ID
+	InFile >> Center.x >> Center.y; //Read the center point
+	//set FigGfxInfo data
+	InFile >> ReadDrawColor;
+	FigGfxInfo.DrawClr = StringToColor(ReadDrawColor);
+	InFile >> ReadFillColor;
+	if (ReadFillColor.compare("NO_FILL"))
+	{
+		FigGfxInfo.isFilled = 1;
+		FigGfxInfo.FillClr = StringToColor(ReadFillColor);
+	}
+	else
+	{
+		FigGfxInfo.isFilled = 0;
+	}
+	FigGfxInfo.BorderWidth = UI.PenWidth;
+	Selected = false;
+}
+
