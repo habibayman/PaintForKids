@@ -8,21 +8,26 @@ class CRectangle : public CFigure
 private:
 	Point Corner1;
 	Point Corner2;
+	Point TempDelta[5];
+	int deltaX;
+	int deltaY;
 public:
 	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	virtual bool Isbelonging(Point P) const;
 	virtual void Move(Point P);
+	void UndoMove();
 	virtual bool IsValid();
 	void Save(ofstream& OutFile);
-	
-	//virtual void PrintInfo(Output* pOut);
+	void PrintInfo(Output* pOut);
+
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
 	virtual void StartGame(Output*, int);	//Print message to start the game
 	virtual int GetFigureNumber();  //Get figure number
 	virtual color GetFigureColor(); //Get figure color
+	virtual color GetDrawColor();   //Get draw color
 	virtual void HideFigure(bool);  //Hide\Unhide the figure
 	virtual bool FigisHidden(); //Know if figure is hidden or not
 };

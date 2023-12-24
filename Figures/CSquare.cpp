@@ -6,12 +6,18 @@ CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 	Center = P1;
 	ID++;
 	FigureNumber = 2;
+	for (int i = 0; i < 5; i++)
+	{
+		TempCenter[i].x = 0;
+		TempCenter[i].y = 0;
+	}
 }
 
 void CSquare::Draw(Output* pOut) const
 {
 	pOut->DrawSquare(Center, FigGfxInfo, Selected);
 }
+
 
 bool CSquare::Isbelonging(Point P) const
 {
@@ -20,22 +26,21 @@ bool CSquare::Isbelonging(Point P) const
 		P.y >= Center.y - UI.SQUARE_LENGTH / 2 &&
 		P.y <= Center.y + UI.SQUARE_LENGTH / 2)
 	{
-		if (P.x <= Center.x - UI.SQUARE_LENGTH / 2 + FigGfxInfo.BorderWidth ||
-			P.x >= Center.x + UI.SQUARE_LENGTH / 2 - FigGfxInfo.BorderWidth ||
-			P.y <= Center.y - UI.SQUARE_LENGTH / 2 + FigGfxInfo.BorderWidth ||
-			P.y >= Center.y + UI.SQUARE_LENGTH / 2 - FigGfxInfo.BorderWidth)
-		{
-			return true;
-		}
-		//TODO: if figure is filled return true
-		return false;
+		return true;
 	}
 	return false;
 }
 
 void CSquare::Move(Point P)
 {
+	TempCenter[MoveCount++] = Center;
 	Center = P;
+}
+
+void CSquare::UndoMove()
+{
+	Center = TempCenter[MoveCount - 1];
+	MoveCount--;
 }
 
 bool CSquare::IsValid()
@@ -64,6 +69,14 @@ void CSquare::Save(ofstream& OutFile)
 	//Drawing color and fill color 
 }
 
+void CSquare::PrintInfo(Output* pOut)
+{
+	string info = "ID: " + to_string(ID) + ", Center (" + to_string(Center.x) + ", " + to_string(Center.y) + "), " +
+		"Length: " + to_string((int)UI.SQUARE_LENGTH);
+	pOut->PrintMessage(info);
+}
+
+
 
 //==================================================================================//
 //							PlayMode Management Functions							//
@@ -84,6 +97,10 @@ int CSquare::GetFigureNumber()	//Get figure number
 color CSquare::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
+}
+color CSquare::GetDrawColor()
+{
+	return FigGfxInfo.DrawClr;
 }
 void CSquare::HideFigure(bool b) //Hide\Unhide the figure
 {

@@ -10,6 +10,7 @@ public:
 	LoadAction(ApplicationManager* pApp);
 	virtual void ReadActionParameters();
 	//virtual void Execute();
+	void Undo();
 
 };
 #endif

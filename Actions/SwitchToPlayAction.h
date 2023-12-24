@@ -12,4 +12,6 @@ public:
 	//Add SwitchToPLayAction to ApplicationManager
 	virtual void Execute();
 
+	void Undo();
+
 };

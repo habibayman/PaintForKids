@@ -199,6 +199,11 @@
     <ClCompile Include="Figures\CTriangle.cpp">
       <Filter>Figures Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\PickByColorAction.cpp" />
+    <ClCompile Include="Actions\PickByBothAction.cpp" />
+    <ClCompile Include="Actions\ChangeDrawClrAction.cpp" />
+    <ClCompile Include="Actions\ChangeFillClrAction.cpp" />
+    <ClCompile Include="Actions\UndoAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -337,6 +342,11 @@
     <ClInclude Include="Figures\CTriangle.h">
       <Filter>Figures Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\PickByColorAction.h" />
+    <ClInclude Include="Actions\PickByBothAction.h" />
+    <ClInclude Include="Actions\ChangeDrawClrAction.h" />
+    <ClInclude Include="Actions\ChangeFillClrAction.h" />
+    <ClInclude Include="Actions\UndoAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -8,7 +8,12 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 	Corner3 = P3;
 	ID++;
 	FigureNumber = 3;
-
+	deltaX = deltaY = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		TempDelta[i].x = deltaX;
+		TempDelta[i].y = deltaY;
+	}
 }
 
 void CTriangle::Draw(Output* pOut) const
@@ -47,6 +52,10 @@ void CTriangle::Move(Point P)
 	deltaX = P.x - Center.x;
     deltaY = P.y - Center.y;
 
+	//store delta to undo
+	TempDelta[MoveCount].x = deltaX;
+	TempDelta[MoveCount++].y = deltaY;
+
 	Corner1.x += deltaX;
 	Corner2.x += deltaX;
 	Corner3.x += deltaX;
@@ -58,6 +67,9 @@ void CTriangle::Move(Point P)
 
 void CTriangle::UndoMove()
 {
+	deltaX = TempDelta[MoveCount - 1].x;
+	deltaY = TempDelta[MoveCount - 1].y;
+	MoveCount--;
 
 	Corner1.x -= deltaX;
 	Corner2.x -= deltaX;

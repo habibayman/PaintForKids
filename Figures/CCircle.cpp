@@ -7,8 +7,12 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 	CirclePoint = P2;
 	ID++;
 	FigureNumber = 5;
-
-	
+	deltaX = deltaY = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		TempDelta[i].x = deltaX;
+		TempDelta[i].y = deltaY;
+	}
 }
 
 void CCircle::Draw(Output* pOut) const
@@ -16,32 +20,46 @@ void CCircle::Draw(Output* pOut) const
 	pOut->DrawCircle(Center, CirclePoint, FigGfxInfo, Selected);
 }
 
+
 bool CCircle::Isbelonging(Point P) const
 {
 	double CircleRadius = sqrt(pow(Center.x - CirclePoint.x, 2) + pow(Center.y - CirclePoint.y, 2));  // radius of the circle 
 	double r = sqrt(pow(Center.x - P.x, 2) + pow(Center.y - P.y, 2));  // radius at the point
+
 	//if the radius at the point <= the radius of the circle then the point belongs to the circle
 	if (r <= CircleRadius)
 	{
-		if (r >= CircleRadius - FigGfxInfo.BorderWidth)
-		{
-			return true;
-		}
-		//TODO: if circle is filled return true
-		return false;
+		return true;
 	}
 	return false;
 }
 
 void CCircle::Move(Point P)
 {
-	int deltaX = P.x - Center.x;
-	int deltaY = P.y - Center.y;
+    deltaX = P.x - Center.x;
+	deltaY = P.y - Center.y;
+
+	//store delta to undo
+	TempDelta[MoveCount].x = deltaX;
+	TempDelta[MoveCount++].y = deltaY;
 
 	Center = P;
 
 	CirclePoint.x += deltaX;
 	CirclePoint.y += deltaY;
+}
+
+void CCircle::UndoMove()
+{
+	deltaX = TempDelta[MoveCount - 1].x;
+	deltaY = TempDelta[MoveCount - 1].y;
+	MoveCount--;
+
+	Center.x -= deltaX;
+	Center.y -= deltaY;
+
+	CirclePoint.x -= deltaX;
+	CirclePoint.y -= deltaY;
 }
 
 bool CCircle::IsValid()
@@ -71,6 +89,14 @@ void CCircle::Save(ofstream& OutFile)
 	//Drawing color and fill color 
 }
 
+void CCircle::PrintInfo(Output* pOut)
+{
+	string info = "ID: " + to_string(ID) + ", Center (" + to_string(Center.x) + ", " + to_string(Center.y) + "), " +
+		"Radius: " + to_string(sqrt(pow(Center.x - CirclePoint.x, 2) + pow(Center.y - CirclePoint.y, 2)));
+	pOut->PrintMessage(info);
+}
+
+
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
@@ -90,6 +116,10 @@ int CCircle::GetFigureNumber()	//Get figure number
 color CCircle::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
+}
+color CCircle::GetDrawColor()
+{
+	return FigGfxInfo.DrawClr;
 }
 void CCircle::HideFigure(bool b) //Hide\Unhide the figure
 {

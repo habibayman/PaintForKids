@@ -36,3 +36,7 @@ void SaveAction::Execute()
 	OutFile.close();
 	pOut->PrintMessage("File saved successfully!");
 }
+
+void SaveAction::Undo()
+{
+}

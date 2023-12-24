@@ -39,6 +39,16 @@ void AddHexaAction::Execute()
 	//Create a square with the parameters read from the user
 	CHexagon* H = new CHexagon(P1, HexaGfxInfo);
 
+	//Add the action to Undo list
+	pManager->AddtoUndo(this);
+
 	//Add the square to the list of figures
 	pManager->AddFigure(H);
+}
+
+
+void AddHexaAction::Undo()
+{
+	pManager->DeleteLastFigure();
+	pManager->RemovefromUndo();
 }

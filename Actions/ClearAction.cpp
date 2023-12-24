@@ -30,3 +30,8 @@ void ClearAction::Execute()
 		pOut->PrintMessage("All cleared!");
 	}
 }
+
+void ClearAction::Undo()
+{
+}
+

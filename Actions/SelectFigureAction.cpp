@@ -45,14 +45,14 @@ void SelectFigureAction::Execute()
 				pManager->GetLastSelected()->SetSelected(false);     //unselect the figure that is selected
 				pManager->GetFigure(P1)->SetSelected(true);          //select the figure that I want to select
 				pManager->SetLastSelected(pManager->GetFigure(P1));  //set it as the last selected figure
-				//pManager->GetFigure(P1)->PrintInfo(pOut);            // print info of the selected figure
+				pManager->GetFigure(P1)->PrintInfo(pOut);            // print info of the selected figure
 			}
 		}
 		else                                                        //if no figure is being already selected
 		{
 			pManager->GetFigure(P1)->SetSelected(true);             //select the figure I want to select
 			pManager->SetLastSelected(pManager->GetFigure(P1));     //set it as the last selected figure
-			//pManager->GetFigure(P1)->PrintInfo(pOut);               // print info of the selected figure
+			pManager->GetFigure(P1)->PrintInfo(pOut);               // print info of the selected figure
 		}
 
 	}
@@ -64,6 +64,10 @@ void SelectFigureAction::Execute()
 			pManager->SetLastSelected(NULL);
 		}
 	}
+}
+
+void SelectFigureAction::Undo()
+{
 }
 
 

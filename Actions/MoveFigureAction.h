@@ -5,7 +5,8 @@
 class MoveFigureAction : public Action
 {
 private:
-	Point P;
+	Point P;   
+	CFigure* SelectedFig;
 public:
 	MoveFigureAction(ApplicationManager* pApp);
 
@@ -14,4 +15,6 @@ public:
 
 	//Add SelectFigureAction to the ApplicationManager
 	virtual void Execute();
+
+	void Undo();
 };

@@ -71,6 +71,8 @@ ActionType Input::GetUserAction() const
 			case ITM_START_RECORDING: return START_RECORDING;
 			case ITM_STOP_RECORDING: return STOP_RECORDING;
 			case ITM_LOAD: return TO_LOAD;
+			case ITM_FILL_COLOR: return FILL_COLOR;
+			case ITM_DRAW_COLOR: return DRAW_COLOR;
 			case ITM_COLORS: return TO_COLOR;
 			case ITM_CLEAR: return TO_CLEAR;
 			case ITM_DELETE: return TO_DELETE;

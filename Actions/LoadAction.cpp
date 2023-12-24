@@ -20,3 +20,7 @@ void LoadAction::ReadActionParameters()
 
 	pOut->ClearDrawArea();
 }
+
+void LoadAction::Undo()
+{
+}

@@ -26,3 +26,7 @@ void SwitchToPlayAction::Execute()
 	UI.InterfaceMode = MODE_PLAY;
 	pOut->CreatePlayToolBar();
 }
+
+void SwitchToPlayAction::Undo()
+{
+}

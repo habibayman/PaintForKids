@@ -9,7 +9,10 @@
 #include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SwitchToPlayAction.h"
-#include "Actions\MoveFigureAction.h"\
+#include "Actions\MoveFigureAction.h"
+#include "Actions\UndoAction.h"
+#include "Actions\ChangeDrawClrAction.h"
+#include "Actions\ChangeFillClrAction.h"
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -18,11 +21,15 @@ ApplicationManager::ApplicationManager()
 	pIn = pOut->CreateInput();
 
 	FigCount = 0;
+	UndoCount = 0;
 	LastSelectedFig = NULL;
+	LastAction = NULL;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
+	for (int i = 0; i < 5; i++)
+		Undoarr[i] = NULL;
 }
 
 //==================================================================================//
@@ -84,6 +91,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_PICK_BY_BOTH:
 		pAct = new PickByBothAction(this);
 		break;
+	case TO_UNDO:
+		pAct = new UndoAction(this);
+		break;
+	case DRAW_COLOR:
+		pAct = new ChangeDrawClrAction(this);
+		break;
+	case FILL_COLOR:
+		pAct = new ChangeFillClrAction(this);
+		break;
 	case EXIT:
 		///create ExitAction here
 
@@ -97,7 +113,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		delete pAct;	//You may need to change this line depending to your implementation
+		//delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
 }
@@ -128,6 +144,7 @@ CFigure* ApplicationManager::GetFigure(Point P) const
 	//Add your code here to search for a figure given a point x,y	
 	//Remember that ApplicationManager only calls functions do NOT implement it.
 }
+
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
@@ -140,7 +157,20 @@ void ApplicationManager::SetLastSelected(CFigure* pFig)
 //return the  last selected figure
 CFigure* ApplicationManager::GetLastSelected()
 {
-	return LastSelectedFig;
+	//return LastSelectedFig;
+	bool found = false;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->IsSelected())
+		{
+			found = true;
+			return FigList[i];
+			break;
+		}
+	} 
+	if (!found)
+		return NULL;
+	return NULL;
 }
 
 void ApplicationManager::SaveAll(ofstream& OutFile)
@@ -181,6 +211,63 @@ void ApplicationManager::Delete(CFigure* pFig)
 		}
 	}
 	UpdateInterface();
+}
+
+
+void ApplicationManager::DeleteLastFigure()
+{
+	if (FigCount > 0)
+	{
+		//	return 	FigList[FigCount - 1];
+		FigList[FigCount - 1] = FigList[MaxFigCount - 1];
+		//	delete FigList[FigCount - 1];
+		FigList[MaxFigCount - 1] = NULL;
+		FigCount--;
+		pOut->ClearDrawArea();
+		UpdateInterface();
+	}
+}
+
+//Check that Undoarr only has 5 actions
+void ApplicationManager::AddtoUndo(Action* action)
+{
+	if (action)                                         // if there is  action done 
+	{
+		if (UndoCount < 5)                                          // if there is less than 5 actions in undoarr
+		{
+			Undoarr[UndoCount++] = action;                          // add the last action to the array
+		}
+		else                                                        // else if the UndoCount is max, delete the first action in the array
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				Undoarr[i] = Undoarr[i + 1];
+			}
+			UndoCount = 4;
+			Undoarr[UndoCount++] = action;
+		}
+	}
+}
+
+void ApplicationManager::RemovefromUndo()
+{
+	if (UndoCount > 0)
+	{
+		UndoCount--;
+	}
+	else
+		UndoCount = 0;
+}
+
+//function that returns the last action to undo it 
+Action* ApplicationManager::GetLastActiontoUndo()
+{
+	if (UndoCount > 0)  // Last action is the Undo 
+	{
+		LastAction = Undoarr[UndoCount - 1];
+		return LastAction;
+	}
+	return NULL;
 }
 
 //==================================================================================//
@@ -235,9 +322,6 @@ void ApplicationManager::ResetPlayMode()
 		FigList[i]->HideFigure(false);	//Unhide all the figures
 	}
 }
-
-
-
 
 
 //Draw all figures on the user interface
