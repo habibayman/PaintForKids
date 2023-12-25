@@ -450,13 +450,13 @@ CFigure* ApplicationManager::RandomColor(int& TotalFig)
 		type = rand() % FigCount;
 	}
 	//counts number of existing figures with same property as the Figure of the Game
-			for (int i = 0; i < FigCount; i++)
-			{
-				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()
-					&& FigList[i]->FigIsFilled())
-					TotalFig++;
-			}
-			return FigList[type];	//Return  color of the Figure chosen randomly
+	for (int i = 0; i < FigCount; i++)
+	{
+		if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()
+			&& FigList[i]->FigIsFilled())
+				TotalFig++;
+	}
+	return FigList[type];	//Return  color of the Figure chosen randomly
 }
 CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
 {

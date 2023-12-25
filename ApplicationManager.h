@@ -74,9 +74,7 @@ public:
 	void RemovefromRedo();                  //removes action from undoarr 
 	Action* GetLastActiontoRedo();          //returns last action in undoarr
 	Action* GetLastActiontoUndo();          //returns last action in redoarr
-	void AddtoUndo(Action* action);
-	void RemovefromUndo();
-	Action* GetLastActiontoUndo();
+
 
 	// -- PlayMode Management Functions
 	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same
