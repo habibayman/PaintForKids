@@ -5,6 +5,7 @@ CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
 	FigureNumber = 2;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempCenter[i].x = 0;
@@ -45,7 +46,8 @@ void CSquare::UndoMove()
 	MoveCount--;
 }
 
-bool CSquare::IsValid()
+
+bool CSquare::IsValidMove()
 {
 	return !(Center.y < (UI.wy + UI.ToolBarHeight + UI.SQUARE_LENGTH / 2) ||
 		Center.y > UI.height - UI.StatusBarHeight - UI.wy ||

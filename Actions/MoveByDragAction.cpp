@@ -40,7 +40,7 @@ void MoveByDragAction::Execute()
 			{
 				pOut->ClearDrawArea();
 				SelectedFig->Move(P);
-				if ((SelectedFig->IsValid()))	//checks that point P is inside drawing area 
+				if ((SelectedFig->IsValidMove()))	//checks that point P is inside drawing area 
 				{
 					pManager->UpdateInterface();
 					pOut->PrintMessage("Press the button if you want to drag the shape here");

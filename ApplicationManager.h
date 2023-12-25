@@ -21,6 +21,7 @@ class Action;
 class ApplicationManager
 {
 	enum { MaxFigCount = 200 };	//Max no of figures
+	enum { MaxRecordingCount = 20 }; //Max no of recorded actions
 
 private:
 	int FigCount;		//Actual number of figures
@@ -36,6 +37,11 @@ private:
 	Input* pIn;
 	Output* pOut;
 	bool muted;
+
+	Action* RecordingList[MaxRecordingCount]; //List of recorded actions
+	bool IsRecording;
+	int RecordsCount;
+	bool PlayingRecord;
 
 public:
 	ApplicationManager();
@@ -65,11 +71,25 @@ public:
 	CFigure* RandomColor(int& TotalFig);	//choose a random color to start the same
 	CFigure* RandomColoredFigure(int& TotalFig);	//choose a random  colored figure to start the same
 	void ResetPlayMode();	//Reset the game
+	void UnhideFigures();   //resets all hidden figures to unhidden 
+
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
 	Output* GetOutput() const; //Return pointer to the output
 	void UpdateInterface() const;	//Redraws all the drawing window
 
+	// -- Recording Management Functions 
+	void SetIsRecording(bool IsRecording);              //sets recording state
+	bool GetIsRecording() const;                        //returns recording state 
+	void AddRecordedAction(Action* pRecordedAction);    //Adds the recorded action to RecordingList
+	int GetRecordsCount() const;                        //returns the number of recorded actions
+	void PlayRecording(int RecordingNumber);            //plays recorded action
+	bool GetPlayingRecord() const;                      //returns playing recording state
+	void SetPlayingRecord(bool IsPlaying);              //sets playing recording state
+	void ClearRecordingList();                          //clears recording list of any old recordings
+	int GetMaxRecordingCount();
+
+	void ClearUndoList(); 
 };
 
 #endif

@@ -15,6 +15,7 @@ protected:
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	//to be used in loading yet might be deleted 
 	
+	int MoveCount; //count no of moves
 	
 	/// Add more parameters if needed.
 	//---PlayMode parameters
@@ -23,7 +24,6 @@ protected:
 	
 	color LastDrawColor;
 	color LastFillColor;
-	int MoveCount;
 
 public:
 	CFigure(GfxInfo FigureGfxInfo);
@@ -44,7 +44,7 @@ public:
 	virtual void UndoMove() = 0;        //Undo the figure to the old position
 
 	//validation function for figure points
-	virtual bool IsValid() = 0;
+	virtual bool IsValidMove() = 0;
 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure

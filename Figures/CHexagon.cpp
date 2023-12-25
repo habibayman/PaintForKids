@@ -7,6 +7,7 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
 	FigureNumber = 4;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempCenter[i].x = 0;
@@ -51,7 +52,7 @@ void CHexagon::UndoMove()
 	MoveCount--;
 }
 
-bool CHexagon::IsValid()
+bool CHexagon::IsValidMove()
 {
 	return !(Center.y < UI.wy + UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
 		UI.height - Center.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy ||

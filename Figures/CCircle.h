@@ -16,8 +16,9 @@ public:
     virtual void Draw(Output* pOut) const;
     virtual bool Isbelonging(Point P) const;
     virtual void Move(Point P);
+    virtual bool IsValidMove();
     void UndoMove();
-    virtual bool IsValid();
+   
     virtual void SetID(int);
     void Save(ofstream& OutFile);
     void PrintInfo(Output* pOut);

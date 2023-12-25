@@ -8,6 +8,7 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 	Corner3 = P3;
 	FigureNumber = 3;
 	deltaX = deltaY = 0;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempDelta[i].x = deltaX;
@@ -82,7 +83,7 @@ void CTriangle::UndoMove()
 	Corner3.y -= deltaY;
 }
 
-bool CTriangle:: IsValid()
+bool CTriangle::IsValidMove()
 {
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight ||

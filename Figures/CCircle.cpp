@@ -7,6 +7,7 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 	CirclePoint = P2;
 	FigureNumber = 5;
 	deltaX = deltaY = 0;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempDelta[i].x = deltaX;
@@ -65,7 +66,7 @@ void CCircle::UndoMove()
 	CirclePoint.y -= deltaY;
 }
 
-bool CCircle::IsValid()
+bool CCircle::IsValidMove()
 {
 	// radius of Circle 
 	double CircleRadius = sqrt(pow(Center.x - CirclePoint.x, 2) + pow(Center.y - CirclePoint.y, 2));  

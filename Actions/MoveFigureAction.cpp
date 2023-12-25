@@ -18,10 +18,22 @@ void MoveFigureAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMessage("Move a shape, Click where to move the figure ");
+	//pOut->PrintMessage("Move a shape action");
 
-	//Read the point clicked
-	pIn->GetPointClicked(P.x, P.y);
+	CFigure* SelectedFig = pManager->GetLastSelected();
+
+	if (SelectedFig)
+	{
+		pOut->PrintMessage("Move figure action, Click where to move the figure ");
+		//Read the point clicked
+		pIn->GetPointClicked(P.x, P.y);
+	}
+
+	else
+	{
+		pOut->PrintMessage("Please select a shape to move first");
+	}
+
 	pOut->ClearStatusBar();
 }
 
@@ -31,37 +43,39 @@ void MoveFigureAction::Execute()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	SelectedFig = pManager->GetLastSelected();
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+	
+	if (!PlayingRecord)
+	{
+		ReadActionParameters();
+	}
+
+	CFigure* SelectedFig = pManager->GetLastSelected();
+	//SelectedFig->ChngDrawClr(UI.HighlightColor);
+	pManager->UpdateInterface();
 
 	if (SelectedFig)
 	{
-		bool IsFirstIteration = true;
-		//int counter = 1;
-		do
+		SelectedFig->Move(P);
+		while (!SelectedFig->IsValidMove())
 		{
-			ReadActionParameters();
+			pOut->PrintMessage("Invalid Move, Please pick another point");
+			pIn->GetPointClicked(P.x, P.y);
 			SelectedFig->Move(P);
-			if (!IsFirstIteration)
-			{
-				// for some reason this message isn't displaying
-				pOut->PrintMessage("Invalid Move, Please pick another point");
-			}
-			//counter++;
-			IsFirstIteration = false;
 			pOut->ClearStatusBar();
-		} while (!(SelectedFig->IsValid()));
+		}
 
+		//clearing drawing area to delete the old position of the selected shape
 		pManager->AddtoUndo(this);
 		pOut->ClearDrawArea();
-		//move coordinates of selected figure to new position
-		//clearing drawing area to delete the old position of the selected shape
+		pManager->UpdateInterface();
 	}
 
-	else
+	if (Recording())
 	{
-		pOut->PrintMessage("Please select a shape to move first");
+		pManager->AddRecordedAction(this);
 	}
-
 }
 
 void MoveFigureAction::Undo()
@@ -72,5 +86,3 @@ void MoveFigureAction::Undo()
 	pOut->ClearDrawArea();
 	pManager->UpdateInterface();
 }
-
-
