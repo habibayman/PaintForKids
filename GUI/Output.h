@@ -27,7 +27,6 @@ public:
 	color getCrntFillColor() const;	//get current filling color
 	void setCrntFillColor(color newcolor); //sets the Fill color
 	int getCrntPenWidth() const; //get current pen width
-	void SetFilled(); //fill/unfill the figure
 	
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const; //Draw a rectangle
