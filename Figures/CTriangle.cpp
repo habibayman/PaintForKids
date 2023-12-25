@@ -17,7 +17,17 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 }
 
 CTriangle::CTriangle()
-{}
+{
+	
+	FigureNumber = 3;
+	deltaX = deltaY = 0;
+	MoveCount = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		TempDelta[i].x = deltaX;
+		TempDelta[i].y = deltaY;
+	}
+}
 
 void CTriangle::Draw(Output* pOut) const
 {

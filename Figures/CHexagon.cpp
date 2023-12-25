@@ -17,6 +17,13 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 
 CHexagon::CHexagon()
 {
+	FigureNumber = 4;
+	MoveCount = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		TempCenter[i].x = 0;
+		TempCenter[i].y = 0;
+	}
 }
 
 void CHexagon::Draw(Output* pOut) const

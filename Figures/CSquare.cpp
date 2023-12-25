@@ -14,7 +14,15 @@ CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 }
 
 CSquare::CSquare()
-{}
+{
+	FigureNumber = 2;
+	MoveCount = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		TempCenter[i].x = 0;
+		TempCenter[i].y = 0;
+	}
+}
 
 void CSquare::Draw(Output* pOut) const
 {

@@ -17,6 +17,14 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 
 CCircle::CCircle()
 {
+	FigureNumber = 5;
+	deltaX = deltaY = 0;
+	MoveCount = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		TempDelta[i].x = deltaX;
+		TempDelta[i].y = deltaY;
+	}
 }
 
 void CCircle::Draw(Output* pOut) const
