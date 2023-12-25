@@ -1,0 +1,3 @@
+BLUE	RED
+1
+Square	1	621	374	BLUE	RED

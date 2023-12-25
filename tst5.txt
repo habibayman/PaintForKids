@@ -1,0 +1,3 @@
+BLUE	
+1
+Rectangle	1	480	241	533	278	BLUE	NO_FILL

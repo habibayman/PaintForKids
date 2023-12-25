@@ -1,0 +1,4 @@
+BLUE	
+2
+Hexagon	1	479	272	BLUE	NO_FILL
+Hexagon	2	761	326	BLUE	NO_FILL
