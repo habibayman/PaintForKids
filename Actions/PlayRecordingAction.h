@@ -6,7 +6,7 @@
 class PlayRecordingAction : public Action
 {
 public:
-	PlayRecordingAction(ApplicationManager* pApp);
+	PlayRecordingAction(ApplicationManager* pApp, bool muted);
 
 	virtual void ReadActionParameters();
 

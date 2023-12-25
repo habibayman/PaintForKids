@@ -1,8 +1,12 @@
 #include "PickByBothAction.h"
 
-PickByBothAction::PickByBothAction(ApplicationManager* pApp) :Action(pApp)
+PickByBothAction::PickByBothAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
 	ctrTrue = 0;
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void PickByBothAction::ReadActionParameters()
@@ -70,7 +74,10 @@ void PickByBothAction::Execute()
 			Execute();
 		}
 		else
+		{
 			pOut->PrintMessage("CONGRATS!!GAME FINISHED ! Number of true picks : " + to_string(ctrTrue) + " vs. Number of false picks :" + to_string(selected - ctrTrue));
+			PlaySound(TEXT("Sounds\\ApplauseSound"), NULL, SND_SYNC); 
+		}
 	}
 }
 

@@ -6,11 +6,16 @@
 #include "..\GUI\Output.h"
 #include "..\Figures\CFigure.h"
 
-ChangeDrawClrAction::ChangeDrawClrAction(ApplicationManager* pApp) :Action(pApp)
+ChangeDrawClrAction::ChangeDrawClrAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
 	Output* pOut = pManager->GetOutput();
 	LastColoredFigure = NULL;
 	LastClr = pOut->getCrntDrawColor();
+
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void ChangeDrawClrAction::ReadActionParameters()

@@ -5,11 +5,16 @@
 #include "..\GUI\Output.h"
 #include "..\Figures\CFigure.h"
 
-ChangeFillClrAction::ChangeFillClrAction(ApplicationManager* pApp) :Action(pApp)
+ChangeFillClrAction::ChangeFillClrAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
 	Output* pOut = pManager->GetOutput();
 	LastColoredFigure = NULL;
 	LastClr = pOut->getCrntFillColor();
+	CurrentClr = NULL;
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void ChangeFillClrAction::ReadActionParameters()

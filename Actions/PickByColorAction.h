@@ -15,7 +15,7 @@ class PickByColorAction :
 public:
 
 
-	PickByColorAction(ApplicationManager* pApp);
+	PickByColorAction(ApplicationManager* pApp, bool muted);
 
 	//Reads parameters required for action to execute (code depends on action type)
 	virtual void ReadActionParameters();

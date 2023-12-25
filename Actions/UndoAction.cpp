@@ -2,8 +2,13 @@
 #include "Action.h"
 
 
-UndoAction::UndoAction(ApplicationManager* pApp) : Action(pApp)
-{}
+UndoAction::UndoAction(ApplicationManager* pApp, bool muted) : Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void UndoAction::ReadActionParameters()
 {}

@@ -7,7 +7,7 @@
 class UndoAction : public Action
 {
 public:
-	UndoAction(ApplicationManager* pApp);
+	UndoAction(ApplicationManager* pApp, bool muted);
 
 	virtual void ReadActionParameters();
 

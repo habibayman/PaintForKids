@@ -13,7 +13,7 @@
 #include"Actions/PickByShapeAction.h"
 #include"Actions/PickByColorAction.h"
 #include"Actions/PickByBothAction.h"
-#include "Actions\MoveByDragAction.h"\
+#include "Actions\MoveByDragAction.h"
 
 //Main class that manages everything in the application.
 class Action;
@@ -61,6 +61,8 @@ public:
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure* DeleteLastFigure();                //deletes last figure from figlist 
+	void AddFigure(CFigure* pFig, bool ToSaveID = 1);  //Adds a new figure to the FigList
+	void DeleteLastFigure();                //deletes last figure from figlist 
 	CFigure* GetFigure(Point P) const;      //Search for a figure given a point inside the figure
 	void SetLastSelected(CFigure* pFig);    //set the last selected figure
 	CFigure* GetLastSelected();             //get the last selected figure

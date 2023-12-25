@@ -10,7 +10,7 @@ private:
 	ColorType ColorSelected;
 
 public:
-	ChangeDrawClrAction(ApplicationManager* pApp);
+	ChangeDrawClrAction(ApplicationManager* pApp, bool muted);
 
 	virtual void ReadActionParameters();
 

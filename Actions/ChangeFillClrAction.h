@@ -10,7 +10,7 @@ private:
 	ColorType ColorSelected;
 
 public:
-	ChangeFillClrAction(ApplicationManager* pApp);
+	ChangeFillClrAction(ApplicationManager* pApp, bool muted);
 
 	virtual void ReadActionParameters();
 

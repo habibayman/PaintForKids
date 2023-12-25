@@ -4,9 +4,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-PickByShapeAction::PickByShapeAction(ApplicationManager* pApp) :Action(pApp)
+PickByShapeAction::PickByShapeAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
 	ctrTrue = 0;
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void PickByShapeAction::ReadActionParameters()
@@ -62,7 +66,11 @@ void PickByShapeAction::Execute()
 		Execute();
 	}
 	else
+	{
 		pOut->PrintMessage("CONGRATS!!GAME FINISHED ! Number of true picks : " + to_string(ctrTrue) + " vs. Number of false picks :" + to_string(selected - ctrTrue));
+		PlaySound(TEXT("Sounds\\ApplauseSound"), NULL, SND_SYNC);
+
+	}
 }
 
 void PickByShapeAction::Undo() {}

@@ -4,14 +4,16 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-PlayRecordingAction::PlayRecordingAction(ApplicationManager* pApp) : Action(pApp)
+PlayRecordingAction::PlayRecordingAction(ApplicationManager* pApp, bool muted) : Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void PlayRecordingAction::ReadActionParameters()
-{
-
-}
+{}
 
 void PlayRecordingAction::Execute()
 {
