@@ -1,0 +1,4 @@
+RED	YELLOW
+2
+Square	1	429	290	RED	NO_FILL
+Hexagon	2	837	271	RED	

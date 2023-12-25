@@ -94,5 +94,6 @@ void ChangeFillClrAction::Execute()
 void ChangeFillClrAction::Undo()
 {
 	LastColoredFigure->ChngFillClr(CurrentClr);
+	
 	pManager->RemovefromUndo();
 }
