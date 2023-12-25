@@ -46,5 +46,7 @@ void DeleteAction::Redo()
 {
 	Output* pOut = pManager->GetOutput();
 	pManager->Delete(ToBeDeleted);
+	pManager->AddtoUndo(this);
 	pOut->ClearDrawArea();
+	pManager->RemovefromRedo();
 }

@@ -4,7 +4,7 @@
 #include "..\DefS.h"
 
 class ApplicationManager; //forward class declaration
-
+class CFigure;
 
 //Base class for all possible actions
 class Action

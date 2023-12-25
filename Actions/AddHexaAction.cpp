@@ -61,4 +61,6 @@ void AddHexaAction::Undo()
 void AddHexaAction::Redo()
 {
 	pManager->AddFigure(DeletedFigure);
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }

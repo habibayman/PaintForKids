@@ -77,6 +77,8 @@ void AddTriAction::Undo()
 void AddTriAction::Redo()
 {
 	pManager->AddFigure(DeletedFigure);
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }
 
 

@@ -19,11 +19,13 @@ void UndoAction::Execute()
 	if (action)
 	{
 		action->Undo();
+	//	pManager->AddtoRedo(action);
 	}
 	else                                                //if there is no action
 	{
 		pOut->PrintMessage("No more actions to undo");
 	}
+	
 }
 
 

@@ -19,11 +19,13 @@ class Action;
 class ApplicationManager
 {
 	enum { MaxFigCount = 200 };	//Max no of figures
+	enum {MaxUndoRedoCount = 5}; //Max no to undo/redo actions
 
 private:
 	int FigCount;		//Actual number of figures
 	int UndoCount;
 	int RedoCount;
+	bool RedoStatus;  //checks that redo is only done after redo/undo actions
 
 	CFigure* DeletedFiguresArr[5];  //list of all deleted figures to undo
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
@@ -37,7 +39,7 @@ private:
 	Input* pIn;
 	Output* pOut;
 	bool muted;
-	bool filled;
+
 
 public:
 	ApplicationManager();
@@ -64,9 +66,6 @@ public:
 	void RemovefromRedo();                  //removes action from undoarr 
 	Action* GetLastActiontoRedo();          //returns last action in undoarr
 	Action* GetLastActiontoUndo();          //returns last action in redoarr
-	void SetFilled(bool f);                
-	bool GetFilled() const;
-
 
 	// -- PlayMode Management Functions
 	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same

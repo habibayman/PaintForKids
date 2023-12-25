@@ -9,6 +9,7 @@ void RedoAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 
+	pOut->PrintMessage("Redo last action");
 	Action* action = pManager->GetLastActiontoRedo();
 	//Undo the last action in the undo list
 	if (action)
@@ -17,7 +18,7 @@ void RedoAction::Execute()
 	}
 	else                                                //if there is no action
 	{
-		pOut->PrintMessage("No more actions to undo");
+		pOut->PrintMessage("No more actions to redo, undo an action first");
 	}
 }
 

@@ -66,7 +66,6 @@ void MoveFigureAction::Execute()
 
 void MoveFigureAction::Undo()
 {
-
 	Output* pOut = pManager->GetOutput();
 	SelectedFig->UndoMove();
 	pManager->AddtoRedo(this);
@@ -75,6 +74,13 @@ void MoveFigureAction::Undo()
     pManager->UpdateInterface();
 }
 
-void MoveFigureAction::Redo() {}
+void MoveFigureAction::Redo() 
+{
+	Output* pOut = pManager->GetOutput();
+	SelectedFig->Move(P);
+	pOut->ClearDrawArea();
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
+}
 
 

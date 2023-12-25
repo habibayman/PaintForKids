@@ -4,6 +4,7 @@
 class ChangeFillClrAction :public Action
 {
 private:
+	color LastClr;
 	color  CurrentClr;
 	CFigure* LastColoredFigure;
 public:

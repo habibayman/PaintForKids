@@ -43,9 +43,8 @@ bool CHexagon::Isbelonging(Point P) const
 	{
 		return true;
 	}
-		return false;
-	return true;
-	
+	return false;
+	 
 }
 
 void CHexagon::Move(Point P)

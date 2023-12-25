@@ -5,6 +5,7 @@ class ChangeDrawClrAction :public Action
 {
 private:
 	CFigure *LastColoredFigure;
+	color LastClr;
 	color CurrentClr;
 public:
 	ChangeDrawClrAction(ApplicationManager* pApp);

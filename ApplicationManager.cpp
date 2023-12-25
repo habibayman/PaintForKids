@@ -13,6 +13,7 @@
 #include "Actions\SwitchToPlayAction.h"
 #include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
+#include "Actions\RedoAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
 #include "Actions\MoveFigureAction.h"
@@ -27,20 +28,20 @@ ApplicationManager::ApplicationManager()
 
 	FigCount = 0;
 	UndoCount = RedoCount = 0;
+	RedoStatus = false;
 	LastSelectedFig = NULL;
 	LastAction = NULL;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MaxUndoRedoCount; i++)
 		Undoarr[i] = NULL;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MaxUndoRedoCount; i++)
 		Redoarr[i] = NULL;
 
 	//Sound is played by default
 	muted = false;
-	filled = false;
 }
 
 //==================================================================================//
@@ -110,6 +111,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case TO_UNDO:
 		pAct = new UndoAction(this);
+		break;
+	case TO_REDO:
+		pAct = new RedoAction(this);
 		break;
 	case DRAW_COLOR:
 		pAct = new ChangeDrawClrAction(this);
@@ -209,6 +213,23 @@ void ApplicationManager::ClearAll()
 		delete FigList[i];
 	}
 	FigCount = 0;
+
+	for (int i = 0; i < RedoCount - 1; i++)
+	{
+		delete Redoarr[i];
+	}
+	RedoCount = 0;
+
+	for (int i = 0; i < UndoCount - 1; i++)
+	{
+		delete Undoarr[i];
+	}
+	UndoCount = 0;
+
+	//default draw/color mode for the shapes
+	pOut->setCrntDrawColor(UI.DrawColor);
+	pOut->setCrntFillColor(UI.FillColor);
+	pOut->SetFilled(false);
 }
 
 void ApplicationManager::Delete(CFigure* pFig)
@@ -235,13 +256,13 @@ CFigure* ApplicationManager::DeleteLastFigure()
 {
 	if (FigCount > 0)
 	{
-		return 	FigList[FigCount - 1];
+		CFigure* DeletedFig = FigList[FigCount - 1];
 		FigList[FigCount - 1] = FigList[MaxFigCount - 1];
-		//	delete FigList[FigCount - 1];
 		FigList[MaxFigCount - 1] = NULL;
 		FigCount--;
 		pOut->ClearDrawArea();
 		UpdateInterface();
+		return DeletedFig;
 	}
 }
 
@@ -250,19 +271,20 @@ void ApplicationManager::AddtoUndo(Action* action)
 {
 	if (action) //if there is  action done 
 	{
-		if (UndoCount < 5) //if there is less than 5 actions in undoarr
+		if (UndoCount < MaxUndoRedoCount) //if there is less than 5 actions in undoarr
 		{
 			Undoarr[UndoCount++] = action; //add the last action to the array
 		}
 		else //else if the UndoCount is max, delete the first action in the array
 		{
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < MaxUndoRedoCount - 1; i++)
 			{
 				Undoarr[i] = Undoarr[i + 1];
 			}
 			UndoCount = 4;
 			Undoarr[UndoCount++] = action;
 		}
+		RedoStatus = false;
 	}
 }
 
@@ -270,9 +292,9 @@ void ApplicationManager::AddtoRedo(Action* action)
 {
 	if (action) //if there is  action to redo 
 	{
-		if (RedoCount > 5) //if there is less than 5 actions in redoarr
+		if (RedoCount >= MaxUndoRedoCount) //if there is less than 5 actions in redoarr
 		{
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < MaxUndoRedoCount - 1; i++)
 			{
 				Redoarr[i] = Redoarr[i + 1];
 			}
@@ -290,6 +312,7 @@ void ApplicationManager::RemovefromUndo()
 	}
 	else
 		UndoCount = 0;
+	RedoStatus = true;
 }
 
 void ApplicationManager::RemovefromRedo()
@@ -300,11 +323,12 @@ void ApplicationManager::RemovefromRedo()
 	}
 	else
 		RedoCount = 0;
+	RedoStatus = true;
 }
 
 Action* ApplicationManager::GetLastActiontoRedo()
 {
-	if (RedoCount > 0)
+	if (RedoCount > 0 && RedoStatus)
 	{
 		return Redoarr[RedoCount - 1];
 	}
@@ -322,14 +346,6 @@ Action* ApplicationManager::GetLastActiontoUndo()
 	return NULL;
 }
 
-void ApplicationManager::ClearRedoarr()
-{
-	for (int i = 0; i < RedoCount; i++)
-{
-		delete Redoarr[i];
-		Redoarr[i] = NULL;
-}
-}
 
 
 //==================================================================================//

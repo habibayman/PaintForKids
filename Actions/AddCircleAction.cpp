@@ -68,4 +68,6 @@ void AddCircleAction::Undo()
 void AddCircleAction::Redo()
 {
 	pManager->AddFigure(DeletedFigure);
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }

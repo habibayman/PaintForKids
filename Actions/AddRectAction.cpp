@@ -71,4 +71,6 @@ AddRectAction::AddRectAction(ApplicationManager * pApp, bool muted):Action(pApp)
 	void AddRectAction::Redo()
 	{
 		pManager->AddFigure(DeletedFigure);
+		pManager->AddtoUndo(this);
+		pManager->RemovefromRedo();
 	}
