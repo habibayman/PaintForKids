@@ -153,6 +153,14 @@ bool CRectangle::FigisHidden()	//Know if figure is hidden or not
 	return isHidden;
 }
 
+bool CRectangle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
+}
+
 
 
 void CRectangle::Load(ifstream& InFile)

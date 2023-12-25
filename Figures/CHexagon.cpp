@@ -125,6 +125,13 @@ bool CHexagon::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }
+bool CHexagon::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
+}
 void CHexagon::Load(ifstream& InFile)
 {
 	InFile >> ID; //Read the ID

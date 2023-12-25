@@ -160,3 +160,11 @@ bool CCircle::FigisHidden()	//Know if figure is hidden or not
 {	return isHidden;
 }
 
+bool CCircle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
+}
+

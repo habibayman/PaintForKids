@@ -68,7 +68,7 @@ public:
 	virtual color GetFigureColor() = 0;
 	virtual color GetDrawColor() = 0;
 	string ChosenColorName();
-
+	virtual bool FigIsFilled() = 0;
 
 };
 

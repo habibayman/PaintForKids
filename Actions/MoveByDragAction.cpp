@@ -28,14 +28,15 @@ void MoveByDragAction::Execute()
 	Input* pIn = pManager->GetInput();
 
 	CFigure* SelectedFig = pManager->GetLastSelected();
-
+	bool ValidDrag = 1;
 	if (SelectedFig)	//checks if there is a selected figure
 	{
+	
 		ReadActionParameters();
 		if (SelectedFig->Isbelonging(P))	//checks that point is inside the figure
 		{
 			//Loop to handle dragging action
-			while (pIn->GetMouseState(LEFT_BUTTON, P.x, P.y) == BUTTON_UP)
+			while (pIn->GetMouseState(LEFT_BUTTON, P.x, P.y) == BUTTON_UP|| (ValidDrag ==0))
 			{
 				pOut->ClearDrawArea();
 				SelectedFig->Move(P);
@@ -43,12 +44,14 @@ void MoveByDragAction::Execute()
 				{
 					pManager->UpdateInterface();
 					pOut->PrintMessage("Press the button if you want to drag the shape here");
+					ValidDrag = 1;
 				}
 				else
 				{
 					pOut->PrintMessage("Invalid Area to drag in , Please move the cursor to any other area");
 					SelectedFig->HideFigure(true);	//make sure not to draw in tool bar and status bar
 					pManager->UpdateInterface();
+					ValidDrag = 0;
 
 				}
 				Sleep(200);

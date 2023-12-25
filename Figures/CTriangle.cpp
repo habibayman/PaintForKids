@@ -154,6 +154,14 @@ bool CTriangle::FigisHidden()	//Know if figure is hidden or not
 	return isHidden;
 }
 
+bool CTriangle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
+}
+
 void CTriangle::Load(ifstream& InFile)
 {
 	InFile >> ID; //Read the ID

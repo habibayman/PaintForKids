@@ -314,12 +314,29 @@ CFigure* ApplicationManager::RandomFigure(int& TotalFig)
 CFigure* ApplicationManager::RandomColor(int& TotalFig)
 {
 	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	bool ValidGame = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->FigIsFilled())
+		{
+			ValidGame = 1;
+			break;
+		}
+	}
+	if (ValidGame ==0)
+	{
+		return NULL;
+	}
 	int type = rand() % FigCount;	//choose a random index in FigList array
-
+	while (FigList[type]->FigIsFilled() == 0) 
+	{
+		type = rand() % FigCount;
+	}
 	//counts number of existing figures with same property as the Figure of the Game
 			for (int i = 0; i < FigCount; i++)
 			{
-				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()) 
+				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()
+					&& FigList[i]->FigIsFilled())
 					TotalFig++;
 			}
 			return FigList[type];	//Return  color of the Figure chosen randomly
@@ -327,11 +344,29 @@ CFigure* ApplicationManager::RandomColor(int& TotalFig)
 CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
 {
 	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	bool ValidGame = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->FigIsFilled())
+		{
+			ValidGame = 1;
+			break;
+		}
+	}
+	if (ValidGame == 0)
+	{
+		return NULL;
+	}
 	int type = rand() % FigCount;	//choose a random index in FigList array
+	while (FigList[type]->FigIsFilled() == 0)
+	{
+		type = rand() % FigCount;
+	}
 	for (int i = 0; i < FigCount; i++)
 	{
 		if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()&&
-			( FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber()))
+			( FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber())
+			&& FigList[i]->FigIsFilled())
 			TotalFig++;
 	}
 	return FigList[type];	//Return the color of the Figure chosen randomly

@@ -33,6 +33,7 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.isFilled = true;
 	LastFillColor = FigGfxInfo.FillClr;
 	FigGfxInfo.FillClr = Fclr;
+	
 }
 
 //==================================================================================//

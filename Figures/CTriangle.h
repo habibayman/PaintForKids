@@ -35,4 +35,6 @@ public:
 	virtual color GetDrawColor(); //Get figure color
 	virtual void HideFigure(bool);  //Hide\Unhide the figure
 	virtual bool FigisHidden(); //Know if figure is hidden or not
+	virtual bool FigIsFilled();
+
 };

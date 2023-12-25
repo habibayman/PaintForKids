@@ -118,6 +118,13 @@ bool CSquare::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
 }
+bool CSquare::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
+}
 void CSquare::Load(ifstream& InFile) 
 {
 	InFile >> ID; //Read the ID
