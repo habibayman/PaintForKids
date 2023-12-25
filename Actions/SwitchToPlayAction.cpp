@@ -31,6 +31,5 @@ void SwitchToPlayAction::Execute()
 	pOut->CreatePlayToolBar();
 }
 
-void SwitchToPlayAction::Undo()
-{
-}
+void SwitchToPlayAction::Undo() {}
+void SwitchToPlayAction::Redo() {}

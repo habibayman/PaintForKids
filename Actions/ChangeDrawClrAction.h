@@ -14,7 +14,11 @@ public:
 	//Add drawClr to the app manager
 	virtual void Execute();
 
+	//Undo action
 	void Undo();
+
+	//Redo action
+	void Redo();
 
 };
 

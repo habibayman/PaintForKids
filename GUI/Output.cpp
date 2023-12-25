@@ -16,19 +16,20 @@ Output::Output()
 	UI.ToolBarHeight = 60;
 	UI.MenuItemWidth = 50;
 	UI.ColorItemWidth = 30;
-	UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
+	UI.ColorXi = ITM_DRAW_COLOR * (UI.MenuItemWidth + UI.wx);
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = WHITE;	//Filling color
 	UI.MsgColor = BLACK;		//Messages color
 	UI.DrawColor = BLUE;	//Drawing color 
-	UI.FillColor = GREEN;	//Filling color 
+	UI.FillColor = WHITE;	//Filling color 
 	UI.MsgColor = BLACK;		//Messages color 
 	UI.BkGrndColor = WHITE;	//Background color changed color from LIGHTGOLDENRODYELLOW to WHITE
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
 	UI.StatusBarColor = LIGHTSTEELBLUE;
 	UI.DrawBarColor = LIGHTSTEELBLUE;
 
+	UI.IsFilled = false;
 	UI.PenWidth = 4;	//width of the figures frames
 
 	//Shapes_Constants
@@ -210,7 +211,7 @@ color Output::getCrntDrawColor() const	//get current drawing color
 }
 void Output::setCrntDrawColor(color newcolor)
 {
-	UI.DrawBarColor = newcolor;
+	UI.DrawColor = newcolor;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -228,6 +229,17 @@ int Output::getCrntPenWidth() const		//get current pen width
 {
 	return UI.PenWidth;
 }
+
+void Output::SetFilled(bool f)
+{
+	UI.IsFilled = f;
+}
+
+bool Output::GetFilled() const
+{
+	return UI.IsFilled;
+}
+
 
 void Output::ClearToolbar() const
 {

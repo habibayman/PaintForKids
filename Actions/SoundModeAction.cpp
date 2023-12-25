@@ -21,3 +21,6 @@ void SoundModeAction::Execute()
 		*muted = true;
 	}
 }
+
+void SoundModeAction::Undo() {}
+void SoundModeAction::Redo() {}

@@ -8,6 +8,7 @@ private:
 	Point P1;
 	Point P2;
 	GfxInfo CircleGfxInfo;
+	CFigure* DeletedFigure;
 public:
 	AddCircleAction(ApplicationManager* pApp, bool muted);
 
@@ -17,8 +18,11 @@ public:
 	//Add circle to the ApplicationManager
 	virtual void Execute();
 
-	//if AddCircleAction is the last action delete this square
+	//if AddCircleAction is the last action delete this circle
 	void Undo();
+
+	//redo the deleted circle
+	void Redo();
 };
 
 

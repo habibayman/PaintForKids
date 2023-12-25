@@ -36,7 +36,7 @@ void ClearAction::Execute()
 	}
 }
 
-void ClearAction::Undo()
-{
-}
+void ClearAction::Undo() {}
+
+void ClearAction::Redo() {}
 

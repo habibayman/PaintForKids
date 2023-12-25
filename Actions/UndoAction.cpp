@@ -1,8 +1,6 @@
 #include "UndoAction.h"
 #include "Action.h"
 
-//int UndoAction::UndoCount = 0;
-//Action* UndoAction::Undoarr[5];
 
 UndoAction::UndoAction(ApplicationManager* pApp) : Action(pApp)
 {}
@@ -14,7 +12,7 @@ void UndoAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 
-	pOut->PrintMessage("Undo Icon");
+	pOut->PrintMessage("Undo last action");
 
 	Action* action = pManager->GetLastActiontoUndo();
 	//Undo the last action in the undo list
@@ -30,3 +28,4 @@ void UndoAction::Execute()
 
 
 void UndoAction::Undo() {}
+void UndoAction::Redo() {}

@@ -26,7 +26,7 @@ ApplicationManager::ApplicationManager()
 	pIn = pOut->CreateInput();
 
 	FigCount = 0;
-	UndoCount = 0;
+	UndoCount = RedoCount = 0;
 	LastSelectedFig = NULL;
 	LastAction = NULL;
 
@@ -35,9 +35,12 @@ ApplicationManager::ApplicationManager()
 		FigList[i] = NULL;
 	for (int i = 0; i < 5; i++)
 		Undoarr[i] = NULL;
+	for (int i = 0; i < 5; i++)
+		Redoarr[i] = NULL;
 
 	//Sound is played by default
 	muted = false;
+	filled = false;
 }
 
 //==================================================================================//
@@ -220,7 +223,7 @@ void ApplicationManager::Delete(CFigure* pFig)
 			{
 				swap(FigList[j], FigList[j + 1]);
 			}
-			delete FigList[FigCount];
+			FigList[FigCount] = NULL;
 			FigCount--;
 		}
 	}
@@ -228,11 +231,11 @@ void ApplicationManager::Delete(CFigure* pFig)
 }
 
 
-void ApplicationManager::DeleteLastFigure()
+CFigure* ApplicationManager::DeleteLastFigure()
 {
 	if (FigCount > 0)
 	{
-		//	return 	FigList[FigCount - 1];
+		return 	FigList[FigCount - 1];
 		FigList[FigCount - 1] = FigList[MaxFigCount - 1];
 		//	delete FigList[FigCount - 1];
 		FigList[MaxFigCount - 1] = NULL;
@@ -245,13 +248,13 @@ void ApplicationManager::DeleteLastFigure()
 //Check that Undoarr only has 5 actions
 void ApplicationManager::AddtoUndo(Action* action)
 {
-	if (action)                                         // if there is  action done 
+	if (action) //if there is  action done 
 	{
-		if (UndoCount < 5)                                          // if there is less than 5 actions in undoarr
+		if (UndoCount < 5) //if there is less than 5 actions in undoarr
 		{
-			Undoarr[UndoCount++] = action;                          // add the last action to the array
+			Undoarr[UndoCount++] = action; //add the last action to the array
 		}
-		else                                                        // else if the UndoCount is max, delete the first action in the array
+		else //else if the UndoCount is max, delete the first action in the array
 		{
 			for (int i = 0; i < 4; i++)
 			{
@@ -260,6 +263,22 @@ void ApplicationManager::AddtoUndo(Action* action)
 			UndoCount = 4;
 			Undoarr[UndoCount++] = action;
 		}
+	}
+}
+
+void ApplicationManager::AddtoRedo(Action* action)
+{
+	if (action) //if there is  action to redo 
+	{
+		if (RedoCount > 5) //if there is less than 5 actions in redoarr
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				Redoarr[i] = Redoarr[i + 1];
+			}
+			RedoCount = 4;
+		}
+		Redoarr[RedoCount++] = action; //add the last action to the array
 	}
 }
 
@@ -273,6 +292,25 @@ void ApplicationManager::RemovefromUndo()
 		UndoCount = 0;
 }
 
+void ApplicationManager::RemovefromRedo()
+{
+	if (RedoCount > 0)
+	{
+		RedoCount--;
+	}
+	else
+		RedoCount = 0;
+}
+
+Action* ApplicationManager::GetLastActiontoRedo()
+{
+	if (RedoCount > 0)
+	{
+		return Redoarr[RedoCount - 1];
+	}
+	return NULL;
+}
+
 //function that returns the last action to undo it 
 Action* ApplicationManager::GetLastActiontoUndo()
 {
@@ -283,6 +321,16 @@ Action* ApplicationManager::GetLastActiontoUndo()
 	}
 	return NULL;
 }
+
+void ApplicationManager::ClearRedoarr()
+{
+	for (int i = 0; i < RedoCount; i++)
+{
+		delete Redoarr[i];
+		Redoarr[i] = NULL;
+}
+}
+
 
 //==================================================================================//
 //							PlayMode Management Functions							//

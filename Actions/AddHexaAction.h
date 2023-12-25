@@ -6,6 +6,7 @@ class AddHexaAction :
 private:
 	Point P1; //Hexagon Center
 	GfxInfo HexaGfxInfo;
+	CFigure* DeletedFigure;
 public:
 	AddHexaAction(ApplicationManager* pApp, bool muted);
 
@@ -18,6 +19,9 @@ public:
 
 	//if AddHexaAction is the last action delete this hexagon
 	void Undo();
+
+	//redo the deleted hexagon
+	void Redo();
 };
 
 

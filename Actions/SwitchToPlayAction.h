@@ -12,6 +12,10 @@ public:
 	//Add SwitchToPLayAction to ApplicationManager
 	virtual void Execute();
 
+	//Undo Action
 	void Undo();
+
+	//Redo Action
+	void Redo();
 
 };

@@ -15,14 +15,16 @@ protected:
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	//to be used in loading yet might be deleted 
 	
-	
+	int MoveCount; 
+	int ColorCount;
+
 	/// Add more parameters if needed.
 	//---PlayMode parameters
 	bool isHidden = false;
 	int FigureNumber;
 	
 	color LastDrawColor;
-	color LastFillColor;
+	color LastFillColor[5];
 
 public:
 	CFigure(GfxInfo FigureGfxInfo);
@@ -30,6 +32,7 @@ public:
 
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
+
 
 	virtual bool Isbelonging(Point P) const = 0;        //Checks if the point belongs to the figure
 	virtual void Draw(Output* pOut) const = 0;		//Draw the figure
@@ -39,11 +42,12 @@ public:
 
 
 	virtual void Move(Point P) = 0; //Move the figure to new position
-	virtual void UndoMove() = 0;        //Undo the figure to the old position
+	virtual void UndoMove() = 0; //Undo the figure to the old position
 
 	//validation function for figure points
 	virtual bool IsValid() = 0;
 
+	
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
 	///Decide the parameters that you should pass to each function	

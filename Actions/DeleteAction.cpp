@@ -22,21 +22,29 @@ void DeleteAction::Execute()
 	//Get a Pointer to the Output Interfaces
 	Output* pOut = pManager->GetOutput(); 
 	ReadActionParameters();
+	pManager->AddtoUndo(this);
 	if (ToBeDeleted)
 	{
-		pManager->Delete(ToBeDeleted); 
+		pManager->Delete(ToBeDeleted);
+		ToBeDeleted->SetSelected(false);
 		pOut->ClearDrawArea(); 
 	}
 	else
 	{
 		pOut->PrintMessage("Please select a figure first to delete it");
 	}
-
-	pManager->AddtoUndo(this);
 }
 
 void DeleteAction::Undo()
 {
 	pManager->AddFigure(ToBeDeleted);
+	pManager->AddtoRedo(this);
 	pManager->RemovefromUndo();
+}
+
+void DeleteAction::Redo()
+{
+	Output* pOut = pManager->GetOutput();
+	pManager->Delete(ToBeDeleted);
+	pOut->ClearDrawArea();
 }

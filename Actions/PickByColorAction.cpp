@@ -62,6 +62,5 @@ void PickByColorAction::Execute()
 		pOut->PrintMessage("CONGRATS!!GAME FINISHED !Number of Selected True Figures : " + to_string(ctrTrue) + ". Number of Selected False Figures :" + to_string(selected - ctrTrue));
 }
 
-void PickByColorAction::Undo()
-{
-}
+void PickByColorAction::Undo() {}
+void PickByColorAction::Redo() {}

@@ -9,13 +9,15 @@ private:
 public:
 	ChangeFillClrAction(ApplicationManager* pApp);
 
-	//Reads rectangle parameters
 	virtual void ReadActionParameters();
 
-	//Add rectangle to the ApplicationManager
+	//add change drawclr to app manager
 	virtual void Execute();
 
-	//if AddRectAction is the last action delete this rectangle
+	//Undo action
 	void Undo();
+
+	//Redo action
+	void Redo();
 
 };

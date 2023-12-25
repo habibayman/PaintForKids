@@ -23,6 +23,11 @@ public:
 	//Execute action (code depends on action type)
 	virtual void Execute();
 
+	//Undo Action
 	void Undo();
+
+	//Redo Action
+	void Redo();
+
 };
 

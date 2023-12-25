@@ -9,6 +9,7 @@
 ChangeDrawClrAction::ChangeDrawClrAction(ApplicationManager* pApp) :Action(pApp)
 {
 	LastColoredFigure = NULL;
+	CurrentClr = UI.DrawColor;
 }
 
 void ChangeDrawClrAction::ReadActionParameters()
@@ -36,36 +37,37 @@ void ChangeDrawClrAction::Execute()
 			{
 			case COLOR_GREEN:
 				pOut->PrintMessage("Drawing color is now the green color");
-				pManager->GetLastSelected()->ChngDrawClr(GREEN);
-				UI.DrawColor = GREEN;
+				LastColoredFigure->ChngDrawClr(GREEN);
+				pOut->setCrntDrawColor(GREEN);
 				break;
 			case COLOR_RED:
 				pOut->PrintMessage("Drawing color is now the red color");
-				pManager->GetLastSelected()->ChngDrawClr(RED);
-				UI.DrawColor = RED;
+				LastColoredFigure->ChngDrawClr(RED);
+				pOut->setCrntDrawColor(RED);
 				break;
 			case COLOR_ORANGE:
 				pOut->PrintMessage("Drawing color is now the orange color");
-				pManager->GetLastSelected()->ChngDrawClr(ORANGE);
-				UI.DrawColor = ORANGE;
+				LastColoredFigure->ChngDrawClr(ORANGE);
+				pOut->setCrntDrawColor(ORANGE);
 				break;
 			case COLOR_YELLOW:
 				pOut->PrintMessage("Drawing color is now the yellow color");
-				pManager->GetLastSelected()->ChngDrawClr(YELLOW);
-				UI.DrawColor = YELLOW;
+				LastColoredFigure->ChngDrawClr(YELLOW);
+				pOut->setCrntDrawColor(YELLOW);
 				break;
 			case COLOR_BLUE:
 				pOut->PrintMessage("Drawing color is now the blue color");
-				pManager->GetLastSelected()->ChngDrawClr(BLUE);
-				UI.DrawColor = BLUE;
+				LastColoredFigure->ChngDrawClr(BLUE);
+				pOut->setCrntDrawColor(BLUE);
 				break;
 			case COLOR_BLACK:
 				pOut->PrintMessage("Drawing color is now the black color");
-				pManager->GetLastSelected()->ChngDrawClr(BLACK);
-				UI.DrawColor = BLACK;
+				LastColoredFigure->ChngDrawClr(BLACK);
+				pOut->setCrntDrawColor(BLACK);
 				break;
 			}
 		pOut->ClearColorPalette();
+		pOut->SetFilled(false);
 		pManager->AddtoUndo(this);
 	}
 	else
@@ -77,6 +79,12 @@ void ChangeDrawClrAction::Execute()
 void ChangeDrawClrAction::Undo()
 {
 	LastColoredFigure->ChngDrawClr(CurrentClr);
+	pManager->AddtoRedo(this);
 	pManager->RemovefromUndo();
+}
+
+void ChangeDrawClrAction::Redo()
+{
+
 }
 

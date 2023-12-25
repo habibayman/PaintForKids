@@ -92,7 +92,8 @@ struct UI_Info	//User Interface Info.
 	color BkGrndColor;		//Background color
 	color StatusBarColor;	//Status bar color
 	color DrawBarColor;     //Draw bar color 
-
+	
+	bool IsFilled;
 	int PenWidth;			//width of the pen that draws shapes
 	
 	//shapes constant lengths

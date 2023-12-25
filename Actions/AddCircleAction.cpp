@@ -34,7 +34,7 @@ void AddCircleAction::ReadActionParameters()
 	pIn->GetPointClicked(P2.x, P2.y);
 	pIn->Circle_Validation(P1, P2, CircleGfxInfo, pOut);
 
-	CircleGfxInfo.isFilled = false;	//default is not filled
+	CircleGfxInfo.isFilled = pOut->GetFilled();	//set the figure filled/unfilled
 	//get drawing, filling colors and pen width from the interface
 	CircleGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	CircleGfxInfo.FillClr = pOut->getCrntFillColor();
@@ -60,6 +60,12 @@ void AddCircleAction::Execute()
 
 void AddCircleAction::Undo()
 {
-	pManager->DeleteLastFigure();
+	pManager->AddtoRedo(this);
+	DeletedFigure = pManager->DeleteLastFigure();
 	pManager->RemovefromUndo();
+}
+
+void AddCircleAction::Redo()
+{
+	pManager->AddFigure(DeletedFigure);
 }

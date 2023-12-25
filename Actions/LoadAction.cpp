@@ -86,6 +86,5 @@ void LoadAction::Execute()
 	}
 }
 
-void LoadAction::Undo()
-{
-}
+void LoadAction::Undo() {}
+void LoadAction::Redo() {}

@@ -42,6 +42,5 @@ void SaveAction::Execute()
 	pOut->PrintMessage("File saved successfully!");
 }
 
-void SaveAction::Undo()
-{
-}
+void SaveAction::Undo() {}
+void SaveAction::Redo() {}
