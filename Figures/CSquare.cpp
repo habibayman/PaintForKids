@@ -70,10 +70,11 @@ void CSquare::Save(ofstream& OutFile)
 	if (FigGfxInfo.isFilled)
 	{
 		OutFile < FigGfxInfo.FillClr ;
+		OutFile << endl;
 	}
 	else
 	{
-		OutFile << "NO_FILL" << "\n";
+		OutFile << "NO_FILL" << endl;
 	}
 	//Drawing color and fill color 
 }
