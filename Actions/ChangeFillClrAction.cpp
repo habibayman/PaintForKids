@@ -80,7 +80,7 @@ void ChangeFillClrAction::Execute()
 				CurrentClr = BLACK;
 				break;
 			}
-
+			
 		pOut->ClearColorPalette();
 		pOut->SetFilled(true);
 		pManager->AddtoUndo(this);

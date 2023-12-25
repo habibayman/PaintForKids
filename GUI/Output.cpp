@@ -30,6 +30,7 @@ Output::Output()
 	UI.DrawBarColor = LIGHTSTEELBLUE;
 
 	UI.IsFilled = false;
+
 	UI.PenWidth = 4;	//width of the figures frames
 
 	//Shapes_Constants
@@ -230,6 +231,8 @@ int Output::getCrntPenWidth() const		//get current pen width
 {
 	return UI.PenWidth;
 }
+
+
 
 void Output::SetFilled(bool f)
 {

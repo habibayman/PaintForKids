@@ -14,6 +14,8 @@ public:
 
 	void Undo();
 
+	void Redo();
+
 };
 
 #endif 

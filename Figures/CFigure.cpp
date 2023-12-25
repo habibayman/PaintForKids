@@ -42,6 +42,11 @@ void CFigure::ChngFillClr(color Fclr)
 	
 }
 
+void CFigure::SetFilled(bool f)
+{
+	FigGfxInfo.isFilled = f;
+}
+
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

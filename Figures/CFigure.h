@@ -14,8 +14,7 @@ protected:
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	//to be used in loading yet might be deleted 
-	
-	int MoveCount; 
+	 
 	int ColorCount;
 
 	int MoveCount; //count no of moves
@@ -42,6 +41,7 @@ public:
 
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
+	void SetFilled(bool f);
 
 
 	virtual void Move(Point P) = 0; //Move the figure to new position

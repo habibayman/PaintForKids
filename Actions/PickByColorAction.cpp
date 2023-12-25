@@ -72,6 +72,4 @@ void PickByColorAction::Execute()
 
 void PickByColorAction::Undo() {}
 void PickByColorAction::Redo() {}
-void PickByColorAction::Undo()
-{
-}
+

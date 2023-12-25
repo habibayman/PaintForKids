@@ -25,6 +25,4 @@ void SoundModeAction::Execute()
 void SoundModeAction::Undo() {}
 void SoundModeAction::Redo() {}
 
-void SoundModeAction::Undo()
-{
-}
+

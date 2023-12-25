@@ -36,7 +36,7 @@ void AddCircleAction::ReadActionParameters()
 
 	CircleGfxInfo.isFilled = pOut->GetFilled();	//set the figure filled/unfilled
 	//get drawing, filling colors and pen width from the interface
-	CircleGfxInfo.DrawClr = pOut->getCrntDrawColor();
+    CircleGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	CircleGfxInfo.FillClr = pOut->getCrntFillColor();
 
 	pOut->ClearStatusBar();
