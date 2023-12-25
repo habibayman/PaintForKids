@@ -11,12 +11,24 @@
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SoundModeAction.h"  
 #include "Actions\SwitchToPlayAction.h"
+#include "Actions\MoveFigureAction.h"\
+#include "Actions\MoveByDragAction.h"\
+
 #include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\RedoAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
 #include "Actions\MoveFigureAction.h"
+#include "Actions\UndoAction.h"
+#include "Actions\ChangeDrawClrAction.h"
+#include "Actions\ChangeFillClrAction.h"
+#include "Actions\PlayRecordingAction.h"
+#include "Actions\StartRecordingAction.h"
+#include "Actions\StopRecordingAction.h"
+#include "Actions\SwitchToPlayAction.h"
+#include "Actions\SwitchToDrawAction.h"
+
 #include <Windows.h>
 #include "MMSystem.h"
 //Constructor
@@ -36,10 +48,38 @@ ApplicationManager::ApplicationManager()
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
 	for (int i = 0; i < MaxUndoRedoCount; i++)
+
+	//Create an array of figure pointers and set them to NULL		
+	for (int i = 0; i < MaxFigCount; i++)
+		FigList[i] = NULL;
+
+	RecordsCount = 0;
+	IsRecording = false;
+	PlayingRecord = false;
+
+	//Create an array of Action pointers and set them to NULL
+	for (int j = 0; j < MaxRecordingCount; j++)
+		RecordingList[j] = NULL;
+
+	for (int i = 0; i < 5; i++)
 		Undoarr[i] = NULL;
 	for (int i = 0; i < MaxUndoRedoCount; i++)
 		Redoarr[i] = NULL;
 
+
+	RecordsCount = 0;
+	IsRecording = false;
+	PlayingRecord = false;
+
+	//Create an array of Action pointers and set them to NULL
+	for (int j = 0; j < MaxRecordingCount; j++)
+		RecordingList[j] = NULL;
+
+	for (int i = 0; i < 5; i++)
+		Undoarr[i] = NULL;
+
+	//Sound is played by default
+	muted = false;
 	//Sound is played by default
 	muted = false;
 }
@@ -82,8 +122,20 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case MOVE_FIGURE:
 		pAct = new MoveFigureAction(this, muted);
 		break;
+	case MOVE_BY_DRAGGING:
+		pAct = new MoveByDragAction(this);
+		break;
 	case SAVE_FIGURE:
 		pAct = new SaveAction(this, muted);
+		break;
+	case START_RECORDING:
+		pAct = new StartRecordingAction(this);
+		break;
+	case PLAY_RECORDING:
+		pAct = new PlayRecordingAction(this);
+		break;
+	case STOP_RECORDING:
+		pAct = new StopRecordingAction(this);
 		break;
 	case TO_LOAD:
 		pAct = new LoadAction(this, muted);
@@ -121,6 +173,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case FILL_COLOR:
 		pAct = new ChangeFillClrAction(this);
 		break;
+	case TO_DRAW:
+		pAct = new SwitchToDrawAction(this, &muted);
+		break;
 	case EXIT:
 		///create ExitAction here
 
@@ -135,6 +190,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		pAct->Execute();//Execute
 		//delete pAct;	//You may need to change this line depending to your implementation
+		//pAct = NULL;
+		//delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
 }
@@ -146,7 +203,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if (FigCount < MaxFigCount)
+	{
 		FigList[FigCount++] = pFig;
+		FigList[FigCount - 1]->SetID(FigCount);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -211,6 +271,7 @@ void ApplicationManager::ClearAll()
 	for (int i = 0; i < FigCount; i++)
 	{
 		delete FigList[i];
+		FigList[i] = NULL;
 	}
 	FigCount = 0;
 
@@ -370,13 +431,29 @@ CFigure* ApplicationManager::RandomFigure(int& TotalFig)
 CFigure* ApplicationManager::RandomColor(int& TotalFig)
 {
 	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	bool ValidGame = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->FigIsFilled())
+		{
+			ValidGame = 1;
+			break;
+		}
+	}
+	if (ValidGame ==0)
+	{
+		return NULL;
+	}
 	int type = rand() % FigCount;	//choose a random index in FigList array
-
-
+	while (FigList[type]->FigIsFilled() == 0) 
+	{
+		type = rand() % FigCount;
+	}
 	//counts number of existing figures with same property as the Figure of the Game
 			for (int i = 0; i < FigCount; i++)
 			{
-				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()) 
+				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()
+					&& FigList[i]->FigIsFilled())
 					TotalFig++;
 			}
 			return FigList[type];	//Return  color of the Figure chosen randomly
@@ -384,11 +461,29 @@ CFigure* ApplicationManager::RandomColor(int& TotalFig)
 CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
 {
 	TotalFig = 0;	//initialize number of total  existing figures with the property of the picked one(Figure Game which will be chosen randomly)
+	bool ValidGame = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->FigIsFilled())
+		{
+			ValidGame = 1;
+			break;
+		}
+	}
+	if (ValidGame == 0)
+	{
+		return NULL;
+	}
 	int type = rand() % FigCount;	//choose a random index in FigList array
+	while (FigList[type]->FigIsFilled() == 0)
+	{
+		type = rand() % FigCount;
+	}
 	for (int i = 0; i < FigCount; i++)
 	{
 		if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()&&
-			( FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber()))
+			( FigList[i]->GetFigureNumber() == FigList[type]->GetFigureNumber())
+			&& FigList[i]->FigIsFilled())
 			TotalFig++;
 	}
 	return FigList[type];	//Return the color of the Figure chosen randomly
@@ -401,6 +496,12 @@ void ApplicationManager::ResetPlayMode()
 	}
 }
 
+void ApplicationManager::UnhideFigures()
+{
+	for (int i = 0; i < FigCount; i++)
+		FigList[i]->HideFigure(false);
+}
+
 
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
@@ -409,6 +510,64 @@ void ApplicationManager::UpdateInterface() const
 		if (FigList[i]->FigisHidden() != true) // to make sure not to draw a hidden figure
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 }
+
+// Recording Functions
+void ApplicationManager::SetIsRecording(bool IsRecording)
+{
+	this->IsRecording = IsRecording;
+}
+bool ApplicationManager::GetIsRecording() const
+{
+	return IsRecording;
+}
+
+void ApplicationManager::AddRecordedAction(Action* pRecordedAction)
+{
+	RecordingList[RecordsCount++] = pRecordedAction;
+}
+
+int ApplicationManager::GetRecordsCount() const
+{
+	return RecordsCount;
+}
+
+void ApplicationManager::PlayRecording(int RecordingNumber)
+{
+	RecordingList[RecordingNumber]->Execute();
+}
+
+void ApplicationManager::SetPlayingRecord(bool IsPlaying)
+{
+	PlayingRecord = IsPlaying;
+}
+
+void ApplicationManager::ClearRecordingList()
+{
+	for (int j = 0; j < RecordsCount; j++)
+	{
+		RecordingList[j] = NULL;
+		delete RecordingList[j];
+	}
+
+	RecordsCount = 0;
+}
+
+int ApplicationManager::GetMaxRecordingCount()
+{
+	return MaxRecordingCount;
+}
+
+void ApplicationManager::ClearUndoList()
+{
+	for (int i = 0; i < 5; i++)
+		Undoarr[i] = NULL;
+}
+
+bool ApplicationManager::GetPlayingRecord() const
+{
+	return PlayingRecord;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
 Input* ApplicationManager::GetInput() const
@@ -430,3 +589,4 @@ ApplicationManager::~ApplicationManager()
 	delete pOut;
 
 }
+

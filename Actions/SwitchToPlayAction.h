@@ -1,3 +1,5 @@
+/*#ifndef SWITCHTOPLAYCTION_H
+#define SWITCHTOPLAYACTION_H*/
 #pragma once
 #include "Action.h"
 class SwitchToPlayAction :
@@ -19,3 +21,6 @@ public:
 	void Redo();
 
 };
+};
+
+//#endif

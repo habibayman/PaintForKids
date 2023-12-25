@@ -7,6 +7,8 @@ private:
 	CFigure *LastColoredFigure;
 	color LastClr;
 	color CurrentClr;
+	ColorType ColorSelected;
+
 public:
 	ChangeDrawClrAction(ApplicationManager* pApp);
 

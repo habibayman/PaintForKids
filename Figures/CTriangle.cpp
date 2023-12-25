@@ -6,9 +6,9 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 	Corner1 = P1;
 	Corner2 = P2;
 	Corner3 = P3;
-	ID++;
 	FigureNumber = 3;
 	deltaX = deltaY = 0;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempDelta[i].x = deltaX;
@@ -83,11 +83,16 @@ void CTriangle::UndoMove()
 	Corner3.y -= deltaY;
 }
 
-bool CTriangle:: IsValid()
+bool CTriangle::IsValidMove()
 {
 	return !(Corner1.y < UI.ToolBarHeight || Corner1.y > UI.height - UI.StatusBarHeight ||
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight ||
 		Corner3.y < UI.ToolBarHeight || Corner3.y > UI.height - UI.StatusBarHeight);
+}
+
+void CTriangle::SetID(int id)
+{
+	ID = id;
 }
 
 void CTriangle::Save(ofstream& OutFile)
@@ -148,6 +153,14 @@ void CTriangle::HideFigure(bool b) //Hide\Unhide the figure
 bool CTriangle::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+
+bool CTriangle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 
 void CTriangle::Load(ifstream& InFile)

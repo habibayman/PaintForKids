@@ -18,6 +18,8 @@ protected:
 	int MoveCount; 
 	int ColorCount;
 
+	int MoveCount; //count no of moves
+	
 	/// Add more parameters if needed.
 	//---PlayMode parameters
 	bool isHidden = false;
@@ -28,6 +30,7 @@ protected:
 
 public:
 	CFigure(GfxInfo FigureGfxInfo);
+	virtual void SetID(int)=0;	//set fig ID
 	CFigure(); 
 
 	void SetSelected(bool s);	//select/unselect the figure
@@ -45,7 +48,7 @@ public:
 	virtual void UndoMove() = 0; //Undo the figure to the old position
 
 	//validation function for figure points
-	virtual bool IsValid() = 0;
+	virtual bool IsValidMove() = 0;
 
 	
 	///The following functions should be supported by the figure class
@@ -70,7 +73,7 @@ public:
 	virtual color GetFigureColor() = 0;
 	virtual color GetDrawColor() = 0;
 	string ChosenColorName();
-
+	virtual bool FigIsFilled() = 0;
 
 };
 

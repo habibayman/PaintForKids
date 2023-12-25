@@ -33,45 +33,55 @@ void SelectFigureAction::Execute()
 {
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
-	//This action needs to read some parameters first
-	ReadActionParameters();
 
-	if (pManager->GetFigure(P1))
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+
+	if (!PlayingRecord)
+		ReadActionParameters();
+
+	CFigure* newSelected = pManager->GetFigure(P1);
+	CFigure* selected = pManager->GetLastSelected();
+
+	if (!newSelected)
 	{
-		if (pManager->GetLastSelected())  //If there is a figure selected return true
+		if (!selected)
 		{
-			if (pManager->GetLastSelected() == pManager->GetFigure(P1)) //if the last figure selected is the figure that I want to select, unselect it
-			{
-				pManager->GetFigure(P1)->SetSelected(false);
-				pManager->SetLastSelected(NULL);
-			}
-			else                                                     // else if the last figure selected is not the figure I want to select
-			{
-				pManager->GetLastSelected()->SetSelected(false);     //unselect the figure that is selected
-				pManager->GetFigure(P1)->SetSelected(true);          //select the figure that I want to select
-				pManager->SetLastSelected(pManager->GetFigure(P1));  //set it as the last selected figure
-				pManager->GetFigure(P1)->PrintInfo(pOut);            // print info of the selected figure
-			}
-		}
-		else                                                        //if no figure is being already selected
-		{
-			pManager->GetFigure(P1)->SetSelected(true);             //select the figure I want to select
-			pManager->SetLastSelected(pManager->GetFigure(P1));     //set it as the last selected figure
-			pManager->GetFigure(P1)->PrintInfo(pOut);               // print info of the selected figure
+			return;
 		}
 
-	}
-	else
-	{
-		if (pManager->GetLastSelected() != NULL)
+		selected->SetSelected(false);
+		selected = nullptr;
+
+		if (Recording())
 		{
-			pManager->GetLastSelected()->SetSelected(false);
-			pManager->SetLastSelected(NULL);
+			pManager->AddRecordedAction(this);
 		}
+
+		return;
 	}
+
+	newSelected->SetSelected(true);
+	//newSelected->ChngDrawClr(UI.HighlightColor);
+	pManager->SetLastSelected(newSelected);
+
+	if (selected)
+	{
+		selected->SetSelected(false);
+	}
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
+
 }
 
 void SelectFigureAction::Undo() {}
 void SelectFigureAction::Redo() {}
 
 
+void SelectFigureAction::Undo()
+{
+}

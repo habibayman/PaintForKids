@@ -23,13 +23,20 @@ void SwitchToPlayAction::Execute()
 {
 	//Get a Pointer  Output Interfaces
 	Output* pOut = pManager->GetOutput();
+	if (pManager->Get_FigCount() != 0)
+	{
+		ReadActionParameters();
 
-	ReadActionParameters();
-
-	//Switching to Play Mode
-	UI.InterfaceMode = MODE_PLAY;
-	pOut->CreatePlayToolBar();
+		//Switching to Play Mode
+		UI.InterfaceMode = MODE_PLAY;
+		pOut->CreatePlayToolBar();
+	}
+	else
+	{
+		pOut->PrintMessage("Please draw some figures to switch to Play Mode");
+	}
 }
+	
 
 void SwitchToPlayAction::Undo() {}
 void SwitchToPlayAction::Redo() {}

@@ -11,5 +11,7 @@ public:
 	virtual void Execute();
 	void Undo();
 	void Redo();
+	void Undo();
+
 };
 #endif

@@ -7,6 +7,8 @@ private:
 	color LastClr;
 	color  CurrentClr;
 	CFigure* LastColoredFigure;
+	ColorType ColorSelected;
+
 public:
 	ChangeFillClrAction(ApplicationManager* pApp);
 

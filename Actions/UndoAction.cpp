@@ -26,6 +26,12 @@ void UndoAction::Execute()
 		pOut->PrintMessage("No more actions to undo");
 	}
 	
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
 }
 
 

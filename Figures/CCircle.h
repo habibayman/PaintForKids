@@ -16,8 +16,10 @@ public:
     virtual void Draw(Output* pOut) const;
     virtual bool Isbelonging(Point P) const;
     virtual void Move(Point P);
+    virtual bool IsValidMove();
     void UndoMove();
-    virtual bool IsValid();
+   
+    virtual void SetID(int);
     void Save(ofstream& OutFile);
     void PrintInfo(Output* pOut);
  
@@ -31,5 +33,6 @@ public:
     virtual color GetDrawColor();   //Get Draw color
     virtual void HideFigure(bool);  //Hide\Unhide the figure
     virtual bool FigisHidden(); //Know if figure is hidden or not
+    virtual bool FigIsFilled();
 };
 

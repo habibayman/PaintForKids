@@ -14,7 +14,7 @@ DeleteAction::DeleteAction(ApplicationManager* pApp, bool muted): Action(pApp)
 
 void DeleteAction::ReadActionParameters() 
 {
-	ToBeDeleted = pManager->GetLastSelected(); 
+	
 }
 
 void DeleteAction::Execute()
@@ -23,16 +23,33 @@ void DeleteAction::Execute()
 	Output* pOut = pManager->GetOutput(); 
 	ReadActionParameters();
 	pManager->AddtoUndo(this);
+	ToBeDeleted = pManager->GetLastSelected();
+	
+	//trying something
+	pOut->ClearDrawArea();
+	pManager->UpdateInterface();
+
 	if (ToBeDeleted)
 	{
 		pManager->Delete(ToBeDeleted);
 		ToBeDeleted->SetSelected(false);
 		pOut->ClearDrawArea(); 
+		pManager->UpdateInterface();
 	}
+
 	else
 	{
 		pOut->PrintMessage("Please select a figure first to delete it");
 	}
+
+	pManager->AddtoUndo(this);
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
+
 }
 
 void DeleteAction::Undo()
@@ -50,3 +67,4 @@ void DeleteAction::Redo()
 	pOut->ClearDrawArea();
 	pManager->RemovefromRedo();
 }
+

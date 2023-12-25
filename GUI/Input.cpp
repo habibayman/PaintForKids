@@ -66,7 +66,8 @@ ActionType Input::GetUserAction() const
             case ITM_TRIANGLE: return DRAW_TRIANGLE;
             case ITM_HEXA: return DRAW_HEXA;
             case ITM_CIRCLE: return DRAW_CIRCLE;
-			case ITM_MOVE_FIGURE: return MOVE_FIGURE; 			
+			case ITM_MOVE_FIGURE: return MOVE_FIGURE; 
+			case ITM_MOVE_BY_DRAGGING: return MOVE_BY_DRAGGING;
             case ITM_PLAY_RECORDING: return PLAY_RECORDING;
 			case ITM_START_RECORDING: return START_RECORDING;
 			case ITM_STOP_RECORDING: return STOP_RECORDING;
@@ -252,6 +253,10 @@ void Input::Repeatability_Validation(Point& p1, Point& p2, Output* pO)
 			pO->PrintMessage("You picked a valid point <3");
 		}
  //Makes sure that the picked points are not the same
+}
+buttonstate Input::GetMouseState(const button btMouse, int& iX, int& iY)
+{
+	return pWind->GetButtonState(btMouse, iX, iY);
 }
 Input::~Input()
 {

@@ -6,8 +6,8 @@ using namespace std;
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ID++;
 	FigureNumber = 4;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempCenter[i].x = 0;
@@ -59,12 +59,17 @@ void CHexagon::UndoMove()
 	MoveCount--;
 }
 
-bool CHexagon::IsValid()
+bool CHexagon::IsValidMove()
 {
 	return !(Center.y < UI.wy + UI.ToolBarHeight + sqrt(3) / 2 * UI.HEXAGON_LENGTH ||
 		UI.height - Center.y < UI.HEXAGON_LENGTH + UI.StatusBarHeight + UI.wy ||
 		Center.x < UI.wx + UI.HEXAGON_LENGTH ||
 		UI.width - Center.x < UI.HEXAGON_LENGTH + 3 * UI.wx);
+}
+
+void CHexagon::SetID(int id)
+{
+	ID = id;
 }
 
 void CHexagon::Save(ofstream& OutFile)
@@ -125,6 +130,13 @@ void CHexagon::HideFigure(bool b) //Hide\Unhide the figure
 bool CHexagon::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+bool CHexagon::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 void CHexagon::Load(ifstream& InFile)
 {

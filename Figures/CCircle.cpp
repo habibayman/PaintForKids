@@ -5,9 +5,9 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 {
 	Center = P1;
 	CirclePoint = P2;
-	ID++;
 	FigureNumber = 5;
 	deltaX = deltaY = 0;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempDelta[i].x = deltaX;
@@ -66,7 +66,7 @@ void CCircle::UndoMove()
 	CirclePoint.y -= deltaY;
 }
 
-bool CCircle::IsValid()
+bool CCircle::IsValidMove()
 {
 	// radius of Circle 
 	double CircleRadius = sqrt(pow(Center.x - CirclePoint.x, 2) + pow(Center.y - CirclePoint.y, 2));  
@@ -74,6 +74,11 @@ bool CCircle::IsValid()
 		abs(Center.x - UI.width) < CircleRadius ||
 		abs(Center.y - (UI.ToolBarHeight)) < CircleRadius ||
 		abs(Center.y - ((UI.height) - UI.StatusBarHeight)) < CircleRadius);
+}
+
+void CCircle::SetID(int id)
+{
+	ID = id;
 }
 
 void CCircle::Save(ofstream& OutFile)
@@ -154,5 +159,13 @@ void CCircle::HideFigure(bool b) //Hide\Unhide the figure
 
 bool CCircle::FigisHidden()	//Know if figure is hidden or not
 {	return isHidden;
+}
+
+bool CCircle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 

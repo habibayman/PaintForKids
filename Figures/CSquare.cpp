@@ -4,8 +4,8 @@
 CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ID++;
 	FigureNumber = 2;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempCenter[i].x = 0;
@@ -46,13 +46,19 @@ void CSquare::UndoMove()
 	MoveCount--;
 }
 
-bool CSquare::IsValid()
+
+bool CSquare::IsValidMove()
 {
 	return !(Center.y < (UI.wy + UI.ToolBarHeight + UI.SQUARE_LENGTH / 2) ||
 		Center.y > UI.height - UI.StatusBarHeight - UI.wy ||
 		Center.y > UI.height - (UI.wy + UI.StatusBarHeight + UI.SQUARE_LENGTH / 2) ||
 		Center.x < (UI.wx + UI.SQUARE_LENGTH / 2) ||
 		Center.x > UI.width - UI.SQUARE_LENGTH / 2 - (3 * UI.wx));
+}
+
+void CSquare::SetID(int id)
+{
+	ID = id;
 }
 
 void CSquare::Save(ofstream& OutFile)
@@ -113,6 +119,13 @@ void CSquare::HideFigure(bool b) //Hide\Unhide the figure
 bool CSquare::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+bool CSquare::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 void CSquare::Load(ifstream& InFile) 
 {
