@@ -102,8 +102,16 @@ void ChangeFillClrAction::Execute()
 void ChangeFillClrAction::Undo()
 {
 	Output* pOut = pManager->GetOutput();
+
 	LastColoredFigure->ChngFillClr(LastClr);
 	pOut->setCrntFillColor(LastClr);
+	
+	if (LastClr == WHITE)
+	{
+		LastColoredFigure->SetFilled(false);
+		pOut->ClearDrawArea();
+	}
+	
 	pManager->AddtoRedo(this);
 	pManager->RemovefromUndo();
 }

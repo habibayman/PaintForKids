@@ -21,6 +21,6 @@ public:
 	void Redo();
 
 };
-};
+
 
 //#endif

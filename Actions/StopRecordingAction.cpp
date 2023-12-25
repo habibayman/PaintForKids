@@ -34,3 +34,7 @@ void StopRecordingAction::Undo()
 {
 
 }
+
+void StopRecordingAction::Redo()
+{
+}

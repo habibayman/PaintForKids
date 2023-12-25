@@ -55,3 +55,5 @@ void PlayRecordingAction::Execute()
 void PlayRecordingAction::Undo()
 {
 }
+
+void PlayRecordingAction::Redo() {}

@@ -83,8 +83,3 @@ void AddRectAction::Execute()
 		pManager->AddtoUndo(this);
 		pManager->RemovefromRedo();
 	}
-void AddRectAction::Undo()
-{
-	pManager->DeleteLastFigure();
-	pManager->RemovefromUndo();
-}

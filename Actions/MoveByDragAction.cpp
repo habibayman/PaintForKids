@@ -78,3 +78,5 @@ void MoveByDragAction::Execute()
 void MoveByDragAction::Undo()
 {
 }
+
+void MoveByDragAction::Redo() {}
