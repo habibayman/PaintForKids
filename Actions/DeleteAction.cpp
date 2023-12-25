@@ -31,4 +31,12 @@ void DeleteAction::Execute()
 	{
 		pOut->PrintMessage("Please select a figure first to delete it");
 	}
+
+	pManager->AddtoUndo(this);
+}
+
+void DeleteAction::Undo()
+{
+	pManager->AddFigure(ToBeDeleted);
+	pManager->RemovefromUndo();
 }

@@ -36,3 +36,8 @@ void SwitchToPlayAction::Execute()
 		pOut->PrintMessage("Please draw some figures to switch to Play Mode");
 	}
 }
+	
+
+void SwitchToPlayAction::Undo()
+{
+}

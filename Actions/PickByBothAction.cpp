@@ -65,3 +65,7 @@ void PickByBothAction::Execute()
 	else
 		pOut->PrintMessage("CONGRATS!!GAME FINISHED ! Number of true picks : " + to_string(ctrTrue) + " vs. Number of false picks :" + to_string(selected - ctrTrue));
 }
+
+void PickByBothAction::Undo()
+{
+}

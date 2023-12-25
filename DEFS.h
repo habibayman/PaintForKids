@@ -25,7 +25,8 @@ enum ActionType //The actions supported (you can add more if needed)
 	STOP_RECORDING, //Switch interface to Draw mode
 	TO_LOAD,
 
-	TO_COLOR,
+	DRAW_COLOR,
+	FILL_COLOR,
 	TO_CLEAR,
 	TO_DELETE,
 	SOUND_MODE,

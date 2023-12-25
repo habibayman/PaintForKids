@@ -10,5 +10,6 @@ public:
 	SaveAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	void Undo();
 };
 #endif

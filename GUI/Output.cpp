@@ -16,10 +16,10 @@ Output::Output()
 	UI.ToolBarHeight = 60;
 	UI.MenuItemWidth = 50;
 	UI.ColorItemWidth = 30;
-	UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
+	UI.ColorXi = ITM_DRAW_COLOR * (UI.MenuItemWidth + UI.wx);
 
-	UI.DrawColor = BLUE;	//Drawing color 
-	UI.FillColor = GREEN;	//Filling color 
+	UI.DrawColor = BLUE;	//Drawing color
+	UI.FillColor = GREEN;	//Filling color
 	UI.MsgColor = BLACK;		//Messages color 
 	UI.BkGrndColor = WHITE;	//Background color changed color from LIGHTGOLDENRODYELLOW to WHITE
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
@@ -113,7 +113,8 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_START_RECORDING] = "images\\MenuItems\\Menu_Start_Recording.jpg";
 	MenuItemImages[ITM_STOP_RECORDING] = "images\\MenuItems\\Menu_Stop_Recording.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\MenuItems\\Menu_loadgraph.jpg";
-	MenuItemImages[ITM_COLORS] = "images\\MenuItems\\Menu_colors.jpg";
+	MenuItemImages[ITM_DRAW_COLOR] = "images\\MenuItems\\Menu_Draw_Clr.jpg";
+	MenuItemImages[ITM_FILL_COLOR] = "images\\MenuItems\\Menu_Fill_Clr.jpg";
 	MenuItemImages[ITM_CLEAR] = "images\\MenuItems\\Menu_clear.jpg";
 	MenuItemImages[ITM_SOUND] = "images\\MenuItems\\Menu_Sound.jpg";
 	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_Delete.jpg";

@@ -17,6 +17,8 @@ public:
 
 	//Add SelectFigureAction to the ApplicationManager
 	virtual void Execute();
+
+	void Undo();
 };
 #endif
 

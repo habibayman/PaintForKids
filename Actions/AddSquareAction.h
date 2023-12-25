@@ -14,5 +14,8 @@ public:
 
 	//Add square to the ApplicationManager
 	virtual void Execute();
+
+	//if AddSquareAction is the last action delete this square
+	void Undo();
 };
 

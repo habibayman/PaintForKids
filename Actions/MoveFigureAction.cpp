@@ -31,7 +31,7 @@ void MoveFigureAction::Execute()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	CFigure* SelectedFig = pManager->GetLastSelected();
+	SelectedFig = pManager->GetLastSelected();
 
 	if (SelectedFig)
 	{
@@ -51,7 +51,7 @@ void MoveFigureAction::Execute()
 			pOut->ClearStatusBar();
 		} while (!(SelectedFig->IsValid()));
 
-
+		pManager->AddtoUndo(this);
 		pOut->ClearDrawArea();
 		//move coordinates of selected figure to new position
 		//clearing drawing area to delete the old position of the selected shape
@@ -63,4 +63,14 @@ void MoveFigureAction::Execute()
 	}
 
 }
+
+void MoveFigureAction::Undo()
+{
+	Output* pOut = pManager->GetOutput();
+	SelectedFig->UndoMove();
+	pManager->RemovefromUndo();
+	pOut->ClearDrawArea();
+	pManager->UpdateInterface();
+}
+
 

@@ -5,7 +5,8 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
 	FigGfxInfo.BorderWidth = UI.PenWidth;
-	ID = 0;
+	LastDrawColor = BLUE;
+	MoveCount = 0;
 }
 
 void CFigure::SetSelected(bool s)
@@ -23,14 +24,17 @@ bool CFigure::IsSelected() const
 
 void CFigure::ChngDrawClr(color Dclr)
 {
+	LastDrawColor = FigGfxInfo.DrawClr;
 	FigGfxInfo.DrawClr = Dclr;
 }
 
 void CFigure::ChngFillClr(color Fclr)
 {
 	FigGfxInfo.isFilled = true;
+	LastFillColor = FigGfxInfo.FillClr;
 	FigGfxInfo.FillClr = Fclr;
 }
+
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//

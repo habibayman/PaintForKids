@@ -42,6 +42,17 @@ void AddSquareAction::Execute()
 	//Create a square with the parameters read from the user
 	CSquare* S = new CSquare(P1, SquareGfxInfo);
 
+	//Add the action to Undo list
+	pManager->AddtoUndo(this);
+
 	//Add the square to the list of figures
 	pManager->AddFigure(S);
+
+}
+
+
+void AddSquareAction::Undo()
+{
+	pManager->DeleteLastFigure();
+	pManager->RemovefromUndo();
 }

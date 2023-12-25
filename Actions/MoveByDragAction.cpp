@@ -71,3 +71,7 @@ void MoveByDragAction::Execute()
 		pOut->PrintMessage("Please select a shape to move it by dragging first");
 	}
 }
+
+void MoveByDragAction::Undo()
+{
+}

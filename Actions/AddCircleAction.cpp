@@ -1,5 +1,6 @@
 #include "AddCircleAction.h"
 #include"Action.h"
+#include "UndoAction.h"
 #include "..\Figures\CCircle.h"
 
 #include "..\ApplicationManager.h"
@@ -50,7 +51,15 @@ void AddCircleAction::Execute()
 	//Create a circle with the parameters read from the user
 	CCircle* C = new CCircle(P1, P2, CircleGfxInfo);
 
+	//Add the Action to Undo list
+	pManager->AddtoUndo(this);
+
 	//Add the circle to the list of figures
 	pManager->AddFigure(C);
 }
 
+void AddCircleAction::Undo()
+{
+	pManager->DeleteLastFigure();
+	pManager->RemovefromUndo();
+}

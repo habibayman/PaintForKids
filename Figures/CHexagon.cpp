@@ -7,6 +7,11 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
 	FigureNumber = 4;
+	for (int i = 0; i < 5; i++)
+	{
+		TempCenter[i].x = 0;
+		TempCenter[i].y = 0;
+	}
 }
 
 CHexagon::CHexagon()
@@ -21,31 +26,29 @@ void CHexagon::Draw(Output* pOut) const
 
 bool CHexagon::Isbelonging(Point P) const
 {
-	/*
-	1- distance from center to any point on the border = dist1 = (sqrt(3) * r) / (sqrt(3) * cos(t) + sin(t))
-	2- distance from center to any point = dist2 =  double dist2 = sqrt(pow(Center.x - P.x, 2) + pow(Center.y - P.y, 2))
-	3- dist1 and dist2 has the same slope, so if dist2 <= dist1, the point belongs to the hexagon
-	r = length && t = atan(slope of the line from center to any point on the border)
-	*/
-	double slope = (P.y - Center.y) / (double)(P.x - Center.x);
-	double dist1 = (sqrt(3) * UI.HEXAGON_LENGTH) / ((sqrt(3) * cos(atan(slope))) + sin(atan(slope)));
-	double dist2 = sqrt(pow(Center.x - P.x, 2) + pow(Center.y - P.y, 2));
+	Point q2;
+	q2.x = abs(P.x - Center.x);  //transform the point to quadrant 2
+	q2.y = abs(P.y - Center.y);
+	
+	float horizontal = UI.HEXAGON_LENGTH * cos(atan(1) / 3.0);
+	float vertical = UI.HEXAGON_LENGTH / 2;
 
-	if (dist2 <= dist1)
-	{
-		if (dist2 >= dist1 - FigGfxInfo.BorderWidth - 0.01)  //check that the point is on the borders
-		{
-			return true;
-		}
-		//TODO: if figure is filled return true
+	if (q2.x > horizontal || q2.y > vertical * 2)
 		return false;
-	}
-	return false;
+		return true;
+	
 }
 
 void CHexagon::Move(Point P)
 {
+    TempCenter[MoveCount++] = Center;
 	Center = P;
+}
+
+void CHexagon::UndoMove()
+{
+	Center = TempCenter[MoveCount - 1];
+	MoveCount--;
 }
 
 bool CHexagon::IsValid()
@@ -78,6 +81,15 @@ void CHexagon::Save(ofstream& OutFile)
 	//Drawing color and fill color 
 }
 
+void CHexagon::PrintInfo(Output* pOut)
+{
+	string info = "ID: " + to_string(ID) + ", Center (" + to_string(Center.x) + ", " + to_string(Center.y) + "), " +
+		"Length: " + to_string((int)UI.HEXAGON_LENGTH);
+	pOut->PrintMessage(info);
+}
+
+
+
 
 //==================================================================================//
 //							PlayMode Management Functions							//
@@ -99,6 +111,10 @@ int CHexagon::GetFigureNumber()	//Get figure number
 color CHexagon::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
+}
+color CHexagon::GetDrawColor()
+{
+	return FigGfxInfo.DrawClr;
 }
 void CHexagon::HideFigure(bool b) //Hide\Unhide the figure
 {

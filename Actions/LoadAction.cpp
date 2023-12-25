@@ -85,3 +85,7 @@ void LoadAction::Execute()
 		pOut->PrintMessage("File not found, it may have been moved or deleted, try again");
 	}
 }
+
+void LoadAction::Undo()
+{
+}
