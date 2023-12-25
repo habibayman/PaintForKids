@@ -16,7 +16,9 @@ Output::Output()
 	UI.ToolBarHeight = 60;
 	UI.MenuItemWidth = 50;
 	UI.ColorItemWidth = 30;
-	UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
+	//check it
+	//UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
+	UI.ColorXi = ITM_DRAW_COLOR * (UI.MenuItemWidth + UI.wx);
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = WHITE;	//Filling color

@@ -15,6 +15,7 @@ protected:
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	//to be used in loading yet might be deleted 
 	
+	int MoveCount; //count no of moves
 	
 	/// Add more parameters if needed.
 	//---PlayMode parameters

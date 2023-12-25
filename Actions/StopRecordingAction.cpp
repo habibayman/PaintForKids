@@ -29,3 +29,8 @@ void StopRecordingAction::Execute()
 		pOut->PrintMessage("No recording to stop!");
 	}
 }
+
+void StopRecordingAction::Undo()
+{
+
+}

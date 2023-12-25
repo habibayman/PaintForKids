@@ -46,14 +46,23 @@ void SelectFigureAction::Execute()
 	if (!newSelected)
 	{
 		if (!selected)
+		{
 			return;
+		}
 
 		selected->SetSelected(false);
 		selected = nullptr;
+
+		if (Recording())
+		{
+			pManager->AddRecordedAction(this);
+		}
+
 		return;
 	}
 
 	newSelected->SetSelected(true);
+	//newSelected->ChngDrawClr(UI.HighlightColor);
 	pManager->SetLastSelected(newSelected);
 
 	if (selected)

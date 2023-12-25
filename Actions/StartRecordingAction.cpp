@@ -35,5 +35,10 @@ void StartRecordingAction::Execute()
 			pManager->ClearRecordingList();
 		pManager->SetIsRecording(true);
 	}
+
+}
+
+void StartRecordingAction::Undo()
+{
 }
 

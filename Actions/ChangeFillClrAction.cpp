@@ -14,7 +14,11 @@ ChangeFillClrAction::ChangeFillClrAction(ApplicationManager* pApp) :Action(pApp)
 void ChangeFillClrAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+	
 	pOut->PrintMessage("Choose color to fill the shape");
+	pOut->CreateColorPalette();
+	ColorSelected = pIn->GetColor();
 }
 
 void ChangeFillClrAction::Execute()
@@ -23,15 +27,19 @@ void ChangeFillClrAction::Execute()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	ColorType ColorSelected;
 
 	if (pManager->GetLastSelected())
 	{
 		LastColoredFigure = pManager->GetLastSelected();
 		CurrentClr = LastColoredFigure->GetFigureColor();
 
-			pOut->CreateColorPalette();
-			ColorSelected = pIn->GetColor();
+		bool PlayingRecord = pManager->GetPlayingRecord();
+		
+		if (!PlayingRecord)
+		{
+			ReadActionParameters();
+		}
+
 			switch (ColorSelected)
 			{
 			case COLOR_GREEN:
@@ -65,12 +73,21 @@ void ChangeFillClrAction::Execute()
 				UI.FillColor = BLACK;
 				break;
 			}
+
 		pOut->ClearColorPalette();
 		pManager->AddtoUndo(this);
+
 	}
+
 	else
 	{
 		pOut->PrintMessage("Please select a figure first");
+	}
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
 	}
 }
 

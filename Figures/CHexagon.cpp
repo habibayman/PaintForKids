@@ -8,6 +8,7 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 	Center = P1;
 	ID++;
 	FigureNumber = 4;
+	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		TempCenter[i].x = 0;

@@ -1,12 +1,12 @@
-#ifndef SWITCHTOPLAYCTION_H
-#define SWITCHTOPLAYACTION_H
+#ifndef SWITCHTODRAWACTION_H
+#define SWITCHTODRAWACTION_H
 
 #include "Action.h"
-class SwitchToPlayAction :
+class SwitchToDrawAction :
 	public Action
 {
 public:
-	SwitchToPlayAction(ApplicationManager* pApp, bool muted);
+	SwitchToDrawAction(ApplicationManager* pApp, bool muted);
 
 	//Read 
 	virtual void ReadActionParameters();

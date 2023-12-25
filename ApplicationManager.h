@@ -63,13 +63,14 @@ public:
 	void AddtoUndo(Action* action);
 	void RemovefromUndo();
 	Action* GetLastActiontoUndo();
-void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
 
 	// -- PlayMode Management Functions
 	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same
 	CFigure* RandomColor(int& TotalFig);	//choose a random color to start the same
 	CFigure* RandomColoredFigure(int& TotalFig);	//choose a random  colored figure to start the same
 	void ResetPlayMode();	//Reset the game
+	void UnhideFigures();   //resets all hidden figures to unhidden 
+
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
 	Output* GetOutput() const; //Return pointer to the output
@@ -85,6 +86,8 @@ void Delete(CFigure* pFig);                          //Deletes the selected -if 
 	void SetPlayingRecord(bool IsPlaying);              //sets playing recording state
 	void ClearRecordingList();                          //clears recording list of any old recordings
 	int GetMaxRecordingCount();
+
+	void ClearUndoList(); 
 };
 
 #endif

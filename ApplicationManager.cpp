@@ -10,25 +10,20 @@
 #include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SoundModeAction.h"  
-#include "Actions\MoveFigureAction.h"
-#include "Actions\PlayRecordingAction.h"
-#include "Actions\StartRecordingAction.h"
-#include "Actions\StopRecordingAction.h"
 
 #include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
 #include "Actions\MoveFigureAction.h"
-#include <Windows.h>
-#include "MMSystem.h"
-#include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
 #include "Actions\PlayRecordingAction.h"
 #include "Actions\StartRecordingAction.h"
 #include "Actions\StopRecordingAction.h"
+#include "Actions\SwitchToPlayAction.h"
+#include "Actions\SwitchToDrawAction.h"
 
 #include <Windows.h>
 #include "MMSystem.h"
@@ -71,6 +66,7 @@ ApplicationManager::ApplicationManager()
 	//Create an array of Action pointers and set them to NULL
 	for (int j = 0; j < MaxRecordingCount; j++)
 		RecordingList[j] = NULL;
+
 	for (int i = 0; i < 5; i++)
 		Undoarr[i] = NULL;
 
@@ -162,6 +158,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case FILL_COLOR:
 		pAct = new ChangeFillClrAction(this);
+		break;
+	case TO_DRAW:
+		pAct = new SwitchToDrawAction(this, &muted);
 		break;
 	case EXIT:
 		///create ExitAction here
@@ -272,7 +271,7 @@ void ApplicationManager::Delete(CFigure* pFig)
 			{
 				swap(FigList[j], FigList[j + 1]);
 			}
-			delete FigList[FigCount];
+			FigList[FigCount] = NULL;
 			FigCount--;
 		}
 	}
@@ -389,6 +388,11 @@ void ApplicationManager::ResetPlayMode()
 	}
 }
 
+void ApplicationManager::UnhideFigures()
+{
+	for (int i = 0; i < FigCount; i++)
+		FigList[i]->HideFigure(false);
+}
 
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
@@ -442,6 +446,12 @@ void ApplicationManager::ClearRecordingList()
 int ApplicationManager::GetMaxRecordingCount()
 {
 	return MaxRecordingCount;
+}
+
+void ApplicationManager::ClearUndoList()
+{
+	for (int i = 0; i < 5; i++)
+		Undoarr[i] = NULL;
 }
 
 bool ApplicationManager::GetPlayingRecord() const

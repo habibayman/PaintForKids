@@ -14,7 +14,11 @@ ChangeDrawClrAction::ChangeDrawClrAction(ApplicationManager* pApp) :Action(pApp)
 void ChangeDrawClrAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+	
 	pOut->PrintMessage("Choose drawing color from the pallete");
+	pOut->CreateColorPalette();
+	ColorSelected = pIn->GetColor();
 }
 
 void ChangeDrawClrAction::Execute()
@@ -23,15 +27,19 @@ void ChangeDrawClrAction::Execute()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	ColorType ColorSelected;
+	//if the recording isn't playing, read the action parameters first
+	bool PlayingRecord = pManager->GetPlayingRecord();
+
+	if (!PlayingRecord)
+	{
+		ReadActionParameters();
+	}
 
 	if (pManager->GetLastSelected())
 	{
 		LastColoredFigure = pManager->GetLastSelected();
 		CurrentClr = LastColoredFigure->GetDrawColor();
 
-			pOut->CreateColorPalette();
-			ColorSelected = pIn->GetColor();
 			switch (ColorSelected)
 			{
 			case COLOR_GREEN:
@@ -65,13 +73,28 @@ void ChangeDrawClrAction::Execute()
 				UI.DrawColor = BLACK;
 				break;
 			}
+
 		pOut->ClearColorPalette();
 		pManager->AddtoUndo(this);
+
+		//if the action is being recorded, add it to the RecordingList
+		//if (Recording())
+		//{
+		//	pManager->AddRecordedAction(this);
+		//}
 	}
+
 	else
 	{
 		pOut->PrintMessage("Please select a figure first");
 	}
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
+
 }
 
 void ChangeDrawClrAction::Undo()

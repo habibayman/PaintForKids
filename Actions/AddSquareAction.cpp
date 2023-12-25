@@ -38,6 +38,7 @@ void AddSquareAction::Execute()
 {
 	//if the recording isn't playing, read the action parameters first
 	bool PlayingRecord = pManager->GetPlayingRecord();
+	
 	if (!PlayingRecord)
 		ReadActionParameters();
 
@@ -55,8 +56,6 @@ void AddSquareAction::Execute()
 	{
 		pManager->AddRecordedAction(this);
 	}
-}
-
 }
 
 

@@ -6,6 +6,8 @@ class ChangeDrawClrAction :public Action
 private:
 	CFigure *LastColoredFigure;
 	color CurrentClr;
+	ColorType ColorSelected;
+
 public:
 	ChangeDrawClrAction(ApplicationManager* pApp);
 

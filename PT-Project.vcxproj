@@ -142,6 +142,7 @@
     <ClCompile Include="Actions\SoundModeAction.cpp" />
     <ClCompile Include="Actions\StartRecordingAction.cpp" />
     <ClCompile Include="Actions\StopRecordingAction.cpp" />
+    <ClCompile Include="Actions\SwitchToDrawAction.cpp" />
     <ClCompile Include="Actions\SwitchToPlayAction.cpp" />
     <ClCompile Include="Actions\ChangeDrawClrAction.cpp" />
     <ClCompile Include="Actions\ChangeFillClrAction.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="Actions\SoundModeAction.h" />
     <ClInclude Include="Actions\StartRecordingAction.h" />
     <ClInclude Include="Actions\StopRecordingAction.h" />
+    <ClInclude Include="Actions\SwitchToDrawAction.h" />
     <ClInclude Include="Actions\SwitchToPlayAction.h" />
     <ClInclude Include="Actions\ChangeDrawClrAction.h" />
     <ClInclude Include="Actions\ChangeFillClrAction.h" />

@@ -5,8 +5,7 @@
 
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-AddTriAction::AddTriAction(ApplicationManager * pApp) :Action(pApp)
-{
+
 AddTriAction::AddTriAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
 	if (!muted)

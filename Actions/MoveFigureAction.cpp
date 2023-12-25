@@ -45,12 +45,15 @@ void MoveFigureAction::Execute()
 
 	//if the recording isn't playing, read the action parameters first
 	bool PlayingRecord = pManager->GetPlayingRecord();
+	
 	if (!PlayingRecord)
 	{
 		ReadActionParameters();
 	}
 
 	CFigure* SelectedFig = pManager->GetLastSelected();
+	//SelectedFig->ChngDrawClr(UI.HighlightColor);
+	pManager->UpdateInterface();
 
 	if (SelectedFig)
 	{
@@ -74,6 +77,7 @@ void MoveFigureAction::Execute()
 		pManager->AddRecordedAction(this);
 	}
 }
+
 void MoveFigureAction::Undo()
 {
 	Output* pOut = pManager->GetOutput();

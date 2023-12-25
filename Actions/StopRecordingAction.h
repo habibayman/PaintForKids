@@ -9,6 +9,7 @@ public:
 	StopRecordingAction(ApplicationManager* pApp);
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	void Undo();
 };
 
 

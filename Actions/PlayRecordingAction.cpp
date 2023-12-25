@@ -10,8 +10,7 @@ PlayRecordingAction::PlayRecordingAction(ApplicationManager* pApp) : Action(pApp
 
 void PlayRecordingAction::ReadActionParameters()
 {
-	//Output* pOut = pManager->GetOutput();
-	//pOut->PrintMessage("Playing the recording");
+
 }
 
 void PlayRecordingAction::Execute()
@@ -31,20 +30,17 @@ void PlayRecordingAction::Execute()
 		//Perform clear all Action first 
 
 		pManager->ClearAll(); //clears FigList and Sets FigCount to zero
-		pManager->SetPlayingRecord(true);
+		pManager->ClearUndoList(); //clears undo list 
 		pOut->ClearDrawArea();
-
-		//trying something
 		pManager->SetLastSelected(NULL);
-
+		pManager->SetPlayingRecord(true);
+	
 		for (int i = 0; i < pManager->GetRecordsCount(); i++)
 		{
 			pManager->PlayRecording(i);
 			//sleeps 1 second between each two operations
-			
-			//if (i % 2 == 0)
+			if (i % 2 == 0)
 				_sleep(1000);
-
 			pOut->ClearDrawArea();
 			pManager->UpdateInterface();
 		}
@@ -54,4 +50,8 @@ void PlayRecordingAction::Execute()
 	pManager->SetPlayingRecord(false);
 	pOut->ClearStatusBar();
 
+}
+
+void PlayRecordingAction::Undo()
+{
 }

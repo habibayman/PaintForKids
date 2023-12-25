@@ -21,22 +21,17 @@ void DeleteAction::Execute()
 {
 	//Get a Pointer to the Output Interfaces
 	Output* pOut = pManager->GetOutput(); 
-	
-	//if the recording isn't playing, read the action parameters first
-	//bool PlayingRecord = pManager->GetPlayingRecord();
-
 	ToBeDeleted = pManager->GetLastSelected();
 	
 	//trying something
-	ToBeDeleted->SetSelected(true);
-	/*pManager->UpdateInterface();*/
+	pOut->ClearDrawArea();
+	pManager->UpdateInterface();
 
 	if (ToBeDeleted)
 	{
 		pManager->Delete(ToBeDeleted); 
 		pOut->ClearDrawArea(); 
 		pManager->UpdateInterface();
-
 	}
 
 	else
@@ -45,13 +40,6 @@ void DeleteAction::Execute()
 	}
 
 	pManager->AddtoUndo(this);
-}
-
-void DeleteAction::Undo()
-{
-	pManager->AddFigure(ToBeDeleted);
-	pManager->RemovefromUndo();
-
 
 	//if the action is being recorded, add it to the RecordingList
 	if (Recording())
@@ -59,5 +47,11 @@ void DeleteAction::Undo()
 		pManager->AddRecordedAction(this);
 	}
 
+}
+
+void DeleteAction::Undo()
+{
+	pManager->AddFigure(ToBeDeleted);
+	pManager->RemovefromUndo();
 }
 
