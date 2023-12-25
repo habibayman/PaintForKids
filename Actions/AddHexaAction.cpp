@@ -5,8 +5,12 @@
 
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-AddHexaAction::AddHexaAction(ApplicationManager* pApp) : Action(pApp)
+AddHexaAction::AddHexaAction(ApplicationManager* pApp, bool muted) : Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\HexagonSound"), NULL, SND_SYNC);
+	}
 }
 
 void AddHexaAction::ReadActionParameters()
@@ -41,6 +45,10 @@ void AddHexaAction::Execute()
 	CHexagon* H = new CHexagon(P1, HexaGfxInfo);
 
 	//Add a hexagon to the list of figures
+	//Add the action to Undo list
+	pManager->AddtoUndo(this);
+
+	//Add the square to the list of figures
 	pManager->AddFigure(H);
 
 	//if the action is being recorded, add it to the RecordingList
@@ -49,4 +57,11 @@ void AddHexaAction::Execute()
 		pManager->AddRecordedAction(this);
 	}
 
+}
+
+
+void AddHexaAction::Undo()
+{
+	pManager->DeleteLastFigure();
+	pManager->RemovefromUndo();
 }

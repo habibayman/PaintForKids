@@ -4,8 +4,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-MoveFigureAction::MoveFigureAction(ApplicationManager* pApp) : Action(pApp)
-{}
+MoveFigureAction::MoveFigureAction(ApplicationManager* pApp, bool muted) : Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void MoveFigureAction::ReadActionParameters()
 {
@@ -59,6 +64,7 @@ void MoveFigureAction::Execute()
 		}
 
 		//clearing drawing area to delete the old position of the selected shape
+		pManager->AddtoUndo(this);
 		pOut->ClearDrawArea();
 		pManager->UpdateInterface();
 	}
@@ -68,4 +74,11 @@ void MoveFigureAction::Execute()
 		pManager->AddRecordedAction(this);
 	}
 }
-
+void MoveFigureAction::Undo()
+{
+	Output* pOut = pManager->GetOutput();
+	SelectedFig->UndoMove();
+	pManager->RemovefromUndo();
+	pOut->ClearDrawArea();
+	pManager->UpdateInterface();
+}

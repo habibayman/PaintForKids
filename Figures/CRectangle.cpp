@@ -7,6 +7,16 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 	Corner2 = P2;
 	ID++;
 	FigureNumber = 1;
+	deltaX = deltaY = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		TempDelta[i].x = deltaX;
+		TempDelta[i].y = deltaY;
+	}
+}
+
+CRectangle::CRectangle()
+{
 }
 
 
@@ -15,6 +25,7 @@ void CRectangle::Draw(Output* pOut) const
 	//Call Output::DrawRect to draw a rectangle on the screen	
 	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 }
+
 
 bool CRectangle::Isbelonging(Point P) const
 {
@@ -29,34 +40,43 @@ bool CRectangle::Isbelonging(Point P) const
 
 	if (P.x >= x1 && P.x <= x2 && P.y >= y1 && P.y <= y2)  //check that the point is inside the rectangle
 	{
-		if (P.x <= x1 + FigGfxInfo.BorderWidth ||          // if the click is at the borders select the rectangle
-			P.x >= x2 - FigGfxInfo.BorderWidth ||
-			P.y <= y1 + FigGfxInfo.BorderWidth ||
-			P.y >= y2 - FigGfxInfo.BorderWidth)
-		{
-			return true;
-		}
-		//TODO: if the figure is filled return true
-		return false;
+		return true;
 	}
 	return false;
 }
 
 void CRectangle::Move(Point P)
 {
-	//calculting center of old shape 
+	//calculting center of old shape
 	Point Center;
 	Center.x = (Corner1.x + Corner2.x) / 2;
 	Center.y = (Corner1.y + Corner2.y) / 2;
 
-	int deltaX = P.x - Center.x;
-	int deltaY = P.y - Center.y;
+    deltaX = P.x - Center.x;
+	deltaY = P.y - Center.y;
+
+	//store delta to undo
+	TempDelta[MoveCount].x = deltaX;
+	TempDelta[MoveCount++].y = deltaY;
 
 	Corner1.x += deltaX;
 	Corner2.x += deltaX;
 
 	Corner1.y += deltaY;
 	Corner2.y += deltaY;
+}
+
+void CRectangle::UndoMove()
+{
+	deltaX = TempDelta[MoveCount - 1].x;
+	deltaY = TempDelta[MoveCount - 1].y;
+	MoveCount--;
+
+	Corner1.x -= deltaX;
+	Corner2.x -= deltaX;
+
+	Corner1.y -= deltaY;
+	Corner2.y -= deltaY;
 }
 
 bool CRectangle::IsValidMove()
@@ -85,6 +105,16 @@ void CRectangle::Save(ofstream& OutFile)
 }
 
 
+void CRectangle::PrintInfo(Output* pOut)
+{
+	string info = "ID: " + to_string(ID) + ", Coordinates (" + to_string(Corner1.x) + ", " + to_string(Corner1.y) + "), ("
+		+ to_string(Corner2.x) + ", " + to_string(Corner2.y) + ")";
+	pOut->PrintMessage(info);
+}
+
+
+
+
 //==================================================================================//
 //							PlayMode Management Functions							//
 //==================================================================================//
@@ -105,6 +135,10 @@ color CRectangle::GetFigureColor()	//Get figure color
 {
 	return FigGfxInfo.FillClr;
 }
+color CRectangle::GetDrawColor()
+{
+	return FigGfxInfo.DrawClr;
+}
 void CRectangle::HideFigure(bool b) //Hide\Unhide the figure
 {
 	isHidden = b;
@@ -116,3 +150,24 @@ bool CRectangle::FigisHidden()	//Know if figure is hidden or not
 }
 
 
+
+void CRectangle::Load(ifstream& InFile)
+{
+	InFile >> ID; //Read the ID
+	InFile >> Corner1.x >> Corner1.y; //Read point 1
+	InFile >> Corner2.x >> Corner2.y; //Read point 2
+	InFile >> ReadDrawColor;
+	FigGfxInfo.DrawClr = StringToColor(ReadDrawColor);
+	InFile >> ReadFillColor;
+	if (ReadFillColor.compare("NO_FILL"))
+	{
+		FigGfxInfo.isFilled = 1;
+		FigGfxInfo.FillClr = StringToColor(ReadFillColor);
+	}
+	else
+	{
+		FigGfxInfo.isFilled = 0;
+	}
+	FigGfxInfo.BorderWidth = UI.PenWidth; 
+	Selected = false; 
+}

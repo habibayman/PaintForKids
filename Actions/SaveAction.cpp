@@ -6,8 +6,13 @@
 #include <fstream>
 using namespace std;
 
-SaveAction::SaveAction(ApplicationManager* pApp): Action(pApp)
-{}
+SaveAction::SaveAction(ApplicationManager* pApp, bool muted): Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void SaveAction::ReadActionParameters()
 {
@@ -35,4 +40,8 @@ void SaveAction::Execute()
 	pManager->SaveAll(OutFile);
 	OutFile.close();
 	pOut->PrintMessage("File saved successfully!");
+}
+
+void SaveAction::Undo()
+{
 }

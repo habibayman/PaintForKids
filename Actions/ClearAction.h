@@ -7,8 +7,9 @@ class ClearAction : public Action
 {
 	string checker;
 public:
-	ClearAction(ApplicationManager* pApp); 
+	ClearAction(ApplicationManager* pApp, bool muted); 
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	void Undo();
 };
 #endif

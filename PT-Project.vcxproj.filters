@@ -201,6 +201,10 @@
     </ClCompile>
     <ClCompile Include="Actions\PickByColorAction.cpp" />
     <ClCompile Include="Actions\PickByBothAction.cpp" />
+    <ClCompile Include="Actions\ChangeDrawClrAction.cpp" />
+    <ClCompile Include="Actions\ChangeFillClrAction.cpp" />
+    <ClCompile Include="Actions\UndoAction.cpp" />
+    <ClCompile Include="Actions\SoundModeAction.cpp" />
     <ClCompile Include="Actions\Action.cpp" />
     <ClCompile Include="Actions\StartRecordingAction.cpp" />
     <ClCompile Include="Actions\PlayRecordingAction.cpp" />
@@ -345,6 +349,10 @@
     </ClInclude>
     <ClInclude Include="Actions\PickByColorAction.h" />
     <ClInclude Include="Actions\PickByBothAction.h" />
+    <ClInclude Include="Actions\ChangeDrawClrAction.h" />
+    <ClInclude Include="Actions\ChangeFillClrAction.h" />
+    <ClInclude Include="Actions\UndoAction.h" />
+    <ClInclude Include="Actions\SoundModeAction.h" />
     <ClInclude Include="Actions\StartRecordingAction.h" />
     <ClInclude Include="Actions\PlayRecordingAction.h" />
     <ClInclude Include="Actions\StopRecordingAction.h" />

@@ -5,8 +5,14 @@
 
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-AddTriAction::AddTriAction(ApplicationManager* pApp) :Action(pApp)
+AddTriAction::AddTriAction(ApplicationManager * pApp) :Action(pApp)
 {
+AddTriAction::AddTriAction(ApplicationManager* pApp, bool muted) :Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\TriangleSound"), NULL, SND_SYNC);
+	}
 }
 
 void AddTriAction::ReadActionParameters()
@@ -57,6 +63,9 @@ void AddTriAction::Execute()
 	//Create a Triangle with the parameters read from the user
 	CTriangle* T = new CTriangle(P1, P2, P3, TriGfxInfo);
 
+	//Add the action to Undo list
+	pManager->AddtoUndo(this);
+
 	//Add the Triangle to the list of figures
 	pManager->AddFigure(T);
 
@@ -65,4 +74,11 @@ void AddTriAction::Execute()
 		pManager->AddRecordedAction(this);
 	}
 }
+
+void AddTriAction::Undo()
+{
+	pManager->DeleteLastFigure();
+	pManager->RemovefromUndo();
+}
+
 

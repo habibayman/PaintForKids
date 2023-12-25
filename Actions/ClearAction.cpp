@@ -5,8 +5,13 @@
 #include "..\GUI\Output.h"
 #include <string>
 
-ClearAction::ClearAction(ApplicationManager* pApp): Action(pApp)
-{}
+ClearAction::ClearAction(ApplicationManager* pApp, bool muted): Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void ClearAction::ReadActionParameters()
 {
@@ -45,3 +50,8 @@ void ClearAction::Execute()
 	}
 
 }
+
+void ClearAction::Undo()
+{
+}
+

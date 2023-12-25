@@ -5,13 +5,16 @@
 class MoveFigureAction : public Action
 {
 private:
-	Point P;
+	Point P;   
+	CFigure* SelectedFig;
 public:
-	MoveFigureAction(ApplicationManager* pApp);
+	MoveFigureAction(ApplicationManager* pApp, bool muted);
 
 	//Read the point's parameters
 	virtual void ReadActionParameters();
 
 	//Add SelectFigureAction to the ApplicationManager
 	virtual void Execute();
+
+	void Undo();
 };

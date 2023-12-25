@@ -1,5 +1,6 @@
 #include "AddCircleAction.h"
 #include"Action.h"
+#include "UndoAction.h"
 #include "..\Figures\CCircle.h"
 
 #include "..\ApplicationManager.h"
@@ -7,8 +8,12 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-AddCircleAction::AddCircleAction(ApplicationManager* pApp) :Action(pApp)
+AddCircleAction::AddCircleAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\CircleSound"), NULL, SND_SYNC); 
+	}
 }
 
 void AddCircleAction::ReadActionParameters()
@@ -48,6 +53,9 @@ void AddCircleAction::Execute()
 	//Create a circle with the parameters read from the user
 	CCircle* C = new CCircle(P1, P2, CircleGfxInfo);
 
+	//Add the Action to Undo list
+	pManager->AddtoUndo(this);
+
 	//Add the circle to the list of figures
 	pManager->AddFigure(C);
 
@@ -56,4 +64,10 @@ void AddCircleAction::Execute()
 	{
 		pManager->AddRecordedAction(this);
 	}
+}
+
+void AddCircleAction::Undo()
+{
+	pManager->DeleteLastFigure();
+	pManager->RemovefromUndo();
 }

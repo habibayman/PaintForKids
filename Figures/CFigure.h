@@ -3,6 +3,8 @@
 
 #include "..\defs.h"
 #include "..\GUI\Output.h"
+#include <fstream>
+using namespace std;
 
 //Base class for all figures
 class CFigure
@@ -11,7 +13,6 @@ protected:
     int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
-	Point point;
 	//to be used in loading yet might be deleted 
 	
 	
@@ -19,8 +20,13 @@ protected:
 	//---PlayMode parameters
 	bool isHidden = false;
 	int FigureNumber;
+	
+	color LastDrawColor;
+	color LastFillColor;
+
 public:
 	CFigure(GfxInfo FigureGfxInfo);
+	CFigure(); 
 
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
@@ -30,7 +36,10 @@ public:
 
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
+
+
 	virtual void Move(Point P) = 0; //Move the figure to new position
+	virtual void UndoMove() = 0;        //Undo the figure to the old position
 
 	//validation function for figure points
 	virtual bool IsValidMove() = 0;
@@ -42,6 +51,8 @@ public:
 
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
+	virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
+	virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
 
 	
@@ -53,6 +64,7 @@ public:
 	virtual void HideFigure(bool) = 0;
 	virtual bool FigisHidden()=0;
 	virtual color GetFigureColor() = 0;
+	virtual color GetDrawColor() = 0;
 	string ChosenColorName();
 
 

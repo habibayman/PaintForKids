@@ -14,6 +14,8 @@
 #include"Actions/PickByColorAction.h"
 #include"Actions/PickByBothAction.h"
 //Main class that manages everything in the application.
+class Action;
+
 class ApplicationManager
 {
 	enum { MaxFigCount = 200 };	//Max no of figures
@@ -21,13 +23,18 @@ class ApplicationManager
 
 private:
 	int FigCount;		//Actual number of figures
-	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
+	int UndoCount;
 
+	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* LastSelectedFig; //Pointer to the selected figure
+
+	Action* Undoarr[5];
+	Action* LastAction;
 
 	//Pointers to Input and Output classes
 	Input* pIn;
 	Output* pOut;
+	bool muted;
 
 	Action* RecordingList[MaxRecordingCount]; //List of recorded actions
 	bool IsRecording;
@@ -45,20 +52,24 @@ public:
 
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
+	void DeleteLastFigure();                //deletes last figure from figlist 
 	CFigure* GetFigure(Point P) const;      //Search for a figure given a point inside the figure
 	void SetLastSelected(CFigure* pFig);    //set the last selected figure
 	CFigure* GetLastSelected();             //get the last selected figure
 	void SaveAll(ofstream& OutFile);        //calls Save(..) for each figure in the FigList
 	int Get_FigCount() const;               //Returns the number of figures
 	void ClearAll();                        //deletes all the drawn figures from the array
-	void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
+	void Delete(CFigure* pFig);             //Deletes the selected -if any- firure
+	void AddtoUndo(Action* action);
+	void RemovefromUndo();
+	Action* GetLastActiontoUndo();
+void Delete(CFigure* pFig);                          //Deletes the selected -if any- firure
 
 	// -- PlayMode Management Functions
 	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same
 	CFigure* RandomColor(int& TotalFig);	//choose a random color to start the same
 	CFigure* RandomColoredFigure(int& TotalFig);	//choose a random  colored figure to start the same
 	void ResetPlayMode();	//Reset the game
-
 	// -- Interface Management Functions
 	Input* GetInput() const; //Return pointer to the input
 	Output* GetOutput() const; //Return pointer to the output

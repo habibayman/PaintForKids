@@ -4,8 +4,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-DeleteAction::DeleteAction(ApplicationManager* pApp): Action(pApp)
-{}
+DeleteAction::DeleteAction(ApplicationManager* pApp, bool muted): Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void DeleteAction::ReadActionParameters() 
 {
@@ -38,6 +43,14 @@ void DeleteAction::Execute()
 	{
 		pOut->PrintMessage("Please select a figure first to delete it");
 	}
+
+	pManager->AddtoUndo(this);
+}
+
+void DeleteAction::Undo()
+{
+	pManager->AddFigure(ToBeDeleted);
+	pManager->RemovefromUndo();
 
 
 	//if the action is being recorded, add it to the RecordingList

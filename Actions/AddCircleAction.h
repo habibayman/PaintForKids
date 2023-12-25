@@ -9,7 +9,7 @@ private:
 	Point P2;
 	GfxInfo CircleGfxInfo;
 public:
-	AddCircleAction(ApplicationManager* pApp);
+	AddCircleAction(ApplicationManager* pApp, bool muted);
 
 	//Reads circle parameters
 	virtual void ReadActionParameters();
@@ -17,6 +17,8 @@ public:
 	//Add circle to the ApplicationManager
 	virtual void Execute();
 
+	//if AddCircleAction is the last action delete this square
+	void Undo();
 };
 
 

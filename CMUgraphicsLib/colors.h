@@ -1,4 +1,4 @@
-/* 
+/*
 See "version.h" for version info and copyright information
 This file was last modified on 05.16.1999
 */
@@ -12,11 +12,11 @@ using namespace std;
 
 class color {
 
-  public:
+public:
 
     // Default constructor creates black
-    color(unsigned char Red = 0, unsigned char Green = 0, unsigned char Blue = 0) { 
-        ucRed = Red;  ucGreen = Green;  ucBlue = Blue; 
+    color(unsigned char Red = 0, unsigned char Green = 0, unsigned char Blue = 0) {
+        ucRed = Red;  ucGreen = Green;  ucBlue = Blue;
     }
 
 
@@ -26,8 +26,8 @@ class color {
     unsigned char ucBlue;
 
     //Overriding the stream operator to output the color name directly 
-    friend ofstream& operator < (ofstream& output, const color& currentcolor);
-
+    friend ofstream& operator <(ofstream& output, const color& currentcolor); 
+    friend color StringToColor(string currentcolor); 
 };
 
 bool operator==(color a, color b);
@@ -38,7 +38,7 @@ bool operator!=(color a, color b);
   Predefine some color objects...  Data was liberally borrowed from the
   Open Group's X11 rbg.txt file
 
-  $XConsortium: rgb.txt,v 10.41 94/02/20 18:39:36 rws Exp 
+  $XConsortium: rgb.txt,v 10.41 94/02/20 18:39:36 rws Exp
 
 */
 
@@ -188,4 +188,4 @@ const color DARKRED = color(139, 0, 0);
 const color LIGHTGREEN = color(144, 238, 144);
 
 
-#endif //COLOR_H
+#endif //COLOR_H 

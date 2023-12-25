@@ -10,13 +10,15 @@ class SelectFigureAction : public Action
 private:
 	Point P1;
 public:
-	SelectFigureAction(ApplicationManager* pApp);
+	SelectFigureAction(ApplicationManager* pApp, bool muted);
 
 	//Read the point's parameters
 	virtual void ReadActionParameters();
 
 	//Add SelectFigureAction to the ApplicationManager
 	virtual void Execute();
+
+	void Undo();
 };
 #endif
 

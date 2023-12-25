@@ -139,9 +139,12 @@
     <ClCompile Include="Actions\MoveFigureAction.cpp" />
     <ClCompile Include="Actions\PlayRecordingAction.cpp" />
     <ClCompile Include="Actions\SaveAction.cpp" />
+    <ClCompile Include="Actions\SoundModeAction.cpp" />
     <ClCompile Include="Actions\StartRecordingAction.cpp" />
     <ClCompile Include="Actions\StopRecordingAction.cpp" />
     <ClCompile Include="Actions\SwitchToPlayAction.cpp" />
+    <ClCompile Include="Actions\ChangeDrawClrAction.cpp" />
+    <ClCompile Include="Actions\ChangeFillClrAction.cpp" />
     <ClCompile Include="Figures\CTriangle.cpp" />
     <ClCompile Include="Figures\CSquare.cpp" />
     <ClCompile Include="Figures\CHexagon.cpp" />
@@ -193,6 +196,7 @@
     <ClCompile Include="Actions\PickByShapeAction.cpp" />
     <ClCompile Include="Actions\PickByColorAction.cpp" />
     <ClCompile Include="Actions\PickByBothAction.cpp" />
+    <ClCompile Include="Actions\UndoAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddCircleAction.h" />
@@ -205,9 +209,12 @@
     <ClInclude Include="Actions\MoveFigureAction.h" />
     <ClInclude Include="Actions\PlayRecordingAction.h" />
     <ClInclude Include="Actions\SaveAction.h" />
+    <ClInclude Include="Actions\SoundModeAction.h" />
     <ClInclude Include="Actions\StartRecordingAction.h" />
     <ClInclude Include="Actions\StopRecordingAction.h" />
     <ClInclude Include="Actions\SwitchToPlayAction.h" />
+    <ClInclude Include="Actions\ChangeDrawClrAction.h" />
+    <ClInclude Include="Actions\ChangeFillClrAction.h" />
     <ClInclude Include="Figures\CTriangle.h" />
     <ClInclude Include="Figures\CSquare.h" />
     <ClInclude Include="Figures\CHexagon.h" />
@@ -245,6 +252,7 @@
     <ClInclude Include="Actions\PickByShapeAction.h" />
     <ClInclude Include="Actions\PickByColorAction.h" />
     <ClInclude Include="Actions\PickByBothAction.h" />
+    <ClInclude Include="Actions\UndoAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

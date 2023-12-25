@@ -4,15 +4,18 @@ class AddTriAction :
 	public Action
 {
 private:
-	Point P1, P2, P3; //Rectangle Corners
+	Point P1, P2, P3; //Triangle points
 	GfxInfo TriGfxInfo;
 public:
-	AddTriAction(ApplicationManager* pApp);
+	AddTriAction(ApplicationManager* pApp, bool muted);
 
-	//Reads rectangle parameters
+	//Reads triangle parameters
 	virtual void ReadActionParameters();
 
-	//Add rectangle to the ApplicationManager
+	//Add triangle to the ApplicationManager
 	virtual void Execute();
+
+	//if AddTriAction is the last action delete this triangle
+	void Undo();
 };
 

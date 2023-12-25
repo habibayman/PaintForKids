@@ -5,8 +5,12 @@
 
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
+AddSquareAction::AddSquareAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\SquareSound"), NULL, SND_SYNC);
+	}
 }
 
 void AddSquareAction::ReadActionParameters()
@@ -40,6 +44,9 @@ void AddSquareAction::Execute()
 	//Create a square with the parameters read from the user
 	CSquare* S = new CSquare(P1, SquareGfxInfo);
 
+	//Add the action to Undo list
+	pManager->AddtoUndo(this);
+
 	//Add the square to the list of figures
 	pManager->AddFigure(S);
 
@@ -48,4 +55,13 @@ void AddSquareAction::Execute()
 	{
 		pManager->AddRecordedAction(this);
 	}
+}
+
+}
+
+
+void AddSquareAction::Undo()
+{
+	pManager->DeleteLastFigure();
+	pManager->RemovefromUndo();
 }
