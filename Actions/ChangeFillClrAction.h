@@ -9,7 +9,7 @@ private:
 	ColorType ColorSelected;
 
 public:
-	ChangeFillClrAction(ApplicationManager* pApp);
+	ChangeFillClrAction(ApplicationManager* pApp, bool muted);
 
 	//Reads rectangle parameters
 	virtual void ReadActionParameters();

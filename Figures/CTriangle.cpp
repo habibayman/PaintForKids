@@ -74,9 +74,9 @@ void CTriangle::UndoMove()
 	deltaY = TempDelta[MoveCount - 1].y;
 	MoveCount--;
 
-	Corner1.x -= deltaX;
-	Corner2.x -= deltaX;
-	Corner3.x -= deltaX;
+	Corner1.x -= deltaX; 
+	Corner2.x -= deltaX; 
+	Corner3.x -= deltaX; 
 
 	Corner1.y -= deltaY;
 	Corner2.y -= deltaY;

@@ -6,8 +6,13 @@
 
 
 
-MoveByDragAction::MoveByDragAction(ApplicationManager* pApp) : Action(pApp)
-{}
+MoveByDragAction::MoveByDragAction(ApplicationManager* pApp, bool muted) : Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void MoveByDragAction::ReadActionParameters()
 {

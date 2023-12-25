@@ -11,14 +11,10 @@
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SoundModeAction.h"  
 #include "Actions\SwitchToPlayAction.h"
-#include "Actions\MoveFigureAction.h"\
-#include "Actions\MoveByDragAction.h"\
-
 #include "Actions\MoveFigureAction.h"
-#include "Actions\UndoAction.h"
+#include "Actions\MoveByDragAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
-#include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
@@ -118,19 +114,19 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new MoveFigureAction(this, muted);
 		break;
 	case MOVE_BY_DRAGGING:
-		pAct = new MoveByDragAction(this);
+		pAct = new MoveByDragAction(this, muted);
 		break;
 	case SAVE_FIGURE:
 		pAct = new SaveAction(this, muted);
 		break;
 	case START_RECORDING:
-		pAct = new StartRecordingAction(this);
+		pAct = new StartRecordingAction(this, muted);
 		break;
 	case PLAY_RECORDING:
-		pAct = new PlayRecordingAction(this);
+		pAct = new PlayRecordingAction(this, muted);
 		break;
 	case STOP_RECORDING:
-		pAct = new StopRecordingAction(this);
+		pAct = new StopRecordingAction(this, muted);
 		break;
 	case TO_LOAD:
 		pAct = new LoadAction(this, muted);
@@ -145,28 +141,28 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new DeleteAction(this, muted);
 		break;
 	case TO_PICK_BY_SHAPE:
-		pAct = new PickByShapeAction(this);
+		pAct = new PickByShapeAction(this, muted);
 		break;
 	case TO_PICK_BY_COLOR:
-		pAct = new PickByColorAction(this);
+		pAct = new PickByColorAction(this, muted);
 		break;
 	case SOUND_MODE:
 		pAct = new SoundModeAction(this, &muted);
 		break;
 	case TO_PICK_BY_BOTH:
-		pAct = new PickByBothAction(this);
+		pAct = new PickByBothAction(this, muted);
 		break;
 	case TO_UNDO:
-		pAct = new UndoAction(this);
+		pAct = new UndoAction(this, muted);
 		break;
 	case DRAW_COLOR:
-		pAct = new ChangeDrawClrAction(this);
+		pAct = new ChangeDrawClrAction(this, muted);
 		break;
 	case FILL_COLOR:
-		pAct = new ChangeFillClrAction(this);
+		pAct = new ChangeFillClrAction(this, muted);
 		break;
 	case TO_DRAW:
-		pAct = new SwitchToDrawAction(this, &muted);
+		pAct = new SwitchToDrawAction(this, muted);
 		break;
 	case EXIT:
 		///create ExitAction here
@@ -182,8 +178,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		pAct->Execute();//Execute
 		//delete pAct;	//You may need to change this line depending to your implementation
-		//pAct = NULL;
-		//delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
 }
@@ -192,12 +186,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 //==================================================================================//
 
 //Add a figure to the list of figures
-void ApplicationManager::AddFigure(CFigure* pFig)
+void ApplicationManager::AddFigure(CFigure* pFig, bool ToSaveID)
 {
 	if (FigCount < MaxFigCount)
 	{
 		FigList[FigCount++] = pFig;
-		FigList[FigCount - 1]->SetID(FigCount);
+		//To create unique consecutive IDs, excecpt when loading, we don't want to override the original IDs
+		if (ToSaveID) 
+		{
+			FigList[FigCount - 1]->SetID(FigCount);
+		}
 	}
 }
 
@@ -270,18 +268,18 @@ void ApplicationManager::ClearAll()
 
 void ApplicationManager::Delete(CFigure* pFig)
 {
-	int selected_index;
+	
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i] == pFig)
 		{
-			selected_index = i;
-			for (int j = selected_index; j < FigCount - 1; j++)
+			for (int j = i ; j < FigCount - 1; j++)
 			{
 				swap(FigList[j], FigList[j + 1]);
 			}
-			FigList[FigCount] = NULL;
+			FigList[FigCount - 1] = NULL;
 			FigCount--;
+			break;
 		}
 	}
 	UpdateInterface();

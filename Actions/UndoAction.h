@@ -10,7 +10,7 @@ private:
 	//static int UndoCount;
 	// static Action* Undoarr[5];
 public:
-	UndoAction(ApplicationManager* pApp);
+	UndoAction(ApplicationManager* pApp, bool muted);
 
 	virtual void ReadActionParameters();
 

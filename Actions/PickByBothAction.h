@@ -4,18 +4,14 @@
 #include"..\Figures\CFigure.h"
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-class PickByBothAction :
-    public Action
+
+
+class PickByBothAction : public Action
 {
 	Point P1;
 	int ctrTrue; //counter of true selected figure
-
-
-
 public:
-
-
-	PickByBothAction(ApplicationManager* pApp);
+	PickByBothAction(ApplicationManager* pApp, bool muted);
 
 	//Reads parameters required for action to execute (code depends on action type)
 	virtual void ReadActionParameters();

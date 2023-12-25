@@ -74,7 +74,7 @@ void LoadAction::Execute()
 		    if (CurrentFigure)
 			{
 				CurrentFigure->Load(InFile); 
-				pManager->AddFigure(CurrentFigure);
+				pManager->AddFigure(CurrentFigure, false);
 				pManager->UpdateInterface();
 			}
 		}

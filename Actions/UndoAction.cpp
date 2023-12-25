@@ -4,8 +4,13 @@
 //int UndoAction::UndoCount = 0;
 //Action* UndoAction::Undoarr[5];
 
-UndoAction::UndoAction(ApplicationManager* pApp) : Action(pApp)
-{}
+UndoAction::UndoAction(ApplicationManager* pApp, bool muted) : Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void UndoAction::ReadActionParameters()
 {}
