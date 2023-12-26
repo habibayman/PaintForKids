@@ -288,9 +288,12 @@ void ApplicationManager::ClearAll()
 		UndoCount = 0;
 		pOut->SetFilled(false);
 	}
+		ClearRedoList(); 
+		ClearUndoList(); 
+	}
 	else
 	{
-		IsRecording = false;
+		IsRecording = false; //Recording flag
 		pOut->PrintMessage("Recording was stopped");
 	}
 
@@ -577,8 +580,6 @@ void ApplicationManager::ClearUndoList()
 	for (int i = 0; i < MaxUndoRedoCount; i++)
 	{
 		Undoarr[i] = NULL;
-	}
-	UndoCount = 0;
 }
 
 void ApplicationManager::ClearRedoList()
@@ -586,8 +587,6 @@ void ApplicationManager::ClearRedoList()
 	for (int i = 0; i < MaxUndoRedoCount; i++)
 	{
 		Redoarr[i] = NULL;
-	}
-	RedoCount = 0;
 }
 
 
