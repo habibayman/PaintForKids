@@ -4,16 +4,21 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 #include "Action.h"
-class UndoAction : public Action
+class RedoAction : public Action
 {
 public:
-	UndoAction(ApplicationManager* pApp, bool muted);
+    RedoAction(ApplicationManager* pApp);
 
 	virtual void ReadActionParameters();
 
-	//Add Undo to the ApplicationManager
+	//Add Redo action to the ApplicationManager
 	virtual void Execute();
+
+	//Undo Action
 	void Undo();
+
+	//Redo Action
 	void Redo();
+
 };
 

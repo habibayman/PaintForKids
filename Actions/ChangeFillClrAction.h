@@ -4,20 +4,23 @@
 class ChangeFillClrAction :public Action
 {
 private:
+	color LastClr;
 	color  CurrentClr;
 	CFigure* LastColoredFigure;
 	ColorType ColorSelected;
 
 public:
-	ChangeFillClrAction(ApplicationManager* pApp);
+	ChangeFillClrAction(ApplicationManager* pApp, bool muted);
 
-	//Reads rectangle parameters
 	virtual void ReadActionParameters();
 
-	//Add rectangle to the ApplicationManager
+	//add change drawclr to app manager
 	virtual void Execute();
 
-	//if AddRectAction is the last action delete this rectangle
+	//Undo action
 	void Undo();
+
+	//Redo action
+	void Redo();
 
 };

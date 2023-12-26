@@ -6,10 +6,11 @@
 class StopRecordingAction : public Action
 {
 public:
-	StopRecordingAction(ApplicationManager* pApp);
+	StopRecordingAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	void Undo();
+	void Redo();
 };
 
 

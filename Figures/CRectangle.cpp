@@ -102,17 +102,17 @@ void CRectangle::Save(ofstream& OutFile)
 {
 	OutFile << "Rectangle" << "\t" << ID << "\t"; //type and ID
 	OutFile << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t"; //Coordinates
-	OutFile < FigGfxInfo.DrawClr;
+	OutFile < FigGfxInfo.DrawClr; 
 	OutFile << "\t";
 	if (FigGfxInfo.isFilled)
 	{
-		OutFile < FigGfxInfo.FillClr;
-		OutFile << "\n";
+		OutFile < FigGfxInfo.FillClr; 
+		OutFile << endl;
 	}
 	else
 	{
 		OutFile << "NO_FILL";
-		OutFile << "\n";
+		OutFile << endl;
 	}
 	//Drawing color and fill color 
 }

@@ -1,3 +1,0 @@
-BLUE	ORANGE
-1
-Square	1	557	285	BLUE	

@@ -42,8 +42,15 @@ void LoadAction::Execute()
 		//set the drawing color
 		InFile >> ReadDrawColor; pOut->setCrntDrawColor(StringToColor(ReadDrawColor));
 		//set the fill color
-		InFile >> ReadFillColor; while (!ReadFillColor.compare("NO_FILL")) { pOut->setCrntFillColor(StringToColor(ReadFillColor)); } 
-
+		InFile >> ReadFillColor; 
+		if (ReadFillColor == "NO_FILL")
+		{
+			UI.IsFilled = false;
+			UI.FillColor = WHITE;
+		}
+		else
+			pOut->setCrntFillColor(StringToColor(ReadFillColor));
+		
 		InFile >> ReadFigCount;
 		
 		//Loop to read the type of each figure and set the CurrentFigure pointer to it
@@ -74,7 +81,7 @@ void LoadAction::Execute()
 		    if (CurrentFigure)
 			{
 				CurrentFigure->Load(InFile); 
-				pManager->AddFigure(CurrentFigure);
+				pManager->AddFigure(CurrentFigure, false);
 				pManager->UpdateInterface();
 			}
 		}
@@ -86,6 +93,5 @@ void LoadAction::Execute()
 	}
 }
 
-void LoadAction::Undo()
-{
-}
+void LoadAction::Undo() {}
+void LoadAction::Redo() {}

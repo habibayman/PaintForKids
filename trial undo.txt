@@ -1,3 +1,0 @@
-BLUE	YELLOW
-1
-Square	1	514	304	BLUE	

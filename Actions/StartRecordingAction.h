@@ -6,10 +6,11 @@
 class StartRecordingAction : public Action
 {
 public:
-	StartRecordingAction(ApplicationManager* pApp);
+	StartRecordingAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	void Undo();
+	void Redo();
 };
 
 #endif

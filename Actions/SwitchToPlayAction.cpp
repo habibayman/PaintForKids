@@ -38,6 +38,5 @@ void SwitchToPlayAction::Execute()
 }
 	
 
-void SwitchToPlayAction::Undo()
-{
-}
+void SwitchToPlayAction::Undo() {}
+void SwitchToPlayAction::Redo() {}

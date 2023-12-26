@@ -6,7 +6,7 @@ class MoveByDragAction :
 private:
 	Point P;
 public:
-	MoveByDragAction(ApplicationManager* pApp);
+	MoveByDragAction(ApplicationManager* pApp, bool muted);
 
 	//Read the point's parameters
 	virtual void ReadActionParameters();
@@ -14,6 +14,7 @@ public:
 	//Add SelectFigureAction to the ApplicationManager
 	virtual void Execute();
 	void Undo();
+	void Redo();
 
 };
 

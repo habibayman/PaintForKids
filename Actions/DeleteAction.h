@@ -6,11 +6,14 @@
 
 class DeleteAction: public Action
 {
+	CFigure* backup;
 	CFigure* ToBeDeleted;
 public:
 	DeleteAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	void Undo();
+	void Redo();
+	~DeleteAction();
 };
 #endif

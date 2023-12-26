@@ -10,15 +10,12 @@
 #include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SoundModeAction.h"  
-#include "Actions\SwitchToPlayAction.h"
-#include "Actions\MoveFigureAction.h"\
-#include "Actions\MoveByDragAction.h"\
-
 #include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
+#include "Actions\RedoAction.h"
+#include "Actions\MoveByDragAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
-#include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
@@ -38,13 +35,15 @@ ApplicationManager::ApplicationManager()
 	pIn = pOut->CreateInput();
 
 	FigCount = 0;
-	UndoCount = 0;
+	UndoCount = RedoCount = 0;
+	RedoStatus = false;
 	LastSelectedFig = NULL;
 	LastAction = NULL;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
+	for (int i = 0; i < MaxUndoRedoCount; i++)
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -60,6 +59,8 @@ ApplicationManager::ApplicationManager()
 
 	for (int i = 0; i < 5; i++)
 		Undoarr[i] = NULL;
+	for (int i = 0; i < MaxUndoRedoCount; i++)
+		Redoarr[i] = NULL;
 
 
 	RecordsCount = 0;
@@ -118,19 +119,19 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new MoveFigureAction(this, muted);
 		break;
 	case MOVE_BY_DRAGGING:
-		pAct = new MoveByDragAction(this);
+		pAct = new MoveByDragAction(this, muted);
 		break;
 	case SAVE_FIGURE:
 		pAct = new SaveAction(this, muted);
 		break;
 	case START_RECORDING:
-		pAct = new StartRecordingAction(this);
+		pAct = new StartRecordingAction(this, muted);
 		break;
 	case PLAY_RECORDING:
-		pAct = new PlayRecordingAction(this);
+		pAct = new PlayRecordingAction(this, muted);
 		break;
 	case STOP_RECORDING:
-		pAct = new StopRecordingAction(this);
+		pAct = new StopRecordingAction(this, muted);
 		break;
 	case TO_LOAD:
 		pAct = new LoadAction(this, muted);
@@ -145,28 +146,31 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new DeleteAction(this, muted);
 		break;
 	case TO_PICK_BY_SHAPE:
-		pAct = new PickByShapeAction(this);
+		pAct = new PickByShapeAction(this, muted);
 		break;
 	case TO_PICK_BY_COLOR:
-		pAct = new PickByColorAction(this);
+		pAct = new PickByColorAction(this, muted);
 		break;
 	case SOUND_MODE:
 		pAct = new SoundModeAction(this, &muted);
 		break;
 	case TO_PICK_BY_BOTH:
-		pAct = new PickByBothAction(this);
+		pAct = new PickByBothAction(this, muted);
 		break;
 	case TO_UNDO:
-		pAct = new UndoAction(this);
+		pAct = new UndoAction(this, muted);
+		break;
+	case TO_REDO:
+		pAct = new RedoAction(this);
 		break;
 	case DRAW_COLOR:
-		pAct = new ChangeDrawClrAction(this);
+		pAct = new ChangeDrawClrAction(this, muted);
 		break;
 	case FILL_COLOR:
-		pAct = new ChangeFillClrAction(this);
+		pAct = new ChangeFillClrAction(this, muted);
 		break;
 	case TO_DRAW:
-		pAct = new SwitchToDrawAction(this, &muted);
+		pAct = new SwitchToDrawAction(this, muted);
 		break;
 	case EXIT:
 		///create ExitAction here
@@ -182,8 +186,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		pAct->Execute();//Execute
 		//delete pAct;	//You may need to change this line depending to your implementation
-		//pAct = NULL;
-		//delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
 }
@@ -192,12 +194,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 //==================================================================================//
 
 //Add a figure to the list of figures
-void ApplicationManager::AddFigure(CFigure* pFig)
+void ApplicationManager::AddFigure(CFigure* pFig, bool ToSaveID)
 {
 	if (FigCount < MaxFigCount)
 	{
 		FigList[FigCount++] = pFig;
-		FigList[FigCount - 1]->SetID(FigCount);
+		//To create unique consecutive IDs, excecpt when loading, we don't want to override the original IDs
+		if (ToSaveID) 
+		{
+			FigList[FigCount - 1]->SetID(FigCount);
+		}
 	}
 }
 
@@ -266,60 +272,106 @@ void ApplicationManager::ClearAll()
 		FigList[i] = NULL;
 	}
 	FigCount = 0;
+	//pOut->Reset();
+
+	if (!IsRecording)
+	{
+		for (int i = 0; i < RedoCount - 1; i++)
+		{
+			//delete Redoarr[i];
+			Redoarr[i] = NULL;
+		}
+		RedoCount = 0;
+
+		for (int i = 0; i < UndoCount - 1; i++)
+		{
+			//delete Undoarr[i];
+			Undoarr[i] = NULL;
+		}
+		UndoCount = 0;
+		pOut->SetFilled(false);
+	}
+	else
+	{
+		IsRecording = false;
+		pOut->PrintMessage("Recording was stopped");
+	}
+
+	//default draw/color mode for the shapes
+	pOut->setCrntDrawColor(UI.DrawColor);
+	pOut->setCrntFillColor(UI.FillColor);
+	pOut->SetFilled(false);
 }
 
 void ApplicationManager::Delete(CFigure* pFig)
 {
-	int selected_index;
+	
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i] == pFig)
 		{
-			selected_index = i;
-			for (int j = selected_index; j < FigCount - 1; j++)
+			for (int j = i ; j < FigCount - 1; j++)
 			{
 				swap(FigList[j], FigList[j + 1]);
 			}
-			FigList[FigCount] = NULL;
+			FigList[FigCount - 1] = NULL;
 			FigCount--;
+			break;
 		}
 	}
 	UpdateInterface();
 }
 
 
-void ApplicationManager::DeleteLastFigure()
+CFigure* ApplicationManager::DeleteLastFigure()
 {
 	if (FigCount > 0)
 	{
-		//	return 	FigList[FigCount - 1];
+		CFigure* DeletedFig = FigList[FigCount - 1];
 		FigList[FigCount - 1] = FigList[MaxFigCount - 1];
-		//	delete FigList[FigCount - 1];
 		FigList[MaxFigCount - 1] = NULL;
 		FigCount--;
 		pOut->ClearDrawArea();
 		UpdateInterface();
+		return DeletedFig;
 	}
 }
 
 //Check that Undoarr only has 5 actions
 void ApplicationManager::AddtoUndo(Action* action)
 {
-	if (action)                                         // if there is  action done 
+	if (action) //if there is  action done 
 	{
-		if (UndoCount < 5)                                          // if there is less than 5 actions in undoarr
+		if (UndoCount < MaxUndoRedoCount) //if there is less than 5 actions in undoarr
 		{
-			Undoarr[UndoCount++] = action;                          // add the last action to the array
+			Undoarr[UndoCount++] = action; //add the last action to the array
 		}
-		else                                                        // else if the UndoCount is max, delete the first action in the array
+		else //else if the UndoCount is max, delete the first action in the array
 		{
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < MaxUndoRedoCount - 1; i++)
 			{
 				Undoarr[i] = Undoarr[i + 1];
 			}
 			UndoCount = 4;
 			Undoarr[UndoCount++] = action;
 		}
+		RedoStatus = false;
+	}
+}
+
+void ApplicationManager::AddtoRedo(Action* action)
+{
+	if (action) //if there is  action to redo 
+	{
+		if (RedoCount >= MaxUndoRedoCount) //if there is less than 5 actions in redoarr
+		{
+			for (int i = 0; i < MaxUndoRedoCount - 1; i++)
+			{
+				Redoarr[i] = Redoarr[i + 1];
+			}
+			RedoCount = 4;
+		}
+		Redoarr[RedoCount++] = action; //add the last action to the array
 	}
 }
 
@@ -331,6 +383,27 @@ void ApplicationManager::RemovefromUndo()
 	}
 	else
 		UndoCount = 0;
+	RedoStatus = true;
+}
+
+void ApplicationManager::RemovefromRedo()
+{
+	if (RedoCount > 0)
+	{
+		RedoCount--;
+	}
+	else
+		RedoCount = 0;
+	RedoStatus = true;
+}
+
+Action* ApplicationManager::GetLastActiontoRedo()
+{
+	if (RedoCount > 0 && RedoStatus)
+	{
+		return Redoarr[RedoCount - 1];
+	}
+	return NULL;
 }
 
 //function that returns the last action to undo it 
@@ -343,6 +416,8 @@ Action* ApplicationManager::GetLastActiontoUndo()
 	}
 	return NULL;
 }
+
+
 
 //==================================================================================//
 //							PlayMode Management Functions							//
@@ -385,13 +460,13 @@ CFigure* ApplicationManager::RandomColor(int& TotalFig)
 		type = rand() % FigCount;
 	}
 	//counts number of existing figures with same property as the Figure of the Game
-			for (int i = 0; i < FigCount; i++)
-			{
-				if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()
-					&& FigList[i]->FigIsFilled())
-					TotalFig++;
-			}
-			return FigList[type];	//Return  color of the Figure chosen randomly
+	for (int i = 0; i < FigCount; i++)
+	{
+		if ((FigList[i])->GetFigureColor() == (FigList[type])->GetFigureColor()
+			&& FigList[i]->FigIsFilled())
+				TotalFig++;
+	}
+	return FigList[type];	//Return  color of the Figure chosen randomly
 }
 CFigure* ApplicationManager::RandomColoredFigure(int& TotalFig)
 {
@@ -469,6 +544,9 @@ int ApplicationManager::GetRecordsCount() const
 void ApplicationManager::PlayRecording(int RecordingNumber)
 {
 	RecordingList[RecordingNumber]->Execute();
+	//updating drawing area after playing each action 
+	pOut->ClearDrawArea();
+	UpdateInterface();	
 }
 
 void ApplicationManager::SetPlayingRecord(bool IsPlaying)
@@ -492,16 +570,23 @@ int ApplicationManager::GetMaxRecordingCount()
 	return MaxRecordingCount;
 }
 
-void ApplicationManager::ClearUndoList()
-{
-	for (int i = 0; i < 5; i++)
-		Undoarr[i] = NULL;
-}
-
 bool ApplicationManager::GetPlayingRecord() const
 {
 	return PlayingRecord;
 }
+
+void ApplicationManager::ClearUndoList()
+{
+	for (int i = 0; i < MaxUndoRedoCount; i++)
+		Undoarr[i] = NULL;
+}
+
+void ApplicationManager::ClearRedoList()
+{
+	for (int i = 0; i < MaxUndoRedoCount; i++)
+		Redoarr[i] = NULL;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

@@ -6,7 +6,8 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	Selected = false;
 	FigGfxInfo.BorderWidth = UI.PenWidth;
 	LastDrawColor = BLUE;
-	MoveCount = 0;
+	ID = 0;
+	MoveCount  = 0;
 }
 
 void CFigure::SetSelected(bool s)
@@ -22,6 +23,11 @@ bool CFigure::IsSelected() const
 	return Selected;
 }
 
+/*void CFigure::SetFilled(bool f)
+{
+	FigGfxInfo.isFilled = f;
+}
+*/
 void CFigure::ChngDrawClr(color Dclr)
 {
 	LastDrawColor = FigGfxInfo.DrawClr;
@@ -31,9 +37,14 @@ void CFigure::ChngDrawClr(color Dclr)
 void CFigure::ChngFillClr(color Fclr)
 {
 	FigGfxInfo.isFilled = true;
-	LastFillColor = FigGfxInfo.FillClr;
+
 	FigGfxInfo.FillClr = Fclr;
 	
+}
+
+void CFigure::SetFilled(bool f)
+{
+	FigGfxInfo.isFilled = f;
 }
 
 //==================================================================================//

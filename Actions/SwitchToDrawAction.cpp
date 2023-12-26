@@ -40,3 +40,7 @@ void SwitchToDrawAction::Execute()
 void SwitchToDrawAction::Undo()
 {
 }
+
+void SwitchToDrawAction::Redo()
+{
+}

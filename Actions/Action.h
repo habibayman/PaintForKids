@@ -4,7 +4,7 @@
 #include "..\DefS.h"
 
 class ApplicationManager; //forward class declaration
-
+class CFigure;
 
 //Base class for all possible actions
 class Action
@@ -26,6 +26,7 @@ public:
 	bool Recording();
 
 	virtual void Undo() = 0;
+	virtual void Redo() = 0;
 };
 
 #endif

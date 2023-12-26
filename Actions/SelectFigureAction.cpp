@@ -62,7 +62,7 @@ void SelectFigureAction::Execute()
 	}
 
 	newSelected->SetSelected(true);
-	//newSelected->ChngDrawClr(UI.HighlightColor);
+	//trying something
 	pManager->SetLastSelected(newSelected);
 
 	if (selected)
@@ -78,6 +78,6 @@ void SelectFigureAction::Execute()
 
 }
 
-void SelectFigureAction::Undo()
-{
-}
+void SelectFigureAction::Undo() {}
+void SelectFigureAction::Redo() {}
+

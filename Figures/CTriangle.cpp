@@ -84,9 +84,9 @@ void CTriangle::UndoMove()
 	deltaY = TempDelta[MoveCount - 1].y;
 	MoveCount--;
 
-	Corner1.x -= deltaX;
-	Corner2.x -= deltaX;
-	Corner3.x -= deltaX;
+	Corner1.x -= deltaX; 
+	Corner2.x -= deltaX; 
+	Corner3.x -= deltaX; 
 
 	Corner1.y -= deltaY;
 	Corner2.y -= deltaY;
@@ -114,10 +114,11 @@ void CTriangle::Save(ofstream& OutFile)
 	if (FigGfxInfo.isFilled)
 	{
 		OutFile < FigGfxInfo.FillClr;
+		OutFile << endl;
 	}
 	else
 	{
-		OutFile << "NO_FILL" << "\n";
+		OutFile << "NO_FILL" << endl;
 	}
 	//Drawing color and fill color 
 }

@@ -6,6 +6,7 @@ class AddSquareAction :
 private:
 	Point P1; //Square Center
 	GfxInfo SquareGfxInfo;
+	CFigure* DeletedFigure;
 public:
 	AddSquareAction(ApplicationManager* pApp, bool muted);
 
@@ -17,5 +18,8 @@ public:
 
 	//if AddSquareAction is the last action delete this square
 	void Undo();
+
+	//Redo the deleted square
+	void Redo();
 };
 
