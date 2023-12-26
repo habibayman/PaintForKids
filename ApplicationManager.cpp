@@ -425,6 +425,9 @@ int ApplicationManager::GetRecordsCount() const
 void ApplicationManager::PlayRecording(int RecordingNumber)
 {
 	RecordingList[RecordingNumber]->Execute();
+	//updating drawing area after playing each action 
+	pOut->ClearDrawArea();
+	UpdateInterface();	
 }
 
 void ApplicationManager::SetPlayingRecord(bool IsPlaying)

@@ -62,7 +62,7 @@ void SelectFigureAction::Execute()
 	}
 
 	newSelected->SetSelected(true);
-	//newSelected->ChngDrawClr(UI.HighlightColor);
+	//trying something
 	pManager->SetLastSelected(newSelected);
 
 	if (selected)

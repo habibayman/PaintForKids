@@ -31,18 +31,18 @@ void PlayRecordingAction::Execute()
 
 		pManager->ClearAll(); //clears FigList and Sets FigCount to zero
 		pManager->ClearUndoList(); //clears undo list 
-		pOut->ClearDrawArea();
 		pManager->SetLastSelected(NULL);
 		pManager->SetPlayingRecord(true);
 	
+		pOut->ClearDrawArea();
+		_sleep(1000);
+
 		for (int i = 0; i < pManager->GetRecordsCount(); i++)
 		{
 			pManager->PlayRecording(i);
 			//sleeps 1 second between each two operations
-			if (i % 2 == 0)
+			if (i % 2 != 0)
 				_sleep(1000);
-			pOut->ClearDrawArea();
-			pManager->UpdateInterface();
 		}
 	}
 
