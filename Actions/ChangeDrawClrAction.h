@@ -8,7 +8,6 @@ private:
 	color LastClr;
 	color CurrentClr;
 	ColorType ColorSelected;
-
 public:
 	ChangeDrawClrAction(ApplicationManager* pApp, bool muted);
 
@@ -22,6 +21,5 @@ public:
 
 	//Redo action
 	void Redo();
-
 };
 

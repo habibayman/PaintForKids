@@ -272,7 +272,6 @@ void ApplicationManager::ClearAll()
 		FigList[i] = NULL;
 	}
 	FigCount = 0;
-	//pOut->Reset();
 
 	if (!IsRecording)
 	{
@@ -298,8 +297,8 @@ void ApplicationManager::ClearAll()
 	}
 
 	//default draw/color mode for the shapes
-	pOut->setCrntDrawColor(UI.DrawColor);
-	pOut->setCrntFillColor(UI.FillColor);
+	pOut->setCrntDrawColor(BLUE);
+	pOut->setCrntFillColor(WHITE);
 	pOut->SetFilled(false);
 }
 

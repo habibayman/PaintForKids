@@ -1,3 +1,0 @@
-BLUE	
-1
-Square	1	456	246	BLUE	
