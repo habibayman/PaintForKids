@@ -41,12 +41,13 @@ void LoadAction::Execute()
 	{
 		//set the drawing color
 		InFile >> ReadDrawColor; pOut->setCrntDrawColor(StringToColor(ReadDrawColor));
+
 		//set the fill color
 		InFile >> ReadFillColor; 
-		if (ReadFillColor == "NO_FILL")
+		if (!ReadFillColor.compare("NO_FILL"))
 		{
 			UI.IsFilled = false;
-			UI.FillColor = WHITE;
+			UI.FillColor = UI.BkGrndColor;
 		}
 		else
 			pOut->setCrntFillColor(StringToColor(ReadFillColor));
@@ -82,9 +83,9 @@ void LoadAction::Execute()
 			{
 				CurrentFigure->Load(InFile); 
 				pManager->AddFigure(CurrentFigure, false);
-				pManager->UpdateInterface();
 			}
 		}
+		pManager->UpdateInterface(); 
 		InFile.close();
 	}
 	else
