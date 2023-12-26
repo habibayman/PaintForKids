@@ -78,6 +78,6 @@ void SelectFigureAction::Execute()
 
 }
 
-void SelectFigureAction::Undo()
-{
-}
+void SelectFigureAction::Undo() {}
+void SelectFigureAction::Redo() {}
+

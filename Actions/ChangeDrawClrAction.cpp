@@ -6,9 +6,16 @@
 #include "..\GUI\Output.h"
 #include "..\Figures\CFigure.h"
 
-ChangeDrawClrAction::ChangeDrawClrAction(ApplicationManager* pApp) :Action(pApp)
+ChangeDrawClrAction::ChangeDrawClrAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
+	Output* pOut = pManager->GetOutput();
 	LastColoredFigure = NULL;
+	LastClr = pOut->getCrntDrawColor();
+
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void ChangeDrawClrAction::ReadActionParameters()
@@ -38,43 +45,50 @@ void ChangeDrawClrAction::Execute()
 	if (pManager->GetLastSelected())
 	{
 		LastColoredFigure = pManager->GetLastSelected();
-		CurrentClr = LastColoredFigure->GetDrawColor();
+		LastClr = LastColoredFigure->GetDrawColor();
 
 			switch (ColorSelected)
 			{
 			case COLOR_GREEN:
 				pOut->PrintMessage("Drawing color is now the green color");
-				pManager->GetLastSelected()->ChngDrawClr(GREEN);
-				UI.DrawColor = GREEN;
+				LastColoredFigure->ChngDrawClr(GREEN);
+				pOut->setCrntDrawColor(GREEN);
+				CurrentClr = GREEN;
 				break;
 			case COLOR_RED:
 				pOut->PrintMessage("Drawing color is now the red color");
-				pManager->GetLastSelected()->ChngDrawClr(RED);
-				UI.DrawColor = RED;
+				LastColoredFigure->ChngDrawClr(RED);
+				pOut->setCrntDrawColor(RED);
+				CurrentClr = RED;
 				break;
 			case COLOR_ORANGE:
 				pOut->PrintMessage("Drawing color is now the orange color");
-				pManager->GetLastSelected()->ChngDrawClr(ORANGE);
-				UI.DrawColor = ORANGE;
+				LastColoredFigure->ChngDrawClr(ORANGE);
+				pOut->setCrntDrawColor(ORANGE);
+				CurrentClr = ORANGE;
 				break;
 			case COLOR_YELLOW:
 				pOut->PrintMessage("Drawing color is now the yellow color");
-				pManager->GetLastSelected()->ChngDrawClr(YELLOW);
-				UI.DrawColor = YELLOW;
+				LastColoredFigure->ChngDrawClr(YELLOW);
+				pOut->setCrntDrawColor(YELLOW);
+				CurrentClr = YELLOW;
 				break;
 			case COLOR_BLUE:
 				pOut->PrintMessage("Drawing color is now the blue color");
-				pManager->GetLastSelected()->ChngDrawClr(BLUE);
-				UI.DrawColor = BLUE;
+				LastColoredFigure->ChngDrawClr(BLUE);
+				pOut->setCrntDrawColor(BLUE);
+				CurrentClr = BLUE;
 				break;
 			case COLOR_BLACK:
 				pOut->PrintMessage("Drawing color is now the black color");
-				pManager->GetLastSelected()->ChngDrawClr(BLACK);
-				UI.DrawColor = BLACK;
+				LastColoredFigure->ChngDrawClr(BLACK);
+				pOut->setCrntDrawColor(BLACK);
+				CurrentClr = BLACK;
 				break;
 			}
 
 		pOut->ClearColorPalette();
+	//	pOut->SetFilled(false);
 		pManager->AddtoUndo(this);
 
 		//if the action is being recorded, add it to the RecordingList
@@ -99,7 +113,23 @@ void ChangeDrawClrAction::Execute()
 
 void ChangeDrawClrAction::Undo()
 {
-	LastColoredFigure->ChngDrawClr(CurrentClr);
+	Output* pOut = pManager->GetOutput();
+
+	LastColoredFigure->ChngDrawClr(LastClr);
+	pOut->setCrntDrawColor(LastClr);
+
+	pManager->AddtoRedo(this);
 	pManager->RemovefromUndo();
+}
+
+void ChangeDrawClrAction::Redo()
+{
+	Output* pOut = pManager->GetOutput();
+
+	LastColoredFigure->ChngDrawClr(CurrentClr);
+	pOut->setCrntDrawColor(CurrentClr);
+
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }
 

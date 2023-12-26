@@ -13,28 +13,36 @@
 #include"Actions/PickByShapeAction.h"
 #include"Actions/PickByColorAction.h"
 #include"Actions/PickByBothAction.h"
+#include "Actions\MoveByDragAction.h"
+
 //Main class that manages everything in the application.
 class Action;
 
 class ApplicationManager
 {
 	enum { MaxFigCount = 200 };	//Max no of figures
+	enum {MaxUndoRedoCount = 5}; //Max no to undo/redo actions
 	enum { MaxRecordingCount = 20 }; //Max no of recorded actions
 
 private:
 	int FigCount;		//Actual number of figures
 	int UndoCount;
+	int RedoCount;
+	bool RedoStatus;  //checks that redo is only done after redo/undo actions
 
+	CFigure* DeletedFiguresArr[5];  //list of all deleted figures to undo
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* LastSelectedFig; //Pointer to the selected figure
 
 	Action* Undoarr[5];
+	Action* Redoarr[5];
 	Action* LastAction;
 
 	//Pointers to Input and Output classes
 	Input* pIn;
 	Output* pOut;
 	bool muted;
+
 
 	Action* RecordingList[MaxRecordingCount]; //List of recorded actions
 	bool IsRecording;
@@ -52,6 +60,8 @@ public:
 
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
+	CFigure* DeleteLastFigure();                //deletes last figure from figlist 
+	void AddFigure(CFigure* pFig, bool ToSaveID = 1);  //Adds a new figure to the FigList
 	void DeleteLastFigure();                //deletes last figure from figlist 
 	CFigure* GetFigure(Point P) const;      //Search for a figure given a point inside the figure
 	void SetLastSelected(CFigure* pFig);    //set the last selected figure
@@ -60,9 +70,13 @@ public:
 	int Get_FigCount() const;               //Returns the number of figures
 	void ClearAll();                        //deletes all the drawn figures from the array
 	void Delete(CFigure* pFig);             //Deletes the selected -if any- firure
-	void AddtoUndo(Action* action);
-	void RemovefromUndo();
-	Action* GetLastActiontoUndo();
+	void AddtoUndo(Action* action);         //adds action to undoarr
+	void AddtoRedo(Action* action);         //adds action to redoarr
+	void RemovefromUndo();                  //removes action from undoarr 
+	void RemovefromRedo();                  //removes action from undoarr 
+	Action* GetLastActiontoRedo();          //returns last action in undoarr
+	Action* GetLastActiontoUndo();          //returns last action in redoarr
+
 
 	// -- PlayMode Management Functions
 	CFigure* RandomFigure(int& TotalFig);	//choose a random figure to start the same

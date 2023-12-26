@@ -6,7 +6,6 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 	Corner1 = P1;
 	Corner2 = P2;
 	Corner3 = P3;
-	ID++;
 	FigureNumber = 3;
 	deltaX = deltaY = 0;
 	MoveCount = 0;
@@ -75,9 +74,9 @@ void CTriangle::UndoMove()
 	deltaY = TempDelta[MoveCount - 1].y;
 	MoveCount--;
 
-	Corner1.x -= deltaX;
-	Corner2.x -= deltaX;
-	Corner3.x -= deltaX;
+	Corner1.x -= deltaX; 
+	Corner2.x -= deltaX; 
+	Corner3.x -= deltaX; 
 
 	Corner1.y -= deltaY;
 	Corner2.y -= deltaY;
@@ -91,6 +90,11 @@ bool CTriangle::IsValidMove()
 		Corner3.y < UI.ToolBarHeight || Corner3.y > UI.height - UI.StatusBarHeight);
 }
 
+void CTriangle::SetID(int id)
+{
+	ID = id;
+}
+
 void CTriangle::Save(ofstream& OutFile)
 {
 	OutFile << "Triangle" << "\t" << ID << "\t"; //type and ID
@@ -100,10 +104,11 @@ void CTriangle::Save(ofstream& OutFile)
 	if (FigGfxInfo.isFilled)
 	{
 		OutFile < FigGfxInfo.FillClr;
+		OutFile << endl;
 	}
 	else
 	{
-		OutFile << "NO_FILL" << "\n";
+		OutFile << "NO_FILL" << endl;
 	}
 	//Drawing color and fill color 
 }
@@ -149,6 +154,14 @@ void CTriangle::HideFigure(bool b) //Hide\Unhide the figure
 bool CTriangle::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+
+bool CTriangle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 
 void CTriangle::Load(ifstream& InFile)

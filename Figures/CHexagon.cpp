@@ -6,7 +6,6 @@ using namespace std;
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ID++;
 	FigureNumber = 4;
 	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
@@ -28,17 +27,24 @@ void CHexagon::Draw(Output* pOut) const
 
 bool CHexagon::Isbelonging(Point P) const
 {
-	Point q2;
-	q2.x = abs(P.x - Center.x);  //transform the point to quadrant 2
-	q2.y = abs(P.y - Center.y);
-	
-	float horizontal = UI.HEXAGON_LENGTH * cos(atan(1) / 3.0);
-	float vertical = UI.HEXAGON_LENGTH / 2;
+	/*
+	1- distance from center to any point on the border = dist1 = (sqrt(3) * r) / (sqrt(3) * cos(t) + sin(t))
+	2- distance from center to any point = dist2 = sqrt(pow(Center.x - P.x, 2) + pow(Center.y - P.y, 2))
+	3- dist1 and dist2 have the same slope, so if dist2 <= dist1, the point belongs to the hexagon
+	r = length && t = atan(slope of the line from center to any point on the border)
+    */
 
-	if (q2.x > horizontal || q2.y > vertical * 2)
-		return false;
+	double slope = (P.y - Center.y) / (double)(P.x - Center.x);
+	double angle = fabs(atan(slope));
+	double dist1 = (sqrt(3) * UI.HEXAGON_LENGTH) / (sqrt(3) * cos(angle) + sin(angle));
+	double dist2 = sqrt(pow(Center.x - P.x, 2) + pow(Center.y - P.y, 2));
+
+	if (dist2 <= dist1)
+	{
 		return true;
-	
+	}
+	return false;
+	 
 }
 
 void CHexagon::Move(Point P)
@@ -61,6 +67,11 @@ bool CHexagon::IsValidMove()
 		UI.width - Center.x < UI.HEXAGON_LENGTH + 3 * UI.wx);
 }
 
+void CHexagon::SetID(int id)
+{
+	ID = id;
+}
+
 void CHexagon::Save(ofstream& OutFile)
 {
 	OutFile << "Hexagon" << "\t" << ID << "\t"; //type and ID 
@@ -70,10 +81,11 @@ void CHexagon::Save(ofstream& OutFile)
 	if (FigGfxInfo.isFilled)
 	{
 		OutFile < FigGfxInfo.FillClr;
+		OutFile << endl;
 	}
 	else
 	{
-		OutFile << "NO_FILL" << "\n";
+		OutFile << "NO_FILL" << endl;
 	}
 	//Drawing color and fill color 
 }
@@ -84,8 +96,6 @@ void CHexagon::PrintInfo(Output* pOut)
 		"Length: " + to_string((int)UI.HEXAGON_LENGTH);
 	pOut->PrintMessage(info);
 }
-
-
 
 
 //==================================================================================//
@@ -121,6 +131,13 @@ void CHexagon::HideFigure(bool b) //Hide\Unhide the figure
 bool CHexagon::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+bool CHexagon::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 void CHexagon::Load(ifstream& InFile)
 {

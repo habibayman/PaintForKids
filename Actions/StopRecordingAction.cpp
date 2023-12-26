@@ -4,9 +4,12 @@
 
 #include "..\GUI\Output.h"
 
-StopRecordingAction::StopRecordingAction(ApplicationManager* pApp) : Action(pApp)
+StopRecordingAction::StopRecordingAction(ApplicationManager* pApp, bool muted) : Action(pApp)
 {
-
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void StopRecordingAction::ReadActionParameters()
@@ -33,4 +36,8 @@ void StopRecordingAction::Execute()
 void StopRecordingAction::Undo()
 {
 
+}
+
+void StopRecordingAction::Redo()
+{
 }

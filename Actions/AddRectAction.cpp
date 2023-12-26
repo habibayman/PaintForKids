@@ -33,6 +33,10 @@ void AddRectAction::ReadActionParameters()
 	pIn->GetPointClicked(P2.x, P2.y);
 	pIn->Repeatability_Validation(P1, P2, pOut);
 
+		RectGfxInfo.isFilled = pOut->GetFilled();	//set the figure filled/unfilled
+		//get drawing, filling colors and pen width from the interface
+		RectGfxInfo.DrawClr = pOut->getCrntDrawColor();
+		RectGfxInfo.FillClr = pOut->getCrntFillColor();
 	RectGfxInfo.isFilled = false;	//default is not filled
 	//get drawing, filling colors and pen width from the interface
 	RectGfxInfo.DrawClr = pOut->getCrntDrawColor();
@@ -66,8 +70,16 @@ void AddRectAction::Execute()
 }
 
 
-void AddRectAction::Undo()
-{
-	pManager->DeleteLastFigure();
-	pManager->RemovefromUndo();
-}
+	void AddRectAction::Undo()
+	{
+		pManager->AddtoRedo(this);
+		DeletedFigure = pManager->DeleteLastFigure();
+		pManager->RemovefromUndo();
+	}
+
+	void AddRectAction::Redo()
+	{
+		pManager->AddFigure(DeletedFigure);
+		pManager->AddtoUndo(this);
+		pManager->RemovefromRedo();
+	}

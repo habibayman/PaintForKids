@@ -25,7 +25,7 @@ void AddHexaAction::ReadActionParameters()
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->Hexagon_Validation(P1, pOut);
 
-	HexaGfxInfo.isFilled = false;	//default is not filled
+	HexaGfxInfo.isFilled = pOut->GetFilled();	//set the figure filled/unfilled
 	//get drawing, filling colors and pen width from the interface
 	HexaGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	HexaGfxInfo.FillClr = pOut->getCrntFillColor();
@@ -62,6 +62,14 @@ void AddHexaAction::Execute()
 
 void AddHexaAction::Undo()
 {
-	pManager->DeleteLastFigure();
+	pManager->AddtoRedo(this);
+	DeletedFigure = pManager->DeleteLastFigure();
 	pManager->RemovefromUndo();
+}
+
+void AddHexaAction::Redo()
+{
+	pManager->AddFigure(DeletedFigure);
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }

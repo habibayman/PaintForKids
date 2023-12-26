@@ -5,7 +5,6 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 {
 	Corner1 = P1;
 	Corner2 = P2;
-	ID++;
 	FigureNumber = 1;
 	deltaX = deltaY = 0;
 	MoveCount = 0;
@@ -86,21 +85,26 @@ bool CRectangle::IsValidMove()
 		Corner2.y < UI.ToolBarHeight || Corner2.y > UI.height - UI.StatusBarHeight);
 }
 
+void CRectangle::SetID(int id)
+{
+	ID = id;
+}
+
 void CRectangle::Save(ofstream& OutFile)
 {
 	OutFile << "Rectangle" << "\t" << ID << "\t"; //type and ID
 	OutFile << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t"; //Coordinates
-	OutFile < FigGfxInfo.DrawClr;
+	OutFile < FigGfxInfo.DrawClr; 
 	OutFile << "\t";
 	if (FigGfxInfo.isFilled)
 	{
-		OutFile < FigGfxInfo.FillClr;
-		OutFile << "\n";
+		OutFile < FigGfxInfo.FillClr; 
+		OutFile << endl;
 	}
 	else
 	{
 		OutFile << "NO_FILL";
-		OutFile << "\n";
+		OutFile << endl;
 	}
 	//Drawing color and fill color 
 }
@@ -148,6 +152,14 @@ void CRectangle::HideFigure(bool b) //Hide\Unhide the figure
 bool CRectangle::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+
+bool CRectangle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 
 

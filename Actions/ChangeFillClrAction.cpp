@@ -5,10 +5,16 @@
 #include "..\GUI\Output.h"
 #include "..\Figures\CFigure.h"
 
-ChangeFillClrAction::ChangeFillClrAction(ApplicationManager* pApp) :Action(pApp)
+ChangeFillClrAction::ChangeFillClrAction(ApplicationManager* pApp, bool muted) :Action(pApp)
 {
+	Output* pOut = pManager->GetOutput();
 	LastColoredFigure = NULL;
+	LastClr = pOut->getCrntFillColor();
 	CurrentClr = NULL;
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
 }
 
 void ChangeFillClrAction::ReadActionParameters()
@@ -31,7 +37,7 @@ void ChangeFillClrAction::Execute()
 	if (pManager->GetLastSelected())
 	{
 		LastColoredFigure = pManager->GetLastSelected();
-		CurrentClr = LastColoredFigure->GetFigureColor();
+		LastClr = LastColoredFigure->GetFigureColor();
 
 		bool PlayingRecord = pManager->GetPlayingRecord();
 		
@@ -44,37 +50,44 @@ void ChangeFillClrAction::Execute()
 			{
 			case COLOR_GREEN:
 				pOut->PrintMessage("The shape is filled with green color");
-				pManager->GetLastSelected()->ChngFillClr(GREEN);
-				UI.FillColor = GREEN;
+				LastColoredFigure->ChngFillClr(GREEN);
+				pOut->setCrntFillColor(GREEN);
+				CurrentClr = GREEN;
 				break;
 			case COLOR_RED:
 				pOut->PrintMessage("The shape is filled with red color");
-				pManager->GetLastSelected()->ChngFillClr(RED);
-				UI.FillColor = RED;
+				LastColoredFigure->ChngFillClr(RED);
+				pOut->setCrntFillColor(RED);
+				CurrentClr = RED;
 				break;
 			case COLOR_ORANGE:
 				pOut->PrintMessage("The shape is filled with orange color");
-				pManager->GetLastSelected()->ChngFillClr(ORANGE);
-				UI.FillColor = ORANGE;
+				LastColoredFigure->ChngFillClr(ORANGE);
+				pOut->setCrntFillColor(ORANGE);
+				CurrentClr = ORANGE;
 				break;
 			case COLOR_YELLOW:
 				pOut->PrintMessage("The shape is filled with yellow color");
-				pManager->GetLastSelected()->ChngFillClr(YELLOW);
-				UI.FillColor = YELLOW;
+				LastColoredFigure->ChngFillClr(YELLOW);
+				pOut->setCrntFillColor(YELLOW);
+				CurrentClr = YELLOW;
 				break;
 			case COLOR_BLUE:
 				pOut->PrintMessage("The shape is filled with blue color");
-				pManager->GetLastSelected()->ChngFillClr(BLUE);
-				UI.FillColor = BLUE;
+				LastColoredFigure->ChngFillClr(BLUE);
+				pOut->setCrntFillColor(BLUE);
+				CurrentClr = BLUE;
 				break;
 			case COLOR_BLACK:
 				pOut->PrintMessage("The shape is filled with black color");
-				pManager->GetLastSelected()->ChngFillClr(BLACK);
-				UI.FillColor = BLACK;
+				LastColoredFigure->ChngFillClr(BLACK);
+				pOut->setCrntFillColor(BLACK);
+				CurrentClr = BLACK;
 				break;
 			}
-
+			
 		pOut->ClearColorPalette();
+		pOut->SetFilled(true);
 		pManager->AddtoUndo(this);
 
 	}
@@ -93,6 +106,28 @@ void ChangeFillClrAction::Execute()
 
 void ChangeFillClrAction::Undo()
 {
-	LastColoredFigure->ChngFillClr(CurrentClr);
+	Output* pOut = pManager->GetOutput();
+
+	LastColoredFigure->ChngFillClr(LastClr);
+	pOut->setCrntFillColor(LastClr);
+	
+	if (LastClr == WHITE)
+	{
+		LastColoredFigure->SetFilled(false);
+		pOut->ClearDrawArea();
+	}
+	
+	pManager->AddtoRedo(this);
 	pManager->RemovefromUndo();
+}
+
+void ChangeFillClrAction::Redo()
+{
+	Output* pOut = pManager->GetOutput();
+
+	LastColoredFigure->ChngFillClr(CurrentClr);
+	pOut->setCrntFillColor(CurrentClr);
+
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }

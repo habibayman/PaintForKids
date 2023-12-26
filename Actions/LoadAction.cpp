@@ -74,7 +74,7 @@ void LoadAction::Execute()
 		    if (CurrentFigure)
 			{
 				CurrentFigure->Load(InFile); 
-				pManager->AddFigure(CurrentFigure);
+				pManager->AddFigure(CurrentFigure, false);
 				pManager->UpdateInterface();
 			}
 		}
@@ -86,6 +86,5 @@ void LoadAction::Execute()
 	}
 }
 
-void LoadAction::Undo()
-{
-}
+void LoadAction::Undo() {}
+void LoadAction::Redo() {}

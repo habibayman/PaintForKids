@@ -6,20 +6,14 @@
 #include "Action.h"
 class UndoAction : public Action
 {
-private:
-	//static int UndoCount;
-	// static Action* Undoarr[5];
 public:
-	UndoAction(ApplicationManager* pApp);
+	UndoAction(ApplicationManager* pApp, bool muted);
 
 	virtual void ReadActionParameters();
 
-	//Add Undo and Redo to the ApplicationManager
+	//Add Undo to the ApplicationManager
 	virtual void Execute();
-
-	//void AddtoUndo(Action* action);
-
 	void Undo();
-	//void AddtoUndoList();
+	void Redo();
 };
 

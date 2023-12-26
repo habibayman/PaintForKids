@@ -43,7 +43,7 @@ void AddTriAction::ReadActionParameters()
 
 
 
-	TriGfxInfo.isFilled = false;	//default is not filled
+	TriGfxInfo.isFilled = pOut->GetFilled();	//set the figure filled/unfilled
 	//get drawing, filling colors and pen width from the interface
 	TriGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	TriGfxInfo.FillClr = pOut->getCrntFillColor();
@@ -76,8 +76,16 @@ void AddTriAction::Execute()
 
 void AddTriAction::Undo()
 {
-	pManager->DeleteLastFigure();
+	pManager->AddtoRedo(this);
+	DeletedFigure = pManager->DeleteLastFigure();
 	pManager->RemovefromUndo();
+}
+
+void AddTriAction::Redo()
+{
+	pManager->AddFigure(DeletedFigure);
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }
 
 

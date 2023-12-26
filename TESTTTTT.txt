@@ -1,0 +1,5 @@
+BLUE	RED
+2
+Rectangle	1	640	271	430	427	BLUE	BLUE
+
+Hexagon	2	884	295	BLUE	RED

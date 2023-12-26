@@ -1,11 +1,14 @@
 #include "UndoAction.h"
 #include "Action.h"
 
-//int UndoAction::UndoCount = 0;
-//Action* UndoAction::Undoarr[5];
 
-UndoAction::UndoAction(ApplicationManager* pApp) : Action(pApp)
-{}
+UndoAction::UndoAction(ApplicationManager* pApp, bool muted) : Action(pApp)
+{
+	if (!muted)
+	{
+		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
+	}
+}
 
 void UndoAction::ReadActionParameters()
 {}
@@ -14,18 +17,20 @@ void UndoAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 
-	pOut->PrintMessage("Undo Icon");
+	pOut->PrintMessage("Undo last action");
 
 	Action* action = pManager->GetLastActiontoUndo();
 	//Undo the last action in the undo list
 	if (action)
 	{
 		action->Undo();
+	//	pManager->AddtoRedo(action);
 	}
 	else                                                //if there is no action
 	{
 		pOut->PrintMessage("No more actions to undo");
 	}
+	
 
 	//if the action is being recorded, add it to the RecordingList
 	if (Recording())
@@ -36,3 +41,4 @@ void UndoAction::Execute()
 
 
 void UndoAction::Undo() {}
+void UndoAction::Redo() {}

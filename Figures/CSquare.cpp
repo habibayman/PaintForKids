@@ -4,7 +4,6 @@
 CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) : CFigure(FigureGfxInfo)
 {
 	Center = P1;
-	ID++;
 	FigureNumber = 2;
 	MoveCount = 0;
 	for (int i = 0; i < 5; i++)
@@ -57,6 +56,11 @@ bool CSquare::IsValidMove()
 		Center.x > UI.width - UI.SQUARE_LENGTH / 2 - (3 * UI.wx));
 }
 
+void CSquare::SetID(int id)
+{
+	ID = id;
+}
+
 void CSquare::Save(ofstream& OutFile)
 {
 	OutFile << "Square" << "\t" << ID << "\t"; //type and ID 
@@ -66,10 +70,11 @@ void CSquare::Save(ofstream& OutFile)
 	if (FigGfxInfo.isFilled)
 	{
 		OutFile < FigGfxInfo.FillClr ;
+		OutFile << endl;
 	}
 	else
 	{
-		OutFile << "NO_FILL" << "\n";
+		OutFile << "NO_FILL" << endl;
 	}
 	//Drawing color and fill color 
 }
@@ -115,6 +120,13 @@ void CSquare::HideFigure(bool b) //Hide\Unhide the figure
 bool CSquare::FigisHidden()	//Know if figure is hidden or not
 {
 	return isHidden;
+}
+bool CSquare::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 void CSquare::Load(ifstream& InFile) 
 {

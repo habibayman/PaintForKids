@@ -21,6 +21,7 @@ public:
 	virtual void Move(Point P);
 	void UndoMove();
 	virtual bool IsValidMove();
+	virtual void SetID(int);
 	void Save(ofstream& OutFile);
 	void PrintInfo(Output* pOut);
 
@@ -34,4 +35,6 @@ public:
 	virtual color GetDrawColor(); //Get figure color
 	virtual void HideFigure(bool);  //Hide\Unhide the figure
 	virtual bool FigisHidden(); //Know if figure is hidden or not
+	virtual bool FigIsFilled();
+
 };

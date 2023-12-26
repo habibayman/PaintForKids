@@ -5,7 +5,6 @@ CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) : CFigure(FigureGfxI
 {
 	Center = P1;
 	CirclePoint = P2;
-	ID++;
 	FigureNumber = 5;
 	deltaX = deltaY = 0;
 	MoveCount = 0;
@@ -77,6 +76,11 @@ bool CCircle::IsValidMove()
 		abs(Center.y - ((UI.height) - UI.StatusBarHeight)) < CircleRadius);
 }
 
+void CCircle::SetID(int id)
+{
+	ID = id;
+}
+
 void CCircle::Save(ofstream& OutFile)
 {
 	OutFile << "Circle" << "\t" << ID << "\t"; //type and ID
@@ -86,10 +90,11 @@ void CCircle::Save(ofstream& OutFile)
 	if (FigGfxInfo.isFilled)
 	{
 		OutFile < FigGfxInfo.FillClr;
+		OutFile << endl;
 	}
 	else
 	{
-		OutFile << "NO_FILL" << "\n";
+		OutFile << "NO_FILL" << endl;
 	}
 	//Drawing color and fill color 
 }
@@ -155,5 +160,13 @@ void CCircle::HideFigure(bool b) //Hide\Unhide the figure
 
 bool CCircle::FigisHidden()	//Know if figure is hidden or not
 {	return isHidden;
+}
+
+bool CCircle::FigIsFilled()
+{
+	if (FigGfxInfo.isFilled)
+		return true;
+	else
+		return false;
 }
 

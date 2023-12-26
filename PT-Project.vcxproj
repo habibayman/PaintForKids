@@ -197,7 +197,9 @@
     <ClCompile Include="Actions\PickByShapeAction.cpp" />
     <ClCompile Include="Actions\PickByColorAction.cpp" />
     <ClCompile Include="Actions\PickByBothAction.cpp" />
+    <ClCompile Include="Actions\MoveByDragAction.cpp" />
     <ClCompile Include="Actions\UndoAction.cpp" />
+    <ClCompile Include="Actions\RedoAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddCircleAction.h" />
@@ -254,7 +256,9 @@
     <ClInclude Include="Actions\PickByShapeAction.h" />
     <ClInclude Include="Actions\PickByColorAction.h" />
     <ClInclude Include="Actions\PickByBothAction.h" />
+    <ClInclude Include="Actions\MoveByDragAction.h" />
     <ClInclude Include="Actions\UndoAction.h" />
+    <ClInclude Include="Actions\RedoAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

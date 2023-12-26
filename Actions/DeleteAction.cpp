@@ -21,6 +21,8 @@ void DeleteAction::Execute()
 {
 	//Get a Pointer to the Output Interfaces
 	Output* pOut = pManager->GetOutput(); 
+	ReadActionParameters();
+	pManager->AddtoUndo(this);
 	ToBeDeleted = pManager->GetLastSelected();
 	
 	//trying something
@@ -29,7 +31,8 @@ void DeleteAction::Execute()
 
 	if (ToBeDeleted)
 	{
-		pManager->Delete(ToBeDeleted); 
+		pManager->Delete(ToBeDeleted);
+		ToBeDeleted->SetSelected(false);
 		pOut->ClearDrawArea(); 
 		pManager->UpdateInterface();
 	}
@@ -52,6 +55,16 @@ void DeleteAction::Execute()
 void DeleteAction::Undo()
 {
 	pManager->AddFigure(ToBeDeleted);
+	pManager->AddtoRedo(this);
 	pManager->RemovefromUndo();
+}
+
+void DeleteAction::Redo()
+{
+	Output* pOut = pManager->GetOutput();
+	pManager->Delete(ToBeDeleted);
+	pManager->AddtoUndo(this);
+	pOut->ClearDrawArea();
+	pManager->RemovefromRedo();
 }
 

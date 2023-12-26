@@ -25,7 +25,7 @@ void AddSquareAction::ReadActionParameters()
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->Square_Validation(P1, pOut);
 
-	SquareGfxInfo.isFilled = false;	//default is not filled
+	SquareGfxInfo.isFilled = pOut->GetFilled();	//set the figure filled/unfilled
 	//get drawing, filling colors and pen width from the interface
 	SquareGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	SquareGfxInfo.FillClr = pOut->getCrntFillColor();
@@ -61,6 +61,14 @@ void AddSquareAction::Execute()
 
 void AddSquareAction::Undo()
 {
-	pManager->DeleteLastFigure();
+	pManager->AddtoRedo(this);
+	DeletedFigure = pManager->DeleteLastFigure();
 	pManager->RemovefromUndo();
+}
+
+void AddSquareAction::Redo()
+{
+	pManager->AddFigure(DeletedFigure);
+	pManager->AddtoUndo(this);
+	pManager->RemovefromRedo();
 }

@@ -16,20 +16,20 @@ Output::Output()
 	UI.ToolBarHeight = 60;
 	UI.MenuItemWidth = 50;
 	UI.ColorItemWidth = 30;
+	UI.ColorXi = ITM_DRAW_COLOR * (UI.MenuItemWidth + UI.wx);
 	//check it
 	//UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
 	UI.ColorXi = ITM_DRAW_COLOR * (UI.MenuItemWidth + UI.wx);
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = WHITE;	//Filling color
-	UI.MsgColor = BLACK;		//Messages color
-	UI.DrawColor = BLUE;	//Drawing color 
-	UI.FillColor = GREEN;	//Filling color 
 	UI.MsgColor = BLACK;		//Messages color 
 	UI.BkGrndColor = WHITE;	//Background color changed color from LIGHTGOLDENRODYELLOW to WHITE
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
 	UI.StatusBarColor = LIGHTSTEELBLUE;
 	UI.DrawBarColor = LIGHTSTEELBLUE;
+
+	UI.IsFilled = false;
 
 	UI.PenWidth = 4;	//width of the figures frames
 
@@ -113,6 +113,7 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_REDO] = "images\\MenuItems\\Menu_Redo.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_Save.jpg";
 	MenuItemImages[ITM_MOVE_FIGURE] = "images\\MenuItems\\Menu_Move.jpg";
+	MenuItemImages[ITM_MOVE_BY_DRAGGING] = "images\\MenuItems\\Menu_MoveByDrag.jpg";
 	MenuItemImages[ITM_PLAY_RECORDING] = "images\\MenuItems\\Menu_Play.jpg";
 	MenuItemImages[ITM_START_RECORDING] = "images\\MenuItems\\Menu_Start_Recording.jpg";
 	MenuItemImages[ITM_STOP_RECORDING] = "images\\MenuItems\\Menu_Stop_Recording.jpg";
@@ -212,7 +213,7 @@ color Output::getCrntDrawColor() const	//get current drawing color
 }
 void Output::setCrntDrawColor(color newcolor)
 {
-	UI.DrawBarColor = newcolor;
+	UI.DrawColor = newcolor;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -230,6 +231,19 @@ int Output::getCrntPenWidth() const		//get current pen width
 {
 	return UI.PenWidth;
 }
+
+
+
+void Output::SetFilled(bool f)
+{
+	UI.IsFilled = f;
+}
+
+bool Output::GetFilled() const
+{
+	return UI.IsFilled;
+}
+
 
 void Output::ClearToolbar() const
 {
@@ -389,6 +403,8 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected
 	pWind->DrawCircle(P1.x, P1.y, CircleGfxInfo.CircleRadius, style);
 
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 Output::~Output()
