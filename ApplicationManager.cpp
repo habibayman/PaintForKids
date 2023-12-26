@@ -276,7 +276,8 @@ void ApplicationManager::ClearAll()
 	if (!IsRecording)
 	{
 		ClearRedoList(); 
-		ClearUndoList(); 
+		ClearUndoList();
+		//ClearRecordingList(); No need, already handled in StartRecording.cpp
 	}
 	else
 	{
