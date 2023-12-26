@@ -10,7 +10,6 @@
 #include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SoundModeAction.h"  
-#include "Actions\SwitchToPlayAction.h"
 #include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\RedoAction.h"
@@ -545,6 +544,9 @@ int ApplicationManager::GetRecordsCount() const
 void ApplicationManager::PlayRecording(int RecordingNumber)
 {
 	RecordingList[RecordingNumber]->Execute();
+	//updating drawing area after playing each action 
+	pOut->ClearDrawArea();
+	UpdateInterface();	
 }
 
 void ApplicationManager::SetPlayingRecord(bool IsPlaying)
@@ -568,16 +570,23 @@ int ApplicationManager::GetMaxRecordingCount()
 	return MaxRecordingCount;
 }
 
-void ApplicationManager::ClearUndoList()
-{
-	for (int i = 0; i < 5; i++)
-		Undoarr[i] = NULL;
-}
-
 bool ApplicationManager::GetPlayingRecord() const
 {
 	return PlayingRecord;
 }
+
+void ApplicationManager::ClearUndoList()
+{
+	for (int i = 0; i < MaxUndoRedoCount; i++)
+		Undoarr[i] = NULL;
+}
+
+void ApplicationManager::ClearRedoList()
+{
+	for (int i = 0; i < MaxUndoRedoCount; i++)
+		Redoarr[i] = NULL;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

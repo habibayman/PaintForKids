@@ -53,6 +53,7 @@ void ChangeFillClrAction::Execute()
 				LastColoredFigure->ChngFillClr(CurrentClr);
 				pOut->setCrntFillColor(CurrentClr);
 				pOut->SetFilled(true);
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_RED:
 				pOut->PrintMessage("The shape is filled with red color");
@@ -60,6 +61,7 @@ void ChangeFillClrAction::Execute()
 				LastColoredFigure->ChngFillClr(CurrentClr);
 				pOut->setCrntFillColor(CurrentClr);
 				pOut->SetFilled(true);
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_ORANGE:
 				pOut->PrintMessage("The shape is filled with orange color");
@@ -67,6 +69,7 @@ void ChangeFillClrAction::Execute()
 				LastColoredFigure->ChngFillClr(CurrentClr);
 				pOut->setCrntFillColor(CurrentClr);
 				pOut->SetFilled(true);
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_YELLOW:
 				pOut->PrintMessage("The shape is filled with yellow color");
@@ -74,6 +77,7 @@ void ChangeFillClrAction::Execute()
 				LastColoredFigure->ChngFillClr(CurrentClr);
 				pOut->setCrntFillColor(CurrentClr);
 				pOut->SetFilled(true);
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_BLUE:
 				pOut->PrintMessage("The shape is filled with blue color");
@@ -81,6 +85,7 @@ void ChangeFillClrAction::Execute()
 				LastColoredFigure->ChngFillClr(CurrentClr);
 				pOut->setCrntFillColor(CurrentClr);
 				pOut->SetFilled(true);
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_BLACK:
 				pOut->PrintMessage("The shape is filled with black color");
@@ -88,10 +93,14 @@ void ChangeFillClrAction::Execute()
 				LastColoredFigure->ChngFillClr(CurrentClr);
 				pOut->setCrntFillColor(CurrentClr);
 				pOut->SetFilled(true);
+				pManager->AddtoUndo(this);
 				break;
+			case NO_COLOR:
+				pOut->PrintMessage("Click on the color pallete");
+				CurrentClr = LastClr;
 			}
+		//	pManager->AddtoUndo(this);
 		pOut->ClearColorPalette();
-		pManager->AddtoUndo(this);
 	}
 	else
 	{

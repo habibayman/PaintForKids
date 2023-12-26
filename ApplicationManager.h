@@ -60,8 +60,11 @@ public:
 
 	// -- Figures Management Functions
 	
+	
+	//void AddFigure(CFigure* pFig, bool ToSaveID);          //Adds a new figure to the FigList
 	CFigure* DeleteLastFigure();                //deletes last figure from figlist 
 	void AddFigure(CFigure* pFig, bool ToSaveID = 1);  //Adds a new figure to the FigList
+	//void DeleteLastFigure();                //deletes last figure from figlist 
 	CFigure* GetFigure(Point P) const;      //Search for a figure given a point inside the figure
 	void SetLastSelected(CFigure* pFig);    //set the last selected figure
 	CFigure* GetLastSelected();             //get the last selected figure
@@ -101,6 +104,7 @@ public:
 	int GetMaxRecordingCount();
 
 	void ClearUndoList(); 
+	void ClearRedoList();
 };
 
 #endif

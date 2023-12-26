@@ -18,8 +18,6 @@ void MoveFigureAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	//pOut->PrintMessage("Move a shape action");
-
 	SelectedFig = pManager->GetLastSelected();
 
 	if (SelectedFig)
@@ -35,6 +33,7 @@ void MoveFigureAction::ReadActionParameters()
 	}
 
 	pOut->ClearStatusBar();
+
 }
 
 // ============= IN PROGRESS ===================//
@@ -54,6 +53,7 @@ void MoveFigureAction::Execute()
 	SelectedFig = pManager->GetLastSelected();
 	//SelectedFig->ChngDrawClr(UI.HighlightColor);
 	pManager->UpdateInterface();
+	SelectedFig = pManager->GetLastSelected();
 
 	if (SelectedFig)
 	{
@@ -66,16 +66,18 @@ void MoveFigureAction::Execute()
 			pOut->ClearStatusBar();
 		}
 
-		//clearing drawing area to delete the old position of the selected shape
 		pManager->AddtoUndo(this);
+		//clearing drawing area to delete the old position of the selected shape
 		pOut->ClearDrawArea();
 		pManager->UpdateInterface();
+
+		if (Recording())
+		{
+			pManager->AddRecordedAction(this);
+		}
+
 	}
 
-	if (Recording())
-	{
-		pManager->AddRecordedAction(this);
-	}
 }
 
 void MoveFigureAction::Undo()
