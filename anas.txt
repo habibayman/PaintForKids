@@ -1,3 +1,0 @@
-BLUE	
-1
-Hexagon	1	616	336	BLUE	NO_FILL
