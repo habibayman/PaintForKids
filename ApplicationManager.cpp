@@ -274,16 +274,16 @@ void ApplicationManager::ClearAll()
 	}
 	FigCount = 0;
 
-	for (int i = 0; i < RedoCount - 1; i++)
-	{
-		delete Redoarr[i];
-	}
+	//for (int i = 0; i < RedoCount - 1; i++)
+	//{
+	//	delete Redoarr[i];
+	//}
 	RedoCount = 0;
 
-	for (int i = 0; i < UndoCount - 1; i++)
-	{
-		delete Undoarr[i];
-	}
+	//for (int i = 0; i < UndoCount - 1; i++)
+	//{
+	//	delete Undoarr[i];
+	//}
 	UndoCount = 0;
 
 	//default draw/color mode for the shapes
@@ -559,16 +559,23 @@ int ApplicationManager::GetMaxRecordingCount()
 	return MaxRecordingCount;
 }
 
-void ApplicationManager::ClearUndoList()
-{
-	for (int i = 0; i < 5; i++)
-		Undoarr[i] = NULL;
-}
-
 bool ApplicationManager::GetPlayingRecord() const
 {
 	return PlayingRecord;
 }
+
+void ApplicationManager::ClearUndoList()
+{
+	for (int i = 0; i < MaxUndoRedoCount; i++)
+		Undoarr[i] = NULL;
+}
+
+void ApplicationManager::ClearRedoList()
+{
+	for (int i = 0; i < MaxUndoRedoCount; i++)
+		Redoarr[i] = NULL;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

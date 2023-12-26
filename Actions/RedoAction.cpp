@@ -20,6 +20,12 @@ void RedoAction::Execute()
 	{
 		pOut->PrintMessage("No more actions to redo, undo an action first");
 	}
+
+	//if the action is being recorded, add it to the RecordingList
+	if (Recording())
+	{
+		pManager->AddRecordedAction(this);
+	}
 }
 
 void RedoAction::Undo() {}
