@@ -10,7 +10,6 @@
 #include "Actions\SaveAction.h"
 #include "Actions\SelectFigureAction.h"
 #include "Actions\SoundModeAction.h"  
-#include "Actions\SwitchToPlayAction.h"
 #include "Actions\MoveFigureAction.h"
 #include "Actions\UndoAction.h"
 #include "Actions\RedoAction.h"

@@ -19,12 +19,17 @@ void PlayRecordingAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 
-	if (pManager->GetIsRecording())
+	if (pManager->GetIsRecording()) 
+	{
 		pOut->PrintMessage("Can't play the recording while recording!");
+	}
+		
 	
 	else if (pManager->GetRecordsCount() == 0)
+	{
 		pOut->PrintMessage("No recorded actions to play!");
-
+	}
+		
 	else
 	{
 		pOut->PrintMessage("Playing the recording");
@@ -45,15 +50,14 @@ void PlayRecordingAction::Execute()
 		{
 			pManager->PlayRecording(i);
 			//sleeps 1 second between each two operations
-			//if (i % 2 != 0)
+			if (i % 2 != 0)
 				_sleep(1000);
 		}
+		pOut->ClearStatusBar();
 	}
 
 	//after playing the recording reset the play recording state to false
 	pManager->SetPlayingRecord(false);
-	pOut->ClearStatusBar();
-
 }
 
 void PlayRecordingAction::Undo()
