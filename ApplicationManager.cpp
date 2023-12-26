@@ -25,6 +25,7 @@
 #include "Actions\SwitchToPlayAction.h"
 #include "Actions\SwitchToDrawAction.h"
 
+
 #include <Windows.h>
 #include "MMSystem.h"
 //Constructor
@@ -185,7 +186,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		//delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
 }
@@ -277,14 +277,12 @@ void ApplicationManager::ClearAll()
 	{
 		for (int i = 0; i < RedoCount - 1; i++)
 		{
-			//delete Redoarr[i];
 			Redoarr[i] = NULL;
 		}
 		RedoCount = 0;
 
 		for (int i = 0; i < UndoCount - 1; i++)
 		{
-			//delete Undoarr[i];
 			Undoarr[i] = NULL;
 		}
 		UndoCount = 0;
@@ -577,13 +575,19 @@ bool ApplicationManager::GetPlayingRecord() const
 void ApplicationManager::ClearUndoList()
 {
 	for (int i = 0; i < MaxUndoRedoCount; i++)
+	{
 		Undoarr[i] = NULL;
+	}
+	UndoCount = 0;
 }
 
 void ApplicationManager::ClearRedoList()
 {
 	for (int i = 0; i < MaxUndoRedoCount; i++)
+	{
 		Redoarr[i] = NULL;
+	}
+	RedoCount = 0;
 }
 
 
