@@ -35,16 +35,18 @@ void PickByShapeAction::Execute()
 		ReadActionParameters();
 		if ((P1.x >= UI.MenuItemWidth * 2 && P1.x <= UI.MenuItemWidth * 3) && P1.y >= 0 && P1.y <= UI.ToolBarHeight)	//Game Reset condition
 			break;
-		if (pManager->GetFigure(P1))   //checks if the kid clicked on a figure and hide this figure
+		if (pManager->GetFigure(P1) && pManager->GetFigure(P1)->FigisHidden() == false)   //checks if the kid clicked on a figure and hide this figure
 		{
 			selected++;
 			pManager->GetFigure(P1)->HideFigure(true);
 			pOut->ClearDrawArea();
+			pManager->UpdateInterface();
 
 			//checks if the kid clicked on a  true figure 
 			if (PickedFigure->GetFigureNumber() == pManager->GetFigure(P1)->GetFigureNumber())
 			{
 				ctrTrue++;
+
 			}
 			pOut->PrintMessage("True picks : " + to_string(ctrTrue) + " vs. False picks :" + to_string(selected - ctrTrue));
 			pManager->UpdateInterface();

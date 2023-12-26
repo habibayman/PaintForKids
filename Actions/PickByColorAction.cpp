@@ -39,7 +39,7 @@ void PickByColorAction::Execute()
 			ReadActionParameters();
 			if ((P1.x >= UI.MenuItemWidth && P1.x <= UI.MenuItemWidth * 2) && P1.y >= 0 && P1.y <= UI.ToolBarHeight)	//Game Reset condition
 				break;
-			if (pManager->GetFigure(P1))   //checks if the kid clicked on a figure and hide this figure
+			if (pManager->GetFigure(P1) && pManager->GetFigure(P1)->FigisHidden() == false)   //checks if the kid clicked on a figure and hide this figure
 			{
 				selected++;
 				pManager->GetFigure(P1)->HideFigure(true);

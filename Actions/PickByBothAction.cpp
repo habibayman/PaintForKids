@@ -41,7 +41,7 @@ void PickByBothAction::Execute()
 				break;
 
 
-			if (pManager->GetFigure(P1))   //checks if the kid clicked on a figure and hide this figure
+			if (pManager->GetFigure(P1) && pManager->GetFigure(P1)->FigisHidden() == false)   //checks if the kid clicked on a figure and hide this figure
 			{
 				selected++;
 				pManager->GetFigure(P1)->HideFigure(true);
