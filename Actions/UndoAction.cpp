@@ -24,7 +24,7 @@ void UndoAction::Execute()
 	if (action)
 	{
 		action->Undo();
-	//	pManager->AddtoRedo(action);
+		//pManager->AddtoRedo(action);
 	}
 	else                                                //if there is no action
 	{

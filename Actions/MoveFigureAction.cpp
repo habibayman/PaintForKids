@@ -20,7 +20,7 @@ void MoveFigureAction::ReadActionParameters()
 
 	//pOut->PrintMessage("Move a shape action");
 
-	CFigure* SelectedFig = pManager->GetLastSelected();
+	SelectedFig = pManager->GetLastSelected();
 
 	if (SelectedFig)
 	{
@@ -51,7 +51,7 @@ void MoveFigureAction::Execute()
 		ReadActionParameters();
 	}
 
-	CFigure* SelectedFig = pManager->GetLastSelected();
+	SelectedFig = pManager->GetLastSelected();
 	//SelectedFig->ChngDrawClr(UI.HighlightColor);
 	pManager->UpdateInterface();
 

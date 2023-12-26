@@ -273,18 +273,30 @@ void ApplicationManager::ClearAll()
 		FigList[i] = NULL;
 	}
 	FigCount = 0;
+	//pOut->Reset();
 
-	for (int i = 0; i < RedoCount - 1; i++)
+	if (!IsRecording)
 	{
-		delete Redoarr[i];
-	}
-	RedoCount = 0;
+		for (int i = 0; i < RedoCount - 1; i++)
+		{
+			//delete Redoarr[i];
+			Redoarr[i] = NULL;
+		}
+		RedoCount = 0;
 
-	for (int i = 0; i < UndoCount - 1; i++)
-	{
-		delete Undoarr[i];
+		for (int i = 0; i < UndoCount - 1; i++)
+		{
+			//delete Undoarr[i];
+			Undoarr[i] = NULL;
+		}
+		UndoCount = 0;
+		pOut->SetFilled(false);
 	}
-	UndoCount = 0;
+	else
+	{
+		IsRecording = false;
+		pOut->PrintMessage("Recording was stopped");
+	}
 
 	//default draw/color mode for the shapes
 	pOut->setCrntDrawColor(UI.DrawColor);

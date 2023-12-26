@@ -21,9 +21,10 @@ void DeleteAction::Execute()
 {
 	//Get a Pointer to the Output Interfaces
 	Output* pOut = pManager->GetOutput(); 
-	ReadActionParameters();
-	pManager->AddtoUndo(this);
 	ToBeDeleted = pManager->GetLastSelected();
+
+	//pManager->AddtoUndo(this);
+	//backup = ToBeDeleted; ///////////////////
 	
 	//trying something
 	pOut->ClearDrawArea();
@@ -31,9 +32,10 @@ void DeleteAction::Execute()
 
 	if (ToBeDeleted)
 	{
+	//	backup = ToBeDeleted;
 		pManager->Delete(ToBeDeleted);
-		ToBeDeleted->SetSelected(false);
-		pOut->ClearDrawArea(); 
+	//	ToBeDeleted->SetSelected(false);
+	    pOut->ClearDrawArea(); 
 		pManager->UpdateInterface();
 	}
 
@@ -54,17 +56,37 @@ void DeleteAction::Execute()
 
 void DeleteAction::Undo()
 {
+	//if (backup != NULL)
+	//{
+	//	ToBeDeleted = backup;
+	//	pManager->AddFigure(ToBeDeleted);
+	//	backup = NULL;
+	//	pManager->AddtoRedo(this);
+	//	pManager->RemovefromUndo();
+	//}
 	pManager->AddFigure(ToBeDeleted);
-	pManager->AddtoRedo(this);
 	pManager->RemovefromUndo();
+
+
 }
 
 void DeleteAction::Redo()
 {
-	Output* pOut = pManager->GetOutput();
-	pManager->Delete(ToBeDeleted);
-	pManager->AddtoUndo(this);
-	pOut->ClearDrawArea();
-	pManager->RemovefromRedo();
+	//if(ToBeDeleted != NULL)
+	//{
+	//	Output* pOut = pManager->GetOutput();
+	//	backup = ToBeDeleted;
+	//	pManager->Delete(ToBeDeleted);
+	//	ToBeDeleted = NULL;
+	//	pManager->AddtoUndo(this);
+	//	pOut->ClearDrawArea();
+	//	pManager->RemovefromRedo();
+	//}
+}
+
+DeleteAction::~DeleteAction()
+{
+	//if (backup != NULL)
+	//	delete backup;
 }
 

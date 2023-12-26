@@ -21,10 +21,10 @@ Output::Output()
 	//UI.ColorXi = ITM_COLORS * (UI.MenuItemWidth + UI.wx);
 	UI.ColorXi = ITM_DRAW_COLOR * (UI.MenuItemWidth + UI.wx);
 
-	UI.DrawColor = BLUE;	//Drawing color
-	UI.FillColor = WHITE;	//Filling color
-	UI.MsgColor = BLACK;		//Messages color 
 	UI.BkGrndColor = WHITE;	//Background color changed color from LIGHTGOLDENRODYELLOW to WHITE
+	UI.DrawColor = BLUE;	//Drawing color
+	UI.FillColor = UI.BkGrndColor;	//Filling color
+	UI.MsgColor = BLACK;		//Messages color 
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
 	UI.StatusBarColor = LIGHTSTEELBLUE;
 	UI.DrawBarColor = LIGHTSTEELBLUE;

@@ -6,6 +6,7 @@
 
 class DeleteAction: public Action
 {
+	CFigure* backup;
 	CFigure* ToBeDeleted;
 public:
 	DeleteAction(ApplicationManager* pApp, bool muted);
@@ -13,5 +14,6 @@ public:
 	virtual void Execute();
 	void Undo();
 	void Redo();
+	~DeleteAction();
 };
 #endif

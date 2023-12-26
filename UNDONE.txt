@@ -1,3 +1,0 @@
-BLUE	BLACK
-1
-Square	1	406	253	BLUE	

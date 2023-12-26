@@ -34,6 +34,9 @@ void SaveAction::Execute()
 	ofstream OutFile(FileName);
 	OutFile < pOut->getCrntDrawColor() ;
 	OutFile << "\t";
+	if (UI.FillColor == WHITE)
+		OutFile << "NO_FILL";
+	else
 	OutFile < pOut->getCrntFillColor() ; 
 	OutFile << "\n";
 	OutFile << pManager->Get_FigCount() << "\n";
