@@ -31,7 +31,6 @@ void AddSquareAction::ReadActionParameters()
 	SquareGfxInfo.FillClr = pOut->getCrntFillColor();
 
 	pOut->ClearStatusBar();
-
 }
 
 void AddSquareAction::Execute()

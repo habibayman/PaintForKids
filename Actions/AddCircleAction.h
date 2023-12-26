@@ -4,7 +4,6 @@ class AddCircleAction :
 	public Action
 {
 private:
-
 	Point P1;
 	Point P2;
 	GfxInfo CircleGfxInfo;

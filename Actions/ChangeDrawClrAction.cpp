@@ -54,48 +54,46 @@ void ChangeDrawClrAction::Execute()
 				LastColoredFigure->ChngDrawClr(GREEN);
 				pOut->setCrntDrawColor(GREEN);
 				CurrentClr = GREEN;
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_RED:
 				pOut->PrintMessage("Drawing color is now the red color");
 				LastColoredFigure->ChngDrawClr(RED);
 				pOut->setCrntDrawColor(RED);
 				CurrentClr = RED;
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_ORANGE:
 				pOut->PrintMessage("Drawing color is now the orange color");
 				LastColoredFigure->ChngDrawClr(ORANGE);
 				pOut->setCrntDrawColor(ORANGE);
 				CurrentClr = ORANGE;
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_YELLOW:
 				pOut->PrintMessage("Drawing color is now the yellow color");
 				LastColoredFigure->ChngDrawClr(YELLOW);
 				pOut->setCrntDrawColor(YELLOW);
 				CurrentClr = YELLOW;
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_BLUE:
 				pOut->PrintMessage("Drawing color is now the blue color");
 				LastColoredFigure->ChngDrawClr(BLUE);
 				pOut->setCrntDrawColor(BLUE);
 				CurrentClr = BLUE;
+				pManager->AddtoUndo(this);
 				break;
 			case COLOR_BLACK:
 				pOut->PrintMessage("Drawing color is now the black color");
 				LastColoredFigure->ChngDrawClr(BLACK);
 				pOut->setCrntDrawColor(BLACK);
 				CurrentClr = BLACK;
+				pManager->AddtoUndo(this);
 				break;
 			}
 
 		pOut->ClearColorPalette();
-	//	pOut->SetFilled(false);
-		pManager->AddtoUndo(this);
-
-		//if the action is being recorded, add it to the RecordingList
-		//if (Recording())
-		//{
-		//	pManager->AddRecordedAction(this);
-		//}
 	}
 
 	else

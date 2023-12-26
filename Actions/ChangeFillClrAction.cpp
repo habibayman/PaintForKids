@@ -99,7 +99,6 @@ void ChangeFillClrAction::Execute()
 				pOut->PrintMessage("Click on the color pallete");
 				CurrentClr = LastClr;
 			}
-		//	pManager->AddtoUndo(this);
 		pOut->ClearColorPalette();
 	}
 	else
