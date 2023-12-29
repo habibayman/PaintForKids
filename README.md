@@ -1,6 +1,6 @@
 ![image](https://github.com/habibayman/PaintForKids/assets/84867341/febdbfb7-d4b1-475f-9449-1101975524b9)
 
-# Paint for Kids 🎨
+
 Paint for Kids is a creative application developed using C++ and CMUgraphics, created as a part of Programming Techniques course during our freshman year as computer engineering students. Packed with various drawing tools and interactive features, Paint for Kids not only sparks creativity but also serves as an enjoyable and educational experience for kids!
 Feel free to explore the documentation and source code for a deeper understanding of the implementation details.
 
