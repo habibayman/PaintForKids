@@ -13,7 +13,6 @@ class LoadAction: public Action
 public:
 	LoadAction(ApplicationManager* pApp, bool muted);
 	virtual void ReadActionParameters();
-	//virtual void Execute();
 	virtual void Execute();
 	void Undo();
 	void Redo();

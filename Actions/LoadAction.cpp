@@ -41,16 +41,18 @@ void LoadAction::Execute()
 	{
 		//set the drawing color
 		InFile >> ReadDrawColor; pOut->setCrntDrawColor(StringToColor(ReadDrawColor));
-
 		//set the fill color
 		InFile >> ReadFillColor; 
-		if (!ReadFillColor.compare("NO_FILL"))
+		if (ReadFillColor == "NO_FILL")
 		{
 			UI.IsFilled = false;
 			UI.FillColor = UI.BkGrndColor;
 		}
 		else
+		{
 			pOut->setCrntFillColor(StringToColor(ReadFillColor));
+			pOut->SetFilled(true); 
+		}
 		
 		InFile >> ReadFigCount;
 		
@@ -58,23 +60,23 @@ void LoadAction::Execute()
 		for (int i = 0; i < ReadFigCount; i++)
 		{
 			InFile >> ReadType; 
-			if (!ReadType.compare("Rectangle"))
+			if (ReadType == "Rectangle")
 			{
 				CurrentFigure = new CRectangle();
 			}
-			else if (!ReadType.compare("Triangle"))
+			else if (ReadType == "Triangle")
 			{
 				CurrentFigure = new CTriangle();
 			}
-			else if (!ReadType.compare("Hexagon"))
+			else if (ReadType == "Hexagon")
 			{
 				CurrentFigure = new CHexagon();
 			}
-			else if (!ReadType.compare("Square"))
+			else if (ReadType == "Square")
 			{
 				CurrentFigure = new CSquare();
 			}
-			else if (!ReadType.compare("Circle"))
+			else if (ReadType == "Circle")
 			{
 				CurrentFigure = new CCircle();
 			}

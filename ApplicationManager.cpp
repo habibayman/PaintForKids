@@ -16,9 +16,6 @@
 #include "Actions\MoveByDragAction.h"
 #include "Actions\ChangeDrawClrAction.h"
 #include "Actions\ChangeFillClrAction.h"
-#include "Actions\UndoAction.h"
-#include "Actions\ChangeDrawClrAction.h"
-#include "Actions\ChangeFillClrAction.h"
 #include "Actions\PlayRecordingAction.h"
 #include "Actions\StartRecordingAction.h"
 #include "Actions\StopRecordingAction.h"
@@ -287,7 +284,7 @@ void ApplicationManager::ClearAll()
 
 	//default draw/color mode for the shapes
 	pOut->setCrntDrawColor(BLUE);
-	pOut->setCrntFillColor(WHITE);
+	pOut->setCrntFillColor(UI.BkGrndColor);
 	pOut->SetFilled(false);
 }
 

@@ -11,6 +11,7 @@ ClearAction::ClearAction(ApplicationManager* pApp, bool muted): Action(pApp)
 	{
 		PlaySound(TEXT("Sounds\\Click"), NULL, SND_SYNC);
 	}
+	checker = "y";
 }
 
 void ClearAction::ReadActionParameters()
