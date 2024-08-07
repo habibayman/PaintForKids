@@ -6,15 +6,14 @@ Feel free to explore the documentation and source code for a deeper understandin
 
 
 <div align = "center" >
-
-## Drawing Mode
+<h2>Drawing Mode</h2>
 </div>
     
 
 ![2023-12-29 (1)](https://github.com/habibayman/PaintForKids/assets/84867341/b3c3d557-720c-4591-9ed7-d7170236b83e)
 
-The UI is very simple, we tried our best with what we had. <br />
-Fun fact: the library provided even predates the invention of Google itself!
+A simple UI 
+Fun fact: the only library we were allowed to have access to use even predates the invention of Google itself!
 
 #### Features:
 - Drawing different shapes
@@ -24,11 +23,11 @@ Fun fact: the library provided even predates the invention of Google itself!
 
 
 ## Installation
-(1) Clone the repository to your local machine.<br />
-(2) Compile and run the project using a C++ compiler with the CMUgraphics library properly linked.<br />
+1. Clone the repository to your local machine.
+2. Compile and run the project using a C++ compiler with the CMUgraphics library properly linked.<br />
     P.S. It runs on visual stuido 19 only.<br />
     It will take a minute or two to compile at first, feel free to grap yourself a cup of tea while it works its magic! <br/>
-(3) Enjoy the game and let your creativity flourish!
+3. Enjoy the game and let your creativity flourish!
 
 ## Collaboration
 Developed collaboratively by:
